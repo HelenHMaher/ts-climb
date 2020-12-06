@@ -1,3 +1,9 @@
 {
-  "title": "welcome"
+  "title": "welcome",
+  "someThing": "eatme",
+  "newExercise": "New Exercise",
+  "exerciseName": "Exercise Name",
+  "exerciseType": "Exercise Type",
+  "exercises": "Exercises",
+  "exerciseDescription": "Exercise Description"
 }
