@@ -32,7 +32,7 @@ export function App() {
       </Helmet>
       <NavBar />
       <Switch>
-        <Route exact path="/" component={AddExercise} />
+        <Route exact path="/addExercise" component={AddExercise} />
         <Route exact path="/exercises" component={Exercises} />
         <Route component={NotFoundPage} />
       </Switch>

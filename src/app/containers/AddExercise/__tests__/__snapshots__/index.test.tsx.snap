@@ -1,0 +1,58 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<AddExercise /> should match the snapshot 1`] = `
+.c0 {
+  background: yellow;
+}
+
+.c1 {
+  background: red;
+  color: white;
+  font-family: 'Comic Sans MS','Comic Sans',cursive;
+}
+
+<div
+  class="c0"
+>
+  <h1 />
+  <div
+    class="c1"
+  />
+  <form
+    action="#"
+  >
+    <label
+      for="exerciseName"
+    />
+    <input
+      id="exerciseName"
+      name="exerciseName"
+      placeholder="push-up"
+      value=""
+    />
+    <label
+      for="exerciseDescription"
+    />
+    <input
+      id="exerciseDescription"
+      name="exerciseDescription"
+      placeholder="push up from floor"
+      value=""
+    />
+    <label
+      for="exerciseType"
+    />
+    <input
+      id="exerciseType"
+      name="exerciseType"
+      placeholder="STRENGTH"
+      value="1"
+    />
+    <button
+      type="submit"
+    >
+      Submit
+    </button>
+  </form>
+</div>
+`;

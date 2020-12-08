@@ -1,28 +1,24 @@
-import { put, takeLatest } from 'redux-saga/effects';
-import { Exercise, ExerciseType } from '../AddExercise/types';
+import { put, takeLatest, call } from 'redux-saga/effects';
+// import { Exercise, ExerciseType } from '../AddExercise/types';
 import { actions } from './slice';
+import axios from 'axios';
+
+export const axiosCall = params => axios({ ...params });
 
 export function* fetchExercises() {
-  // TODO: call the backend
-  const data: Array<Exercise> = [
-    {
-      exerciseName: 'pull-up',
-      exerciseDescription: 'You pull yourself up',
-      exerciseType: ExerciseType.STRENGTH,
-    },
-    {
-      exerciseName: 'push-up',
-      exerciseDescription: 'You push yourself up',
-      exerciseType: ExerciseType.STRENGTH,
-    },
-    {
-      exerciseName: 'sit-up',
-      exerciseDescription: 'You sit yourself up',
-      exerciseType: ExerciseType.STRENGTH,
-    },
-  ];
+  const params = { url: '/api/exercises', method: 'GET' };
 
-  yield put(actions.fetchExercisesSuccess(data));
+  try {
+    const response = yield call(axiosCall, params);
+
+    if (response?.data?.exercises) {
+      yield put(actions.fetchExercisesSuccess(response.data.exercises));
+    } else {
+      yield put(actions.fetchExercisesFailure());
+    }
+  } catch (error) {
+    yield put(actions.fetchExercisesFailure());
+  }
 }
 
 export function* exercisesWatcher() {
