@@ -1,0 +1,12 @@
+{
+  "title": "welcome",
+  "someThing": "eatme",
+  "newExercise": "New Exercise",
+  "exerciseName": "Ubung",
+  "exerciseType": "Ubung Typ",
+  "exercises": "Ubungen",
+  "exerciseDescription": "Ubung Beschreibung",
+  "translations": {
+    "someThing": "default value"
+  }
+}

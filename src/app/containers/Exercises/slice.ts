@@ -17,6 +17,7 @@ const exercisesSlice = createSlice({
     fetchExercisesSuccess(state, action: PayloadAction<Array<Exercise>>) {
       state.exercises = action.payload;
     },
+    fetchExercisesFailure(state) {},
   },
 });
 

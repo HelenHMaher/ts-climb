@@ -5,5 +5,8 @@
   "exerciseName": "Exercise Name",
   "exerciseType": "Exercise Type",
   "exercises": "Exercises",
-  "exerciseDescription": "Exercise Description"
+  "exerciseDescription": "Exercise Description",
+  "translations": {
+    "someThing": "default value"
+  }
 }
