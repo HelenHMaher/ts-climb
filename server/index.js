@@ -4,6 +4,8 @@ const passport = require('passport');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const express = require('express');
+const dotenv = require('dotenv');
+dotenv.config();
 // const path = require('path');
 
 const port = process.env.PORT || 3001;
@@ -15,19 +17,24 @@ const MONGO_USER = process.env.MONGOUSER;
 const MONGO_PW = process.env.MONGOPW;
 
 mongoose.connect(
-  `mongodb+srv://${MONGO_USER}:${MONGO_PW}@cluster0-zsz9c.mongodb.net/test?retryWrites=true&w=majority`,
+  `mongodb+srv://${MONGO_USER}:${MONGO_PW}@cluster0.zsz9c.mongodb.net/my-daily-climb?retryWrites=true&w=majority`,
   { useNewUrlParser: true, useUnifiedTopology: true },
   (err, client) => {
     if (err) {
-      console.log('Database err: ' + err);
+      console.log(`${MONGO_USER} not connected to database ` + err);
     } else {
-      console.log(`${MONGO_USER} Connected To Mongoose`);
+      console.log(`${MONGO_USER} Connected To MongoDB`);
     }
   },
 );
 
 app.use(express.urlencoded({ extended: false }));
-app.use(cors({ origin: ['http://localhost:3000'], credentials: true }));
+app.use(
+  cors({
+    origin: ['http://localhost:3000', 'http;//localhost:3001'],
+    credentials: true,
+  }),
+);
 
 // TODO: this is for production, not required for development
 // app.use(express.static(path.join(__dirname, '../build')));
@@ -40,7 +47,7 @@ app.use(cors({ origin: ['http://localhost:3000'], credentials: true }));
 
 app.use(express.json());
 
-const SESSION_SECRET = process.env.SESSION_SECRET;
+const SESSION_SECRET = process.env.SESSIONSECRET;
 
 app.use(
   session({ secret: SESSION_SECRET, resave: true, saveUninitialized: true }),
@@ -49,7 +56,6 @@ app.use(
 app.use(cookieParser(SESSION_SECRET));
 app.use(passport.initialize());
 app.use(passport.session());
-require('./passportConfig')(passport);
 
 //-----------End of Middleware ---------------------------
 //ROUTES
