@@ -35,8 +35,12 @@ export function App() {
       </Helmet>
       <NavBar />
       <Switch>
-        <Route exact path="/addExercise" component={AddExercise} />
-        <Route exact path="/exercises" component={Exercises} />
+        <Route path="/startWorkout" />
+        <Route path="/profile" />
+        <Route path="/exerciseCreator">
+          <AddExercise />
+          <Exercises />
+        </Route>
         <Route component={NotFoundPage} />
       </Switch>
       <GlobalStyle />
