@@ -1,21 +1,16 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "My Daily Climb",
+  "name": "Web app for rock climbers to track their daily workout.",
   "icons": [
     {
-      "src": "favicon.ico",
-      "sizes": "64x64 32x32 24x24 16x16",
-      "type": "image/x-icon"
+      "src": "logo.png",
+      "sizes": "16x16",
+      "type": "image/pgn"
     },
     {
-      "src": "logo192.png",
-      "type": "image/png",
-      "sizes": "192x192"
-    },
-    {
-      "src": "logo512.png",
-      "type": "image/png",
-      "sizes": "512x512"
+      "src": "mountain.jpg",
+      "type": "image/jpg",
+      "sizes": "825x825"
     }
   ],
   "start_url": ".",

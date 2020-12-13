@@ -24,11 +24,14 @@ export function App() {
   return (
     <BrowserRouter>
       <Helmet
-        titleTemplate="%s - React Boilerplate"
-        defaultTitle="React Boilerplate"
+        titleTemplate="%s - My Daily Climb"
+        defaultTitle="My Daily Climb"
         htmlAttributes={{ lang: i18n.language }}
       >
-        <meta name="description" content="A React Boilerplate application" />
+        <meta
+          name="description"
+          content="a web app for rock climbers to track their daily workout"
+        />
       </Helmet>
       <NavBar />
       <Switch>
