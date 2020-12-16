@@ -18,6 +18,7 @@ import { useTranslation } from 'react-i18next';
 import { NavBar } from './components/NavBar';
 import { AddExercise } from './containers/AddExercise';
 import { Exercises } from './containers/Exercises';
+import { ConstructionNotice } from './containers/ConstructionNotice';
 
 export function App() {
   const { i18n } = useTranslation();
@@ -34,6 +35,7 @@ export function App() {
         />
       </Helmet>
       <NavBar />
+      <ConstructionNotice />
       <Switch>
         <Route path="/startWorkout" />
         <Route path="/profile" />
