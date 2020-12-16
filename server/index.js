@@ -4,9 +4,9 @@ const passport = require('passport');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const express = require('express');
+const path = require('path');
 const dotenv = require('dotenv');
 dotenv.config();
-// const path = require('path');
 
 const port = process.env.PORT || 3001;
 const app = express();
@@ -31,13 +31,13 @@ mongoose.connect(
 app.use(express.urlencoded({ extended: false }));
 app.use(
   cors({
-    origin: ['http://localhost:3000', 'http;//localhost:3001'],
+    origin: ['http://localhost:3000', 'https://my-daily-climb.herokuapp.com/'],
     credentials: true,
   }),
 );
 
 // TODO: this is for production, not required for development
-// app.use(express.static(path.join(__dirname, '../build')));
+// app.use('/', express.static(path.join(__dirname, '../build')));
 
 // app.get('/', function (req, res) {
 //   res.sendFile(path.join(__dirname, '../build', 'index.html'));

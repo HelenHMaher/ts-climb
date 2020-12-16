@@ -16,10 +16,9 @@ export function NavBar(props: Props) {
   const { t, i18n } = useTranslation();
 
   const navBarItems = [
-    { name: 'Exercises', url: '/exercises' },
-    { name: 'Add Exercise', url: '/addExercise' },
     { name: 'Profile', url: '/profile' },
-    { name: 'Workout History', url: '/history' },
+    { name: 'Start Workout', url: '/startWorkout' },
+    { name: 'Exercise Creator', url: '/exerciseCreator' },
   ];
 
   return (
