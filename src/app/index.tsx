@@ -1,11 +1,3 @@
-/**
- *
- * App
- *
- * This component is the skeleton around the actual pages, and should only
- * contain code that should be seen on all pages. (e.g. navigation bar)
- */
-
 import * as React from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Switch, Route, BrowserRouter } from 'react-router-dom';
@@ -19,6 +11,7 @@ import { NavBar } from './components/NavBar';
 import { AddExercise } from './containers/AddExercise';
 import { Exercises } from './containers/Exercises';
 import { ConstructionNotice } from './containers/ConstructionNotice';
+import { PrivateRoute } from './components/PrivateRoute';
 
 export function App() {
   const { i18n } = useTranslation();
@@ -34,14 +27,20 @@ export function App() {
           content="a web app for rock climbers to track their daily workout"
         />
       </Helmet>
-      <NavBar />
-      <ConstructionNotice />
       <Switch>
-        <Route path="/startWorkout" />
-        <Route path="/profile" />
-        <Route path="/exerciseCreator">
-          <AddExercise />
-          <Exercises />
+        <PrivateRoute path="/dashboard">
+          <NavBar />
+          <Route path="/dashboard/startWorkout" />
+          <Route path="/dashboard/profile" />
+          <Route path="/dashboard/exerciseCreator">
+            <AddExercise />
+            <Exercises />
+          </Route>
+        </PrivateRoute>
+
+        <Route exact path="/register"></Route>
+        <Route path="/">
+          <ConstructionNotice />
         </Route>
         <Route component={NotFoundPage} />
       </Switch>
