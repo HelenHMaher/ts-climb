@@ -4,9 +4,7 @@
  *
  */
 import * as React from 'react';
-import { useTranslation } from 'react-i18next';
 import { useSelector, useDispatch } from 'react-redux';
-import { messages } from './messages';
 import climbGear from '../../../climbGear.jpg';
 import {
   ConstructionContainer,
@@ -40,7 +38,7 @@ export function ConstructionNotice(props: Props) {
   };
 
   return (
-    <ConstructionContainer display={display}>
+    <ConstructionContainer display={display.toString()}>
       <ConstructionBox>
         <ConstructionImage>
           <img src={climbGear} alt="My Daily Climb" />

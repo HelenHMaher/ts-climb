@@ -13,8 +13,8 @@ const app = express();
 
 //---------------End of Imports---------------------
 
-const MONGO_USER = process.env.MONGOUSER;
-const MONGO_PW = process.env.MONGOPW;
+const MONGO_USER = process.env.REACT_APP_MONGOUSER;
+const MONGO_PW = process.env.REACT_APP_MONGOPW;
 
 mongoose.connect(
   `mongodb+srv://${MONGO_USER}:${MONGO_PW}@cluster0.zsz9c.mongodb.net/my-daily-climb?retryWrites=true&w=majority`,
@@ -47,7 +47,7 @@ app.get('/', function (req, res) {
 
 app.use(express.json());
 
-const SESSION_SECRET = process.env.SESSIONSECRET;
+const SESSION_SECRET = process.env.REACT_APP_SESSIONSECRET;
 
 app.use(
   session({ secret: SESSION_SECRET, resave: true, saveUninitialized: true }),

@@ -3,7 +3,7 @@ const express = require('express');
 const router = express.Router();
 const User = require('../models/user');
 const passport = require('passport');
-const ensureAuthenticated = require('../middleware/ensureAuthenticated');
+const ensureAuthenticated = require('../ensureAuthenticated');
 
 //----------AUTHENTICATE ROUTER-----------------------
 
@@ -47,7 +47,7 @@ router.post('/register', (req, res) => {
   });
 });
 
-router.get('/user', (req, res) => {
+router.get('/user', ensureAuthenticated, (req, res) => {
   res.send(req.user);
 });
 

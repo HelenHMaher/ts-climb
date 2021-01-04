@@ -2,8 +2,8 @@ import * as React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 
 interface Props {
-  children;
-  path;
+  children: any;
+  path: string;
 }
 
 export function PrivateRoute(props: Props) {

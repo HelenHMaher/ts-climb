@@ -1,7 +1,7 @@
 import styled from 'styled-components/macro';
 
-export const ConstructionContainer = styled.div<{ display: boolean }>`
-  display: ${props => (props.display ? 'flex' : 'none')};
+export const ConstructionContainer = styled.div<{ display: string }>`
+  display: ${props => (props.display === 'true' ? 'flex' : 'none')};
   position: fixed;
   width: 100vw;
   height: 65vh;
