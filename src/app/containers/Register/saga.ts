@@ -4,14 +4,14 @@ import { actions } from './slice';
 import { NewUser } from './types';
 // import axios from 'axios';
 
-// const serverURL = process.env.REACT_APP_PORT;
+// const serverURL = process.env.REACT_APP_SERVER;
 
 export function* registerBackendCall(action: PayloadAction<NewUser>) {
   // const response: { err?: any; payload: any } = async () => {
   //   try {
   //     const result = await axios({
   //       method: 'POST',
-  //       url: `http://localhost:${serverURL}/authenticate/register`,
+  //       url: `http://${serverURL}/authenticate/register`,
   //       withCredentials: true,
   //       data: { action },
   //     });
