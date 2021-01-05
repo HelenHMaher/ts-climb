@@ -12,5 +12,5 @@ export function* loginBackendCall(action: PayloadAction<User>) {
 }
 
 export function* loginSaga() {
-  yield takeLatest(actions.someAction.type, loginBackendCall);
+  yield takeLatest(actions.loginAction.type, loginBackendCall);
 }

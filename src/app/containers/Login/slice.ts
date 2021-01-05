@@ -14,7 +14,9 @@ const loginSlice = createSlice({
     loginFailureAction(state) {
       state.errorMessage = 'login failure';
     },
-    loginSuccessAction(state) {},
+    loginSuccessAction(state) {
+      localStorage.setItem('isAuthenticated', 'true');
+    },
   },
 });
 

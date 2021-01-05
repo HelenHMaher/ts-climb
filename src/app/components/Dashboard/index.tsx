@@ -9,6 +9,7 @@ import { Switch, Route } from 'react-router-dom';
 import { NavBar } from '../NavBar';
 import { AddExercise } from '../../containers/AddExercise';
 import { Exercises } from '../../containers/Exercises';
+import { NotFoundPage } from '../NotFoundPage/Loadable';
 
 interface Props {}
 
@@ -23,6 +24,7 @@ export function Dashboard(props: Props) {
           <AddExercise />
           <Exercises />
         </Route>
+        <Route component={NotFoundPage} />
       </Switch>
     </Div>
   );

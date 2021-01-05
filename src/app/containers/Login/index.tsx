@@ -36,7 +36,9 @@ export function Login(props: Props) {
           }}
         >
           <Form>
+            <label htmlFor="username">Username</label>
             <Field id="username" name="username" placeholder="username" />
+            <label htmlFor="password">Password</label>
             <Field id="password" name="password" placeholder="password" />
             <button type="submit">Submit</button>
           </Form>
