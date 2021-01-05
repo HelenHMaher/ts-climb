@@ -11,7 +11,7 @@ interface Props {
   value: string;
   placeholder: string;
   type: string;
-  onChange: ((event: React.ChangeEvent<HTMLInputElement>) => void) | undefined;
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 export function InputField(props: Props) {
