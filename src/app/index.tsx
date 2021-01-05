@@ -7,9 +7,7 @@ import { GlobalStyle } from 'styles/global-styles';
 // import { HomePage } from './containers/HomePage/Loadable';
 import { NotFoundPage } from './components/NotFoundPage/Loadable';
 import { useTranslation } from 'react-i18next';
-import { NavBar } from './components/NavBar';
-import { AddExercise } from './containers/AddExercise';
-import { Exercises } from './containers/Exercises';
+import { Dashboard } from './components/Dashboard';
 import { ConstructionNotice } from './containers/ConstructionNotice';
 import { PrivateRoute } from './components/PrivateRoute';
 
@@ -29,13 +27,7 @@ export function App() {
       </Helmet>
       <Switch>
         <PrivateRoute path="/dashboard">
-          <NavBar />
-          <Route path="/dashboard/startWorkout" />
-          <Route path="/dashboard/profile" />
-          <Route path="/dashboard/exerciseCreator">
-            <AddExercise />
-            <Exercises />
-          </Route>
+          <Dashboard />
         </PrivateRoute>
 
         <Route exact path="/register"></Route>
