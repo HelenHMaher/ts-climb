@@ -10,6 +10,7 @@ import { Dashboard } from './components/Dashboard';
 import { ConstructionNotice } from './containers/ConstructionNotice';
 import { PrivateRoute } from './components/PrivateRoute';
 import { Login } from './containers/Login';
+import { Register } from './containers/Register';
 
 export function App() {
   const { i18n } = useTranslation();
@@ -30,7 +31,9 @@ export function App() {
           <Dashboard />
         </PrivateRoute>
 
-        <Route exact path="/register"></Route>
+        <Route exact path="/register">
+          <Register />
+        </Route>
         <Route path="/">
           <ConstructionNotice />
           <Login />

@@ -13,7 +13,7 @@ import { useInjectReducer, useInjectSaga } from 'utils/redux-injectors';
 import { reducer, sliceKey, actions } from './slice';
 import { selectErrorMessage, selectUserInfo } from './selectors';
 import { loginSaga } from './saga';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 
 interface Props {}
 
@@ -56,6 +56,7 @@ export function Login(props: Props) {
           msg={{ err: false, msg: '' }}
         />
         <div onClick={clickHandler}>Submit</div>
+        <Link to="/register">new user</Link>
       </Div>
     </>
   );
