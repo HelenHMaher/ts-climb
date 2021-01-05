@@ -13,13 +13,16 @@ const ensureAuthenticated = require('../ensureAuthenticated');
 router.post('/login', (req, res, next) => {
   passport.authenticate('local', (err, user) => {
     if (err) throw err;
-    if (!user) res.send({ message: 'No User Exists' });
+    if (!user) res.status(400).json({ msg: 'No User Exists' });
     else {
       req.logIn(user, err => {
-        if (err) throw err;
-        res.send({
-          message: 'Successfully Authenticated',
-          user: { username: req.user.username },
+        if (err) {
+          return res
+            .status(400)
+            .json({ msg: 'Sorry something went wrong: ', err });
+        }
+        res.status(201).json({
+          msg: 'Successfully Authenticated',
         });
       });
     }
@@ -29,18 +32,22 @@ router.post('/login', (req, res, next) => {
 router.post('/register', (req, res) => {
   User.findOne({ username: req.body.username }, async (err, doc) => {
     try {
-      if (err) throw err;
-      if (doc) res.send('User Already Exists');
-      if (!doc) {
-        const hashedPassword = await bcrypt.hash(req.body.password, 10);
-
-        const newUser = new User({
-          username: req.body.username,
-          password: hashedPassword,
-        });
-        await newUser.save();
-        res.send('User Created');
+      if (err) {
+        return res
+          .status(400)
+          .json({ msg: 'Sorry something went wrong: ', err });
       }
+      if (doc) return res.status(400).json({ msg: 'User Already Exists' });
+
+      const hashedPassword = await bcrypt.hash(req.body.password, 10);
+
+      const newUser = new User({
+        username: req.body.username,
+        email: req.body.email,
+        password: hashedPassword,
+      });
+      await newUser.save();
+      res.status(201).json({ msg: 'User Created' });
     } catch (error) {
       console.log(error);
     }
