@@ -2,6 +2,8 @@ import { AddExerciseState } from 'app/containers/AddExercise/types';
 import { ConstructionNoticeState } from 'app/containers/ConstructionNotice/types';
 import { ExercisesState } from 'app/containers/Exercises/types';
 import { StartWorkoutState } from 'app/containers/StartWorkout/types';
+import { LoginState } from 'app/containers/Login/types';
+import { RegisterState } from 'app/containers/Register/types';
 // [IMPORT NEW CONTAINERSTATE ABOVE] < Needed for generating containers seamlessly
 
 /* 
@@ -13,5 +15,7 @@ export interface RootState {
   exercises?: ExercisesState;
   startWorkout?: StartWorkoutState;
   constructionNotice?: ConstructionNoticeState;
+  login?: LoginState;
+  register?: RegisterState;
   // [INSERT NEW REDUCER KEY ABOVE] < Needed for generating containers seamlessly
 }
