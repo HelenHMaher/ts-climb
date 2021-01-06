@@ -7,6 +7,7 @@ import * as React from 'react';
 import styled from 'styled-components/macro';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
+import { v4 as uuidv4 } from 'uuid';
 
 interface Props {}
 
@@ -23,7 +24,9 @@ export function NavBar(props: Props) {
   return (
     <FlexContainer>
       {navBarItems.map(item => (
-        <StyledLink to={item.url}>{item.name}</StyledLink>
+        <StyledLink key={uuidv4()} to={item.url}>
+          {item.name}
+        </StyledLink>
       ))}
     </FlexContainer>
   );

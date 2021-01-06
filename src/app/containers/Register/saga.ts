@@ -1,31 +1,37 @@
 import { PayloadAction } from '@reduxjs/toolkit';
-import { put, takeLatest } from 'redux-saga/effects';
+import { call, put, takeLatest } from 'redux-saga/effects';
 import { actions } from './slice';
 import { NewUser } from './types';
-// import axios from 'axios';
+import axios from 'axios';
 
-// const serverURL = process.env.REACT_APP_SERVER;
+export const axiosCall = (params: any) => axios({ ...params });
+
+const serverURL = process.env.REACT_APP_SERVER;
+
+export function* handleError(error: { response: { data: { code: number } } }) {
+  const errorCode: number = error?.response?.data?.code;
+  yield put(actions.registerFailureAction(JSON.stringify(errorCode)));
+}
 
 export function* registerBackendCall(action: PayloadAction<NewUser>) {
-  // const response: { err?: any; payload: any } = async () => {
-  //   try {
-  //     const result = await axios({
-  //       method: 'POST',
-  //       url: `http://${serverURL}/authenticate/register`,
-  //       withCredentials: true,
-  //       data: { action },
-  //     });
-
-  //     return result;
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
-
-  // unwrapResult(response);
-  action.payload.username !== 'Admin'
-    ? yield put(actions.registerSuccessAction())
-    : yield put(actions.registerFailureAction());
+  try {
+    const params = {
+      method: 'POST',
+      url: `${serverURL}/authenticate/register`,
+      withCredentials: true,
+      data: { action },
+    };
+    const response = yield call(axiosCall, params);
+    response.payload.status === '200'
+      ? yield put(
+          actions.registerSuccessAction(JSON.stringify(response.data.msg)),
+        )
+      : yield put(
+          actions.registerFailureAction(JSON.stringify(response.data.msg)),
+        );
+  } catch (error) {
+    yield call(handleError, error);
+  }
 }
 
 export function* registerSaga() {

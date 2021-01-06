@@ -11,6 +11,9 @@ const user = new Schema({
     type: String,
     required: true,
   },
+  email: {
+    type: String,
+  },
   registeredAt: {
     type: Date,
     required: true,

@@ -8,7 +8,7 @@ const path = require('path');
 const dotenv = require('dotenv');
 dotenv.config();
 
-const port = process.env.REACT_APP_PORT | 3001;
+const PORT = process.env.REACT_APP_PORT || 3001;
 const app = express();
 
 //---------------End of Imports---------------------
@@ -31,7 +31,7 @@ mongoose.connect(
 app.use(express.urlencoded({ extended: false }));
 app.use(
   cors({
-    origin: ['http://localhost:3001', 'https://my-daily-climb.herokuapp.com/'],
+    origin: ['http://localhost:3000', 'https://my-daily-climb.herokuapp.com/'],
     credentials: true,
   }),
 );
@@ -73,6 +73,6 @@ process.on('SIGNIT', () => {
   });
 });
 
-app.listen(port, () => {
-  console.log(`Server started on port: http://localhost:${port}`);
+app.listen(PORT, () => {
+  console.log(`Server started on port: ${PORT}`);
 });
