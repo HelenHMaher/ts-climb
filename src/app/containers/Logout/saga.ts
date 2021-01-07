@@ -14,7 +14,7 @@ export function* handleError(error: any) {
 export function* logoutBackendCall() {
   try {
     const params = {
-      method: 'DELETE',
+      method: 'GET',
       url: `${serverURL}/authenticate/logout`,
       withCredentials: true,
     };

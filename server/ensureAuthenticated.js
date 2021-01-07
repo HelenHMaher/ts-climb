@@ -4,5 +4,5 @@ module.exports = function ensureAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {
     return next();
   }
-  res.send('not authenticated');
+  res.status(400).json({ msg: 'not authenticated' });
 };

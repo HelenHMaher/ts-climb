@@ -11,6 +11,7 @@ import { TopNav } from '../TopNav';
 import { AddExercise } from '../../containers/AddExercise';
 import { Exercises } from '../../containers/Exercises';
 import { NotFoundPage } from '../NotFoundPage/Loadable';
+import { Profile } from '../../containers/Profile';
 import { Logout } from '../../containers/Logout';
 
 interface Props {}
@@ -18,20 +19,22 @@ interface Props {}
 export function Dashboard(props: Props) {
   return (
     <Div>
-      <TopNav
-        back={true}
-        title="Register"
-        leftButton={null}
-        rightButton={<Logout />}
-      />
       <NavBar />
       <Switch>
         <Route path="/dashboard/startWorkout" />
-        <Route path="/dashboard/profile" />
+        <Route path="/dashboard/profile">
+          <Profile />
+        </Route>
         <Route path="/dashboard/exerciseCreator">
           <AddExercise />
           <Exercises />
         </Route>
+        <TopNav
+          back={true}
+          title="Register"
+          leftButton={null}
+          rightButton={<Logout />}
+        />
         <Route component={NotFoundPage} />
       </Switch>
     </Div>

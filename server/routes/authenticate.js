@@ -58,12 +58,13 @@ router.post('/register', (req, res) => {
 });
 
 router.get('/user', ensureAuthenticated, (req, res) => {
-  res.send(req.user);
+  res.status(201).json(req.user);
 });
 
-router.delete('/logout', (req, res) => {
-  res.status(201).json({ msg: `${req.user.username} Logged Out` });
+router.get('/logout', ensureAuthenticated, (req, res) => {
+  const user = req.user.username;
   req.logout();
+  res.status(201).json({ msg: `${user} Logged Out` });
 });
 
 module.exports = router;
