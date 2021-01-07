@@ -9,25 +9,26 @@ export const ConstructionContainer = styled.div<{ display: string }>`
   justify-content: center;
   overflow: hidden;
   z-index: 10;
+  color: var(--dark-700);
 `;
 
 export const ConstructionBox = styled.div`
   position: relative;
-  background: rgba(157, 157, 157, 1);
+  background: var(--light-900);
   width: 380px;
   height: 200px;
-  border: 0.1px solid rgba(14, 14, 14, 1);
+  border: 0.1px solid var(--dark-700);
   border-radius: 10px;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-self: center;
-  box-shadow: 0px 0px 20px 5px rgba(55, 55, 55, 1);
+  box-shadow: 0px 0px 20px 5px var(--dark-100);
 `;
 
 export const ConstructionImage = styled.div`
-  border-top: 0.1px solid rgba(14, 14, 14, 1);
-  border-bottom: 0.1px solid rgba(14, 14, 14, 1);
+  border-top: 0.1px solid var(--dark-700);
+  border-bottom: 0.1px solid var(--dark-700);
   display: flex;
   border-top-left-radius: 10px;
   border-bottom-left-radius: 10px;
@@ -50,7 +51,7 @@ export const ConstructionTitle = styled.div`
   text-align: left;
   font-size: 25px;
   margin-bottom: 10px;
-  color: rgba(255, 255, 255, 1);
+  color: var(--light-100);
 `;
 
 export const ConstructionText = styled.div`
@@ -69,14 +70,14 @@ export const DemoButton = styled.a`
   margin: 0px 5px;
   font-size: 12px;
   text-decoration: none;
-  border: 0.5px solid rgba(14, 14, 14, 1);
+  border: 0.5px solid var(--dark-700);
   cursor: pointer;
   border-radius: 10px;
-  color: rgba(255, 255, 255, 1);
-  background: rgba(55, 55, 55, 1);
+  color: var(--light-100);
+  background: var(--dark-100);
   :hover {
     padding: 7px 11px;
-    border: 0.25px solid rgba(237, 237, 237, 1);
+    border: 0.25px solid var(--aux-100);
   }
 `;
 
@@ -85,12 +86,12 @@ export const ConstructionClose = styled.div`
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  border: 1px solid rgba(32, 32, 32, 1);
+  border: 1px solid var(--dark-300);
   border-radius: 10px;
   width: 18px;
   height: 18px;
   :hover {
-    border: 1px solid rgba(237, 237, 237, 1);
+    border: 1px solid var(--aux-100);
   }
 `;
 

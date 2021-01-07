@@ -1,0 +1,31 @@
+html,
+input {
+  margin: 0;
+  text-align: center;
+  background-color: var(--main-100);
+  color: var(--light-200);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+}
+
+a {
+  text-decoration: none;
+  color: var(--light-500);
+}
+
+:root {
+  --light-100: rgba(255, 255, 255, 1);
+  --light-200: rgba(237, 237, 237, 1);
+  --light-500: rgba(200, 200, 200, 1);
+  --light-900: rgba(157, 157, 157, 1);
+
+  --dark-100: rgba(55, 55, 55, 1);
+  --dark-300: rgba(32, 32, 32, 1);
+  --dark-700: rgba(14, 14, 14, 1);
+  --dark-900: rgba(5, 5, 5, 1);
+
+  --main-100: rgba(63, 166, 180, 1);
+
+  --aux-100: rgba(215, 233, 150, 1);
+}
