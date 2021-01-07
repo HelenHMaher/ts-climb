@@ -61,8 +61,8 @@ router.get('/user', ensureAuthenticated, (req, res) => {
   res.send(req.user);
 });
 
-router.get('/logout', (req, res) => {
-  res.send(req.user.username + ' Logged Out');
+router.delete('/logout', (req, res) => {
+  res.status(201).json({ msg: `${req.user.username} Logged Out` });
   req.logout();
 });
 

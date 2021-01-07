@@ -8,6 +8,7 @@ import * as React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components/macro';
 import { InputField } from '../../components/InputField';
+import { TopNav } from '../../components/TopNav';
 
 import { useInjectReducer, useInjectSaga } from 'utils/redux-injectors';
 import { reducer, sliceKey, actions } from './slice';
@@ -36,7 +37,12 @@ export function Register(props: Props) {
   return (
     <>
       <Div>
-        <h1>Register</h1>
+        <TopNav
+          back={true}
+          title="Register"
+          leftButton={null}
+          rightButton={null}
+        />
         <ErrorMessage>{errorMessage}</ErrorMessage>
         <div>{successMessage}</div>
         <InputField

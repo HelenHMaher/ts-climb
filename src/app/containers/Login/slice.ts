@@ -25,7 +25,9 @@ const loginSlice = createSlice({
     },
     loginSuccessAction(state, action: PayloadAction<string>) {
       console.log(action.payload);
-      state.errorMessage = '';
+      state.errorMessage = null;
+      state.userInfo.username = '';
+      state.userInfo.password = '';
       localStorage.setItem('isAuthenticated', 'true');
     },
   },

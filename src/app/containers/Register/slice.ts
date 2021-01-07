@@ -29,9 +29,14 @@ const registerSlice = createSlice({
     registerAction(state, action: PayloadAction<NewUser>) {},
     registerFailureAction(state, action: PayloadAction<string>) {
       state.errorMessage = `register failure: ${action.payload}`;
+      state.successMessage = null;
     },
     registerSuccessAction(state, action: PayloadAction<string>) {
-      state.errorMessage = '';
+      state.errorMessage = null;
+      state.newUserInfo.password = '';
+      state.newUserInfo.username = '';
+      state.newUserInfo.confPassword = '';
+      state.newUserInfo.email = '';
       state.successMessage = `successfully registered: ${action.payload}`;
     },
   },
