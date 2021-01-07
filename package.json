@@ -44,6 +44,7 @@
     "mongoose": "5.11.7",
     "node-plop": "0.26.2",
     "passport": "0.4.1",
+    "passport-local": "1.0.0",
     "plop": "2.7.4",
     "prettier": "2.1.1",
     "react": "16.13.1",

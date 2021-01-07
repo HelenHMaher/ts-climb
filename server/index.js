@@ -57,6 +57,7 @@ app.use(
 app.use(cookieParser(SESSION_SECRET));
 app.use(passport.initialize());
 app.use(passport.session());
+require('./passportConfig')(passport);
 
 //-----------End of Middleware ---------------------------
 //ROUTES

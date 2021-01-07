@@ -20,10 +20,11 @@ const loginSlice = createSlice({
       state.userInfo.username = action.payload;
     },
     loginAction(state, action: PayloadAction<User>) {},
-    loginFailureAction(state) {
-      state.errorMessage = 'login failure';
+    loginFailureAction(state, action: PayloadAction<string>) {
+      state.errorMessage = `login failure: ${action.payload}`;
     },
-    loginSuccessAction(state) {
+    loginSuccessAction(state, action: PayloadAction<string>) {
+      console.log(action.payload);
       state.errorMessage = '';
       localStorage.setItem('isAuthenticated', 'true');
     },

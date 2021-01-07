@@ -13,7 +13,10 @@ const ensureAuthenticated = require('../ensureAuthenticated');
 router.post('/login', (req, res, next) => {
   passport.authenticate('local', (err, user) => {
     if (err) throw err;
-    if (!user) res.status(400).json({ msg: 'No User Exists' });
+    if (!user)
+      res
+        .status(400)
+        .json({ msg: 'User information does not match our records' });
     else {
       req.logIn(user, err => {
         if (err) {
@@ -49,7 +52,7 @@ router.post('/register', (req, res) => {
       await newUser.save();
       res.status(201).json({ msg: 'User Created' });
     } catch (error) {
-      console.log(error);
+      return res.status(400).json({ msg: 'Something went wrong: ', error });
     }
   });
 });

@@ -1,14 +1,31 @@
 import { PayloadAction } from '@reduxjs/toolkit';
-import { put, takeLatest } from 'redux-saga/effects';
+import { call, put, takeLatest } from 'redux-saga/effects';
 import { actions } from './slice';
 import { User } from './types';
+import axios from 'axios';
+
+export const axiosCall = (params: any) => axios({ ...params });
+
+const serverURL = process.env.REACT_APP_SERVER;
+
+export function* handleError(error: { response: { data: { msg: string } } }) {
+  const errorMsg: string = error?.response?.data?.msg;
+  yield put(actions.loginFailureAction(JSON.stringify(errorMsg)));
+}
 
 export function* loginBackendCall(action: PayloadAction<User>) {
-  console.log('action is: ', action);
-
-  action.payload.username === 'Admin'
-    ? yield put(actions.loginSuccessAction())
-    : yield put(actions.loginFailureAction());
+  try {
+    const params = {
+      method: 'POST',
+      url: `${serverURL}/authenticate/login`,
+      withCredentials: true,
+      data: action.payload,
+    };
+    const response = yield call(axiosCall, params);
+    yield put(actions.loginSuccessAction(JSON.stringify(response.data.msg)));
+  } catch (error) {
+    yield call(handleError, error);
+  }
 }
 
 export function* loginSaga() {
