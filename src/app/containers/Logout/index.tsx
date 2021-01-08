@@ -37,10 +37,7 @@ export function Logout(props: Props) {
     <>
       <Div>
         <Button onClick={clickHandler}>Logout</Button>
-        <Message>
-          {errorMessage}
-          {successMessage}
-        </Message>
+        <Message>{errorMessage}</Message>
       </Div>
     </>
   );
@@ -58,4 +55,5 @@ const Div = styled.div``;
 
 const Message = styled.div`
   font-size: 8px;
+  color: var(--aux-200);
 `;

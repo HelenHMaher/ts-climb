@@ -9,6 +9,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components/macro';
 import { InputField } from '../../components/InputField';
 import { TopNav } from '../../components/TopNav';
+import { TopNavButton } from '../../components/TopNavButton';
+import { Button } from '../../components/Button';
 
 import { useInjectReducer, useInjectSaga } from 'utils/redux-injectors';
 import { reducer, sliceKey, actions } from './slice';
@@ -51,7 +53,7 @@ export function Register(props: Props) {
           back={true}
           title="Register"
           leftButton={null}
-          rightButton={null}
+          rightButton={<TopNavButton link="/" label="to Login" />}
         />
         <InputField
           onChange={e => dispatch(actions.usernameAction(e.target.value))}
@@ -88,7 +90,12 @@ export function Register(props: Props) {
           placeholder="E-Mail"
           msg={{ err: false, msg: '' }}
         />
-        <div onClick={clickHandler}>Submit</div>
+        <Button
+          clickHandler={clickHandler}
+          buttonSize="wide"
+          buttonStyle="solid"
+          title="Submit"
+        />
         <ErrorMessage>{errorMessage}</ErrorMessage>
         <div>{successMessage}</div>
       </Div>

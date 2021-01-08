@@ -44,7 +44,7 @@ const StyledInputField = styled.div`
     border-radius: 10px;
     border-style: none;
     text-align: left;
-    padding: 12px 24px;
+    padding: 14px 24px;
     color: var(--light-200);
     font-size: 16px;
     ::placeholder {

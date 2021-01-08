@@ -8,6 +8,7 @@ import * as React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components/macro';
 import { InputField } from '../../components/InputField';
+import { Button } from '../../components/Button';
 
 import { useInjectReducer, useInjectSaga } from 'utils/redux-injectors';
 import { reducer, sliceKey, actions } from './slice';
@@ -45,7 +46,7 @@ export function Login(props: Props) {
     <>
       <Div>
         <h1>My Daily Climb</h1>
-        <ErrorMessage>{errorMessage}</ErrorMessage>
+
         <div>{successMessage}</div>
         <InputField
           onChange={e => dispatch(actions.usernameAction(e.target.value))}
@@ -61,14 +62,33 @@ export function Login(props: Props) {
           placeholder="password"
           msg={{ err: false, msg: '' }}
         />
-        <div onClick={clickHandler}>Submit</div>
-        <Link to="/register">new user</Link>
+        <ErrorMessage>{errorMessage}</ErrorMessage>
+        <Button
+          buttonSize="wide"
+          buttonStyle="solid"
+          title="Submit"
+          clickHandler={clickHandler}
+        />
+        <Link to="/register">
+          <Button
+            buttonSize="wide"
+            buttonStyle="stealth"
+            clickHandler={undefined}
+            title="new user"
+          />
+        </Link>
       </Div>
     </>
   );
 }
 
 const Div = styled.div`
+  width: 100vw;
+  height: 80vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   h1 {
     font-size: 40px;
     font-weight: 700;
@@ -78,5 +98,6 @@ const Div = styled.div`
 `;
 
 const ErrorMessage = styled.div`
+  height: 16px;
   color: var(--aux-200);
 `;
