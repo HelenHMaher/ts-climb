@@ -23,21 +23,21 @@ export function InputField(props: Props) {
         value={props.value}
         placeholder={props.placeholder}
       ></input>
-      <p className={props.msg.err ? 'inputError' : 'inputMsg'}>
+      <div className={props.msg.err ? 'inputError' : 'inputMsg'}>
         {props.msg.msg}
-      </p>
+      </div>
     </StyledInputField>
   );
 }
 
 const StyledInputField = styled.div`
-  margin: 5px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
+  margin: 5px;
+  padding-bottom: 10px;
+
   input {
-    margin: 5px;
     background: var(--light-100-25);
     width: 285px;
     height: 26px;
@@ -45,10 +45,10 @@ const StyledInputField = styled.div`
     border-style: none;
     text-align: left;
     padding: 14px 24px;
-    color: var(--light-200);
+    color: var(--light-100);
     font-size: 16px;
     ::placeholder {
-      color: var(--light-100-50);
+      color: var(--main-200);
       size: 15px;
     }
     :focus {
@@ -56,14 +56,13 @@ const StyledInputField = styled.div`
       outline: none;
     }
   }
-  p {
+  div {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
       'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
       'Helvetica Neue', sans-serif;
     text-align: left;
-    font-size: 12px;
-    width: 285px;
-    height: 20px;
+    width: 270px;
+    height: 15px;
     font-size: 13px;
   }
   .inputError {

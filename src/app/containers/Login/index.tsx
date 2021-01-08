@@ -9,6 +9,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components/macro';
 import { InputField } from '../../components/InputField';
 import { Button } from '../../components/Button';
+import { TopNav } from '../../components/TopNav';
 
 import { useInjectReducer, useInjectSaga } from 'utils/redux-injectors';
 import { reducer, sliceKey, actions } from './slice';
@@ -45,7 +46,12 @@ export function Login(props: Props) {
   return (
     <>
       <Div>
-        <h1>My Daily Climb</h1>
+        <TopNav
+          back={false}
+          leftButton={null}
+          rightButton={null}
+          title="My Daily Climb"
+        />
 
         <div>{successMessage}</div>
         <InputField
@@ -89,15 +95,10 @@ const Div = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  h1 {
-    font-size: 40px;
-    font-weight: 700;
-    text-decoration: underline;
-    color: var(--aux-100);
-  }
 `;
 
 const ErrorMessage = styled.div`
   height: 16px;
   color: var(--aux-200);
+  margin-bottom: 15px;
 `;

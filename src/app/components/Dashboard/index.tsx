@@ -8,8 +8,7 @@ import styled from 'styled-components/macro';
 import { Switch, Route } from 'react-router-dom';
 import { NavBar } from '../NavBar';
 import { TopNav } from '../TopNav';
-import { AddExercise } from '../../containers/AddExercise';
-import { Exercises } from '../../containers/Exercises';
+import { ExerciseCreator } from '../ExerciseCreator';
 import { NotFoundPage } from '../NotFoundPage/Loadable';
 import { Profile } from '../../containers/Profile';
 import { Logout } from '../../containers/Logout';
@@ -21,21 +20,21 @@ export function Dashboard(props: Props) {
     <Div>
       <NavBar />
       <Switch>
-        <Route path="/dashboard/startWorkout" />
         <Route path="/dashboard/profile">
           <Profile />
         </Route>
         <Route path="/dashboard/exerciseCreator">
-          <AddExercise />
-          <Exercises />
+          <ExerciseCreator />
         </Route>
-        <TopNav
-          back={true}
-          title="Register"
-          leftButton={null}
-          rightButton={<Logout />}
-        />
-        <Route component={NotFoundPage} />
+        <Route>
+          <TopNav
+            back={true}
+            title="My Daily Climb"
+            leftButton={null}
+            rightButton={<Logout />}
+          />
+          <NotFoundPage />
+        </Route>
       </Switch>
     </Div>
   );

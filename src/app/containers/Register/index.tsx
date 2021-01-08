@@ -113,5 +113,6 @@ const Div = styled.div`
 `;
 
 const ErrorMessage = styled.div`
+  margin-top: 5px;
   color: var(--aux-200);
 `;

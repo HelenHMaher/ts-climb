@@ -51,7 +51,7 @@ export const ConstructionTitle = styled.div`
   text-align: left;
   font-size: 25px;
   margin-bottom: 10px;
-  color: var(--aux-100);
+  color: var(--light-100);
 `;
 
 export const ConstructionText = styled.div`

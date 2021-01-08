@@ -39,15 +39,19 @@ const StyledTopNav = styled.div`
   top: 0px;
   padding: 10px;
   width: 100vw;
+  height: 80px;
   background: var(--main-200-50);
   display: flex;
   flex-direction: row;
+  align-items: center;
   justify-content: space-between;
 `;
 
 const Title = styled.div`
-  font-size: 20px;
-  font-weight: 500;
+  color: var(--aux-100);
+  font-size: 40px;
+  font-weight: 700;
+  text-decoration: underline;
 `;
 
 const ButtonLeft = styled.div`
