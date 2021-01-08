@@ -68,8 +68,15 @@ export function Login(props: Props) {
   );
 }
 
-const Div = styled.div``;
+const Div = styled.div`
+  h1 {
+    font-size: 40px;
+    font-weight: 700;
+    text-decoration: underline;
+    color: var(--aux-100);
+  }
+`;
 
 const ErrorMessage = styled.div`
-  color: red;
+  color: var(--aux-200);
 `;

@@ -38,32 +38,36 @@ const StyledInputField = styled.div`
   align-items: center;
   input {
     margin: 5px;
-    background: var(--dark-900-25);
+    background: var(--light-100-25);
     width: 285px;
-    height: 24px;
+    height: 26px;
     border-radius: 10px;
     border-style: none;
     text-align: left;
     padding: 12px 24px;
-    color: var(--light-100);
-    font-size: 15px;
+    color: var(--light-200);
+    font-size: 16px;
     ::placeholder {
-      color: var(--light-500);
+      color: var(--light-100-50);
       size: 15px;
     }
     :focus {
-      background: var(--dark-900-50);
+      background: var(--main-200-50);
       outline: none;
     }
   }
   p {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
+      'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
+      'Helvetica Neue', sans-serif;
     text-align: left;
-    width: 300px;
+    font-size: 12px;
+    width: 285px;
     height: 20px;
     font-size: 13px;
   }
   .inputError {
-    color: var(--error-500);
+    color: var(--aux-200);
   }
   .inputMsg {
     color: var(--light-100);

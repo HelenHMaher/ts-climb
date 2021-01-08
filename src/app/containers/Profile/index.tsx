@@ -56,5 +56,5 @@ const Div = styled.div`
 `;
 
 const ErrorMessage = styled.div`
-  color: red;
+  color: var(--aux-200);
 `;

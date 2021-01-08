@@ -30,8 +30,18 @@ export function Register(props: Props) {
   const newUserInfo = useSelector(selectNewUserInfo);
   const dispatch = useDispatch();
 
+  const canSubmit =
+    newUserInfo.username.length > 1 &&
+    newUserInfo.password.length > 1 &&
+    newUserInfo.email.length > 1 &&
+    newUserInfo.password === newUserInfo.confPassword;
+
   const clickHandler = () => {
-    dispatch(actions.registerAction(newUserInfo));
+    if (canSubmit) {
+      dispatch(actions.registerAction(newUserInfo));
+    } else {
+      dispatch(actions.registerFailureAction('all feilds are required'));
+    }
   };
 
   return (
@@ -43,8 +53,6 @@ export function Register(props: Props) {
           leftButton={null}
           rightButton={null}
         />
-        <ErrorMessage>{errorMessage}</ErrorMessage>
-        <div>{successMessage}</div>
         <InputField
           onChange={e => dispatch(actions.usernameAction(e.target.value))}
           value={newUserInfo.username}
@@ -64,7 +72,14 @@ export function Register(props: Props) {
           value={newUserInfo.confPassword}
           type="password"
           placeholder="Confirm Password"
-          msg={{ err: false, msg: '' }}
+          msg={
+            newUserInfo.password === newUserInfo.confPassword
+              ? {
+                  err: false,
+                  msg: '',
+                }
+              : { err: true, msg: 'passwords must match' }
+          }
         />
         <InputField
           onChange={e => dispatch(actions.emailAction(e.target.value))}
@@ -74,13 +89,22 @@ export function Register(props: Props) {
           msg={{ err: false, msg: '' }}
         />
         <div onClick={clickHandler}>Submit</div>
+        <ErrorMessage>{errorMessage}</ErrorMessage>
+        <div>{successMessage}</div>
       </Div>
     </>
   );
 }
 
-const Div = styled.div``;
+const Div = styled.div`
+  width: 100vw;
+  height: 80vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
 
 const ErrorMessage = styled.div`
-  color: red;
+  color: var(--aux-200);
 `;

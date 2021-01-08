@@ -9,13 +9,13 @@ import { Login } from '..';
 const renderComponent = (store: Store) =>
   render(
     <Provider store={store}>
-        <Login  />
-    </Provider>
+      <Login />
+    </Provider>,
   );
 
 describe('<Login />', () => {
   let store: ReturnType<typeof configureAppStore>;
-  
+
   beforeEach(() => {
     store = configureAppStore();
   });

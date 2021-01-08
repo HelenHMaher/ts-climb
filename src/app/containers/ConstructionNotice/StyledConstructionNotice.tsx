@@ -51,7 +51,7 @@ export const ConstructionTitle = styled.div`
   text-align: left;
   font-size: 25px;
   margin-bottom: 10px;
-  color: var(--light-100);
+  color: var(--aux-100);
 `;
 
 export const ConstructionText = styled.div`
@@ -76,7 +76,7 @@ export const DemoButton = styled.div`
   color: var(--light-100);
   background: var(--dark-100);
   :hover {
-    border: 1px solid var(--aux-100);
+    border: 1px solid var(--light-100);
   }
 `;
 
