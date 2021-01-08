@@ -46,7 +46,14 @@ export function Profile(props: Props) {
   );
 }
 
-const Div = styled.div``;
+const Div = styled.div`
+  height: 80vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;
 
 const ErrorMessage = styled.div`
   color: red;

@@ -27,6 +27,12 @@ export function Logout(props: Props) {
     dispatch(actions.logoutAction());
   };
 
+  React.useEffect(() => {
+    if (!localStorage.getItem('isAuthenticated')) {
+      window.location.reload();
+    }
+  }, [successMessage]);
+
   return (
     <>
       <Div>
