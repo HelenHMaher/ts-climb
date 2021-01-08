@@ -11,7 +11,7 @@ input {
 
 a {
   text-decoration: none;
-  color: var(--light-500);
+  color: var(--light-200);
 }
 
 :root {
@@ -21,11 +21,13 @@ a {
   --light-900: rgba(157, 157, 157, 1);
 
   --dark-100: rgba(55, 55, 55, 1);
+  --dark-100-50: rgba(55, 55, 55, 0.5);
   --dark-300: rgba(32, 32, 32, 1);
   --dark-700: rgba(14, 14, 14, 1);
   --dark-900: rgba(5, 5, 5, 1);
 
   --main-100: rgba(63, 166, 180, 1);
+  --main-200-50: rgba(40, 105, 113, 0.5);
 
   --aux-100: rgba(215, 233, 150, 1);
 }

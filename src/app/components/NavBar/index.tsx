@@ -17,7 +17,7 @@ export function NavBar(props: Props) {
 
   const navBarItems = [
     { name: 'Profile', url: '/dashboard/profile' },
-    { name: 'Start Workout', url: '/dashboard/startWorkout' },
+    { name: 'Start Workout', url: '/dashboard' },
     { name: 'Exercise Creator', url: '/dashboard/exerciseCreator' },
   ];
 
@@ -33,12 +33,19 @@ export function NavBar(props: Props) {
 }
 
 const FlexContainer = styled.div`
+  position: absolute;
+  bottom: 0px;
   display: flex;
   width: 100vw;
+  height: 80px;
   flex-direction: row;
   align-content: stretch;
   justify-content: space-around;
   flex-wrap: nowrap;
+  padding: 10px;
+  background: var(--main-200-50);
 `;
 
-const StyledLink = styled(Link)``;
+const StyledLink = styled(Link)`
+  width: 100px;
+`;

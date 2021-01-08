@@ -29,19 +29,27 @@ export function Logout(props: Props) {
 
   return (
     <>
-      <Div onClick={clickHandler}>Logout</Div>
-      <ErrorMessage>{errorMessage}</ErrorMessage>
-      <div>{successMessage}</div>
+      <Div>
+        <Button onClick={clickHandler}>Logout</Button>
+        <Message>
+          {errorMessage}
+          {successMessage}
+        </Message>
+      </Div>
     </>
   );
 }
 
-const Div = styled.div`
-  width: 100px;
-  background: black;
-  color: white;
+const Button = styled.div`
+  padding: 8px 15px;
+  background: var(--dark-100-50);
+  border-radius: 20px;
+  color: var(--light-100);
+  cursor: pointer;
 `;
 
-const ErrorMessage = styled.div`
-  color: red;
+const Div = styled.div``;
+
+const Message = styled.div`
+  font-size: 8px;
 `;

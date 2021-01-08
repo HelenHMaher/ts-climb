@@ -65,8 +65,8 @@ export const ButtonContainer = styled.div`
   justify-content: center;
 `;
 
-export const DemoButton = styled.a`
-  padding: 8px 12px;
+export const DemoButton = styled.div`
+  padding: 8px 10px;
   margin: 0px 5px;
   font-size: 12px;
   text-decoration: none;
@@ -76,8 +76,7 @@ export const DemoButton = styled.a`
   color: var(--light-100);
   background: var(--dark-100);
   :hover {
-    padding: 7px 11px;
-    border: 0.25px solid var(--aux-100);
+    border: 1px solid var(--aux-100);
   }
 `;
 

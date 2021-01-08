@@ -20,23 +20,56 @@ export const TopNav = (props: Props) => {
   return (
     <StyledTopNav>
       {props.back ? (
-        <div className="topNav__back" onClick={clickHandler}>
-          <ChevronLeft size={12} />
-        </div>
+        <ButtonLeft onClick={clickHandler}>
+          <Back>
+            <ChevronLeft size={10} color={null} />
+          </Back>
+        </ButtonLeft>
       ) : (
-        <div className="topNav__left">{props.leftButton}</div>
+        <ButtonLeft>{props.leftButton}</ButtonLeft>
       )}
-      <div className="topNav_title">{props.title}</div>
-      <div className="topNav__right">{props.rightButton}</div>
+      <Title className="topNav_title">{props.title}</Title>
+      <ButtonRight>{props.rightButton}</ButtonRight>
     </StyledTopNav>
   );
 };
 
 const StyledTopNav = styled.div`
-  padding: 15px;
+  position: absolute;
+  top: 0px;
+  padding: 10px;
   width: 100vw;
+  background: var(--main-200-50);
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+`;
+
+const Title = styled.div`
+  font-size: 20px;
+  font-weight: 500;
+`;
+
+const ButtonLeft = styled.div`
+  width: 100px;
+  display: flex;
+  justify-content: flex-start;
+`;
+
+const ButtonRight = styled.div`
+  width: 100px;
+  display: flex;
+  justify-content: flex-end;
+`;
+
+const Back = styled.div`
+  width: 40px;
+  height: 40px;
+  background: var(--dark-100-50);
+  border-radius: 20px;
+  color: var(--light-100);
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
   align-items: center;
 `;

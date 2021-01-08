@@ -3,7 +3,7 @@ import { createSlice } from 'utils/@reduxjs/toolkit';
 import { ContainerState } from './types';
 
 // The initial state of the StartWorkout container
-export const initialState: ContainerState = { display: true };
+export const initialState: ContainerState = { display: 'true' };
 
 const constructionNoticeSlice = createSlice({
   name: 'constructionNotice',
@@ -11,7 +11,7 @@ const constructionNoticeSlice = createSlice({
   reducers: {
     someAction(state, action: PayloadAction<any>) {},
     displayComponent(state) {
-      state.display = !state.display;
+      state.display = 'false';
     },
   },
 });

@@ -8,5 +8,5 @@ const selectDomain = (state: RootState) =>
 
 export const selectConstructionNotice = createSelector(
   [selectDomain],
-  constructionNoticeState => constructionNoticeState,
+  substate => substate.display,
 );

@@ -5,6 +5,7 @@
  */
 import * as React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import climbGear from '../../../climbGear.jpg';
 import {
   ConstructionContainer,
@@ -21,6 +22,8 @@ import {
 
 import { useInjectReducer, useInjectSaga } from 'utils/redux-injectors';
 import { reducer, sliceKey, actions } from './slice';
+import { actions as loginActions } from '../Login/slice';
+import { selectSuccessMessage as selectLoginSuccessMessage } from '../Login/selectors';
 import { selectConstructionNotice } from './selectors';
 import { constructionNoticeSaga } from './saga';
 
@@ -31,14 +34,28 @@ export function ConstructionNotice(props: Props) {
   useInjectSaga({ key: sliceKey, saga: constructionNoticeSaga });
 
   const dispatch = useDispatch();
-  const display = useSelector(selectConstructionNotice).display;
+  const history = useHistory();
+  const display = useSelector(selectConstructionNotice);
+  const successMessage = useSelector(selectLoginSuccessMessage);
 
   const closeHandler = () => {
     dispatch(actions.displayComponent());
   };
 
+  const clickHandler = () => {
+    dispatch(
+      loginActions.loginAction({ username: 'Admin', password: 'password' }),
+    );
+  };
+
+  React.useEffect(() => {
+    if (localStorage.getItem('isAuthenticated') === 'true') {
+      history.replace('/dashboard');
+    }
+  }, [history, successMessage]);
+
   return (
-    <ConstructionContainer display={display.toString()}>
+    <ConstructionContainer display={display}>
       <ConstructionBox>
         <ConstructionImage>
           <img src={climbGear} alt="My Daily Climb" />
@@ -51,22 +68,19 @@ export function ConstructionNotice(props: Props) {
           </CloseContainer>
           <ConstructionTitle>Pardon this mess!</ConstructionTitle>
           <ConstructionText>
-            My Daily Climb is being migrated to TypeScript. The original
-            JavaScript project is no longer live, but feel free to look at the
-            GitHub repositories for a peak at what's to come.
+            My Daily Climb is still under construction but feel free to register
+            or take a look around using the demo account.
           </ConstructionText>
           <ButtonContainer>
-            <DemoButton
-              href="https://github.com/HelenHMaher/ts-climb"
-              target="_blank"
-            >
-              TS Repo
-            </DemoButton>
-            <DemoButton
-              href="https://github.com/HelenHMaher/daily-climb-redux"
-              target="_blank"
-            >
-              JS Repo
+            <DemoButton onClick={clickHandler}>Demo Account</DemoButton>
+            <DemoButton>
+              <a
+                href="https://github.com/HelenHMaher/ts-climb"
+                target="_blank"
+                rel="noreferrer"
+              >
+                GitHub Repo
+              </a>
             </DemoButton>
           </ButtonContainer>
         </ConstructionContent>

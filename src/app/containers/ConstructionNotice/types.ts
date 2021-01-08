@@ -1,5 +1,5 @@
 export interface ConstructionNoticeState {
-  display: boolean;
+  display: string;
 }
 
 export type ContainerState = ConstructionNoticeState;

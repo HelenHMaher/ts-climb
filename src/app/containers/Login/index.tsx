@@ -11,7 +11,11 @@ import { InputField } from '../../components/InputField';
 
 import { useInjectReducer, useInjectSaga } from 'utils/redux-injectors';
 import { reducer, sliceKey, actions } from './slice';
-import { selectErrorMessage, selectUserInfo } from './selectors';
+import {
+  selectErrorMessage,
+  selectSuccessMessage,
+  selectUserInfo,
+} from './selectors';
 import { loginSaga } from './saga';
 import { useHistory, Link } from 'react-router-dom';
 
@@ -22,6 +26,7 @@ export function Login(props: Props) {
   useInjectSaga({ key: sliceKey, saga: loginSaga });
 
   const errorMessage = useSelector(selectErrorMessage);
+  const successMessage = useSelector(selectSuccessMessage);
   const userInfo = useSelector(selectUserInfo);
   const dispatch = useDispatch();
   const history = useHistory();
@@ -34,13 +39,14 @@ export function Login(props: Props) {
     if (localStorage.getItem('isAuthenticated') === 'true') {
       history.replace('/dashboard');
     }
-  });
+  }, [history, userInfo]);
 
   return (
     <>
       <Div>
         <h1>My Daily Climb</h1>
         <ErrorMessage>{errorMessage}</ErrorMessage>
+        <div>{successMessage}</div>
         <InputField
           onChange={e => dispatch(actions.usernameAction(e.target.value))}
           value={userInfo.username}

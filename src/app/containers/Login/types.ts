@@ -1,6 +1,7 @@
 /* --- STATE --- */
 export interface LoginState {
   errorMessage: string | null;
+  successMessage: string | null;
   userInfo: User;
 }
 

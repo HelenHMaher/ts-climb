@@ -20,7 +20,7 @@ const logoutSlice = createSlice({
     },
     logoutSuccessAction(state, action: PayloadAction<string>) {
       state.successMessage = `logout success: ${action.payload}`;
-      // localStorage.removeItem('isAuthenticated');
+      localStorage.removeItem('isAuthenticated');
       state.errorMessage = null;
       //TODO:
       //need to reset Redux store on logout
