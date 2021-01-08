@@ -5,7 +5,7 @@ import { TopNavButton } from '..';
 
 describe('<TopNavButton  />', () => {
   it('should match snapshot', () => {
-    const loadingIndicator = render(<TopNavButton />);
+    const loadingIndicator = render(<TopNavButton link="/" label="to Login" />);
     expect(loadingIndicator.container.firstChild).toMatchSnapshot();
   });
 });
