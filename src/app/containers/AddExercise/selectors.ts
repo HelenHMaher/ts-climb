@@ -14,3 +14,8 @@ export const selectErrorMessage = createSelector(
   [selectDomain],
   substate => substate.errorMessage,
 );
+
+export const selectSuccessMessage = createSelector(
+  [selectDomain],
+  substate => substate.successMessage,
+);

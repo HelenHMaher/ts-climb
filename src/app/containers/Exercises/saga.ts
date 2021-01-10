@@ -3,21 +3,33 @@ import { put, takeLatest, call } from 'redux-saga/effects';
 import { actions } from './slice';
 import axios from 'axios';
 
-export const axiosCall = params => axios({ ...params });
+export const axiosCall = (params: any) => axios({ ...params });
+
+const serverURL = process.env.REACT_APP_SERVER;
+
+export function* handleError(error: { response: { data: { msg: string } } }) {
+  const errorMsg: string = error?.response?.data?.msg;
+  yield put(actions.fetchExercisesFailure(errorMsg));
+}
 
 export function* fetchExercises() {
-  const params = { url: '/api/exercises', method: 'GET' };
+  const params = {
+    url: `${serverURL}/api/exercises/allExercises`,
+    method: 'GET',
+    withCredentials: true,
+  };
 
   try {
     const response = yield call(axiosCall, params);
 
     if (response?.data?.exercises) {
       yield put(actions.fetchExercisesSuccess(response.data.exercises));
-    } else {
-      yield put(actions.fetchExercisesFailure());
     }
+    yield call(handleError, {
+      response: { data: { msg: 'no exercises found' } },
+    });
   } catch (error) {
-    yield put(actions.fetchExercisesFailure());
+    yield call(handleError, error);
   }
 }
 

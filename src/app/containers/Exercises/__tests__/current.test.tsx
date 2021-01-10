@@ -34,19 +34,19 @@ describe('<Exercises />', () => {
   it('Tests that after a fetchExercisesSuccess action is dispatched the state changes and the component renders correctly', () => {
     const exercises: Array<Exercise> = [
       {
-        exerciseName: 'pull-up',
-        exerciseDescription: 'You pull yourself up',
-        exerciseType: 1,
+        name: 'pull-up',
+        description: 'You pull yourself up',
+        type: 1,
       },
       {
-        exerciseName: 'push-up',
-        exerciseDescription: 'You push yourself up',
-        exerciseType: 1,
+        name: 'push-up',
+        description: 'You push yourself up',
+        type: 1,
       },
       {
-        exerciseName: 'sit-up',
-        exerciseDescription: 'You sit yourself up',
-        exerciseType: 1,
+        name: 'sit-up',
+        description: 'You sit yourself up',
+        type: 1,
       },
     ];
 

@@ -12,7 +12,7 @@ import { Formik, Field, Form } from 'formik';
 
 import { useInjectReducer, useInjectSaga } from 'utils/redux-injectors';
 import { reducer, sliceKey, actions } from './slice';
-import { selectErrorMessage } from './selectors';
+import { selectErrorMessage, selectSuccessMessage } from './selectors';
 import { addExerciseSaga } from './saga';
 import { ExerciseType, Exercise } from './types';
 import { translations } from 'locales/translations';
@@ -24,6 +24,7 @@ export function AddExercise(props: Props) {
   useInjectSaga({ key: sliceKey, saga: addExerciseSaga });
 
   const errorMessage = useSelector(selectErrorMessage);
+  const successMessage = useSelector(selectSuccessMessage);
   const dispatch = useDispatch();
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -34,39 +35,32 @@ export function AddExercise(props: Props) {
       <Div>
         <h1>{t(translations.newExercise)}</h1>
         <ErrorMessage>{errorMessage}</ErrorMessage>
+        <SuccessMessage>{successMessage}</SuccessMessage>
         <Formik
           initialValues={{
-            exerciseName: '',
-            exerciseDescription: '',
-            exerciseType: ExerciseType.CARDIO,
+            name: '',
+            description: '',
+            type: ExerciseType.CARDIO,
           }}
           onSubmit={(values: Exercise) => {
             dispatch(actions.addExerciseAction(values));
           }}
         >
           <Form>
-            <label htmlFor="exerciseName">{t(translations.newExercise)}</label>
-            <Field
-              id="exerciseName"
-              name="exerciseName"
-              placeholder="push-up"
-            />
+            <label htmlFor="name">{t(translations.newExercise)}</label>
+            <Field id="name" name="name" placeholder="push-up" />
 
-            <label htmlFor="exerciseDescription">
+            <label htmlFor="description">
               {t(translations.exerciseDescription)}
             </label>
             <Field
-              id="exerciseDescription"
-              name="exerciseDescription"
+              id="description"
+              name="description"
               placeholder="push up from floor"
             />
 
-            <label htmlFor="exerciseType">{t(translations.exerciseType)}</label>
-            <Field
-              id="exerciseType"
-              name="exerciseType"
-              placeholder="STRENGTH"
-            />
+            <label htmlFor="type">{t(translations.exerciseType)}</label>
+            <Field id="type" name="type" placeholder="STRENGTH" />
 
             <button type="submit">Submit</button>
           </Form>
@@ -77,11 +71,13 @@ export function AddExercise(props: Props) {
 }
 
 const Div = styled.div`
-  background: yellow;
+  background: var(--aux-100);
 `;
 
 const ErrorMessage = styled.div`
-  background: red;
-  color: white;
+  background: var(--aux-200);
+  color: var(--light-100);
   font-family: 'Comic Sans MS', 'Comic Sans', cursive;
 `;
+
+const SuccessMessage = styled.div``;

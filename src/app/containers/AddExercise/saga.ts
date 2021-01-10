@@ -1,15 +1,31 @@
 import { PayloadAction } from '@reduxjs/toolkit';
-import { put, takeLatest } from 'redux-saga/effects';
+import { call, put, takeLatest } from 'redux-saga/effects';
 import { actions } from './slice';
 import { Exercise } from './types';
+import axios from 'axios';
+
+export const axiosCall = (params: any) => axios({ ...params });
+
+const serverURL = process.env.REACT_APP_SERVER;
+
+export function* handleError(error: { response: { data: { msg: string } } }) {
+  const errorMsg: string = error?.response?.data?.msg;
+  yield put(actions.addExerciseFailureAction(errorMsg));
+}
 
 export function* addExerciseBackendCall(action: PayloadAction<Exercise>) {
-  console.log('action is: ', action);
-
-  // TODO: make real backend call here
-  action.payload.exerciseName === 'push-up'
-    ? yield put(actions.addExerciseFailureAction())
-    : yield put(actions.addExerciseSuccessAction());
+  try {
+    const params = {
+      method: 'POST',
+      url: `${serverURL}/api/exercises/newExercise`,
+      withCredentials: true,
+      data: action.payload,
+    };
+    const response = yield call(axiosCall, params);
+    yield put(actions.addExerciseSuccessAction(response.data.msg));
+  } catch (error) {
+    yield call(handleError, error);
+  }
 }
 
 /**

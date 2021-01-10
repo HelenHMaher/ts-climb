@@ -10,7 +10,7 @@ const serverURL = process.env.REACT_APP_SERVER;
 
 export function* handleError(error: { response: { data: { msg: string } } }) {
   const errorMsg: string = error?.response?.data?.msg;
-  yield put(actions.registerFailureAction(JSON.stringify(errorMsg)));
+  yield put(actions.registerFailureAction(errorMsg));
 }
 
 export function* registerBackendCall(action: PayloadAction<NewUser>) {

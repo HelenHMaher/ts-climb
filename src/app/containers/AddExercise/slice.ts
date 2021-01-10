@@ -5,6 +5,7 @@ import { ContainerState, Exercise } from './types';
 // The initial state of the AddExercise container
 export const initialState: ContainerState = {
   errorMessage: null,
+  successMessage: null,
 };
 
 const addExerciseSlice = createSlice({
@@ -13,11 +14,12 @@ const addExerciseSlice = createSlice({
   reducers: {
     someAction(state, action: PayloadAction<any>) {},
     addExerciseAction(state, action: PayloadAction<Exercise>) {},
-    addExerciseFailureAction(state) {
-      state.errorMessage =
-        'Exercise name exists already, please choose another';
+    addExerciseFailureAction(state, action: PayloadAction<string>) {
+      state.errorMessage = `Exercise error: ${action.payload}`;
     },
-    addExerciseSuccessAction(state) {},
+    addExerciseSuccessAction(state, action: PayloadAction<string>) {
+      state.successMessage = `Exercise success: ${action.payload}`;
+    },
   },
 });
 

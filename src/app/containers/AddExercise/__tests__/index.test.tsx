@@ -9,13 +9,13 @@ import { AddExercise } from '..';
 const renderComponent = (store: Store) =>
   render(
     <Provider store={store}>
-        <AddExercise  />
-    </Provider>
+      <AddExercise />
+    </Provider>,
   );
 
 describe('<AddExercise />', () => {
   let store: ReturnType<typeof configureAppStore>;
-  
+
   beforeEach(() => {
     store = configureAppStore();
   });

@@ -61,6 +61,22 @@ router.get('/user', ensureAuthenticated, (req, res) => {
   res.status(201).json(req.user);
 });
 
+router.delete('/user', ensureAuthenticated, (req, res) => {
+  User.findOne({ _id: req.user.id }, async (err, doc) => {
+    try {
+      if (err) {
+        throw err;
+      }
+      if (!doc) {
+        res.status(400).json({ msg: 'No user found' });
+      }
+      res.status(200).json({ msg: 'User deleted' });
+    } catch (err) {
+      return res.status(400).json({ msg: 'Something went wrong: ', err });
+    }
+  });
+});
+
 router.get('/logout', ensureAuthenticated, (req, res) => {
   const user = req.user.username;
   req.logout();

@@ -42,9 +42,9 @@ export function Exercises(props: Props) {
           <div>
             {exercises.map(ele => (
               <>
-                <div>{ele.exerciseName}</div>
-                <div>{ExerciseType[ele.exerciseType]}</div>
-                <div>{ele.exerciseDescription}</div>
+                <div>{ele.name}</div>
+                <div>{ExerciseType[ele.type]}</div>
+                <div>{ele.description}</div>
               </>
             ))}
           </div>
