@@ -33,7 +33,8 @@ export function NavBar(props: Props) {
 }
 
 const FlexContainer = styled.div`
-  position: absolute;
+  z-index: 5;
+  position: fixed;
   bottom: 0px;
   display: flex;
   width: 100vw;
@@ -43,7 +44,7 @@ const FlexContainer = styled.div`
   justify-content: space-around;
   flex-wrap: nowrap;
   padding: 10px;
-  background: var(--main-200-50);
+  background: var(--main-200-75);
 `;
 
 const StyledLink = styled(Link)`

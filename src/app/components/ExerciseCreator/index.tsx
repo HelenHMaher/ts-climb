@@ -30,12 +30,12 @@ export function ExerciseCreator(props: Props) {
 }
 
 const Div = styled.div`
+  padding-top: 50px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   width: 100vw;
-  height: 100vh;
 `;
 
 const Content = styled.div`

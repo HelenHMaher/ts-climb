@@ -35,12 +35,13 @@ export const TopNav = (props: Props) => {
 };
 
 const StyledTopNav = styled.div`
-  position: absolute;
+  z-index: 5;
+  position: fixed;
   top: 0px;
   padding: 10px;
   width: 100vw;
   height: 80px;
-  background: var(--main-200-50);
+  background: var(--main-200-75);
   display: flex;
   flex-direction: row;
   align-items: center;
