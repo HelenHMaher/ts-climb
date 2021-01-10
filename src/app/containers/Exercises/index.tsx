@@ -41,11 +41,11 @@ export function Exercises(props: Props) {
         {exercises?.length > 0 ? (
           <div>
             {exercises.map(ele => (
-              <>
+              <div key={ele.name}>
                 <div>{ele.name}</div>
                 <div>{ExerciseType[ele.type]}</div>
                 <div>{ele.description}</div>
-              </>
+              </div>
             ))}
           </div>
         ) : null}

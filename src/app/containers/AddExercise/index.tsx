@@ -8,7 +8,7 @@ import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components/macro';
-import { Formik, Field, Form } from 'formik';
+import { Formik } from 'formik';
 
 import { useInjectReducer, useInjectSaga } from 'utils/redux-injectors';
 import { reducer, sliceKey, actions } from './slice';
@@ -33,7 +33,6 @@ export function AddExercise(props: Props) {
   return (
     <>
       <Div>
-        <h1>{t(translations.newExercise)}</h1>
         <ErrorMessage>{errorMessage}</ErrorMessage>
         <SuccessMessage>{successMessage}</SuccessMessage>
         <Formik
@@ -46,24 +45,58 @@ export function AddExercise(props: Props) {
             dispatch(actions.addExerciseAction(values));
           }}
         >
-          <Form>
-            <label htmlFor="name">{t(translations.newExercise)}</label>
-            <Field id="name" name="name" placeholder="push-up" />
+          {({
+            touched,
+            errors,
+            values,
+            handleChange,
+            handleBlur,
+            handleSubmit,
+          }) => (
+            <Form onSubmit={handleSubmit}>
+              <Label htmlFor="name">
+                {t(translations.newExercise)}
+                <Input
+                  id="name"
+                  name="name"
+                  placeholder="push-up"
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.name}
+                  type="text"
+                />
+              </Label>
 
-            <label htmlFor="description">
-              {t(translations.exerciseDescription)}
-            </label>
-            <Field
-              id="description"
-              name="description"
-              placeholder="push up from floor"
-            />
+              <Label htmlFor="description">
+                {t(translations.exerciseDescription)}
 
-            <label htmlFor="type">{t(translations.exerciseType)}</label>
-            <Field id="type" name="type" placeholder="STRENGTH" />
+                <Input
+                  id="description"
+                  name="description"
+                  placeholder="push up from floor"
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.description}
+                  type="text"
+                />
+              </Label>
 
-            <button type="submit">Submit</button>
-          </Form>
+              <Label htmlFor="type">
+                {t(translations.exerciseType)}
+                <Input
+                  id="type"
+                  name="type"
+                  placeholder="STRENGTH"
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.type}
+                  type="text"
+                />
+              </Label>
+
+              <Button type="submit">Submit</Button>
+            </Form>
+          )}
         </Formik>
       </Div>
     </>
@@ -81,3 +114,35 @@ const ErrorMessage = styled.div`
 `;
 
 const SuccessMessage = styled.div``;
+
+export const Form = styled.form`
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+export const Input = styled.input`
+  width: 300px;
+  height: 35px;
+  border: 1px solid #ccc;
+  background-color: #fff;
+`;
+
+export const Button = styled.button`
+  width: 300px;
+  height: 35px;
+  background-color: #5995ef;
+  color: #fff;
+  border-radius: 3px;
+`;
+
+const Label = styled.label`
+  display: flex;
+  flex-direction: column;
+  color: #777;
+  font-family: 'Raleway', sans-serif;
+  font-size: 0.8em;
+  margin: 0.5em 0;
+  position: relative;
+`;
