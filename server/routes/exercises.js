@@ -73,7 +73,11 @@ router.post('/newExercise', (req, res) => {
       await newExercise.save();
       res.status(201).json({ msg: 'Exercise Created' });
     } catch (error) {
-      return res.status(400).json({ msg: error.errors.name.message });
+      return res.status(400).json({
+        msg: error.errors?.name?.message
+          ? error.errors.name.message
+          : 'incomplete input',
+      });
     }
   });
 });
