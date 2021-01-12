@@ -56,11 +56,11 @@ require('./passportConfig')(passport);
 
 // TODO: this is for production, not required for development
 // remove : " "proxy": "http://localhost:3001", " to package.json
-app.use('/', express.static(path.join(__dirname, '../build')));
+// app.use('/', express.static(path.join(__dirname, '../build')));
 
-app.use('/', function (req, res) {
-  res.sendFile(path.join(__dirname, '../build', 'index.html'));
-});
+// app.use('/', function (req, res) {
+//   res.sendFile(path.join(__dirname, '../build', 'index.html'));
+// });
 
 app.use('/authenticate', require('./routes/authenticate'));
 app.use('/api/exercises', require('./routes/exercises'));
