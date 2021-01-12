@@ -4,8 +4,6 @@ import axios from 'axios';
 
 export const axiosCall = (params: any) => axios({ ...params });
 
-const serverURL = process.env.REACT_APP_SERVER;
-
 export function* handleError(error: any) {
   console.log(error);
   yield put(actions.logoutFailureAction('Failure to logout'));
@@ -15,7 +13,7 @@ export function* logoutBackendCall() {
   try {
     const params = {
       method: 'GET',
-      url: `${serverURL}/authenticate/logout`,
+      url: `/authenticate/logout`,
       withCredentials: true,
     };
     const response = yield call(axiosCall, params);

@@ -5,8 +5,6 @@ import axios from 'axios';
 
 export const axiosCall = (params: any) => axios({ ...params });
 
-const serverURL = process.env.REACT_APP_SERVER;
-
 export function* handleError(error: { response: { data: { msg: string } } }) {
   const errorMsg: string = error?.response?.data?.msg;
   yield put(actions.fetchExercisesFailure(errorMsg));
@@ -14,7 +12,7 @@ export function* handleError(error: { response: { data: { msg: string } } }) {
 
 export function* fetchExercises() {
   const params = {
-    url: `${serverURL}/api/exercises/allExercises`,
+    url: `/api/exercises/allExercises`,
     method: 'GET',
     withCredentials: true,
   };

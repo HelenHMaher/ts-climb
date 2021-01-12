@@ -6,8 +6,6 @@ import axios from 'axios';
 
 export const axiosCall = (params: any) => axios({ ...params });
 
-const serverURL = process.env.REACT_APP_SERVER;
-
 export function* handleError(error: { response: { data: { msg: string } } }) {
   const errorMsg: string = error?.response?.data?.msg;
   yield put(actions.addExerciseFailureAction(errorMsg));
@@ -17,7 +15,7 @@ export function* addExerciseBackendCall(action: PayloadAction<Exercise>) {
   try {
     const params = {
       method: 'POST',
-      url: `${serverURL}/api/exercises/newExercise`,
+      url: `/api/exercises/newExercise`,
       withCredentials: true,
       data: action.payload,
     };
