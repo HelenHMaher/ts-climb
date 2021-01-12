@@ -37,12 +37,12 @@ app.use(
 );
 
 // TODO: this is for production, not required for development
-// add : " "proxy": "http://localhost:3001", " to package.json
-// app.use('/', express.static(path.join(__dirname, '../build')));
+// remove : " "proxy": "http://localhost:3001", " to package.json
+app.use('/', express.static(path.join(__dirname, '../build')));
 
-// app.get('/', function (req, res) {
-//   res.sendFile(path.join(__dirname, '../build', 'index.html'));
-// });
+app.get('/', function (req, res) {
+  res.sendFile(path.join(__dirname, '../build', 'index.html'));
+});
 
 //MIDDLEWARE
 
