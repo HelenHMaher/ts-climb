@@ -76,7 +76,7 @@ export const DemoButton = styled.div`
   color: var(--light-100);
   background: var(--dark-100);
   :hover {
-    border: 1px solid var(--light-100);
+    border: 1px solid var(--aux-100);
   }
 `;
 

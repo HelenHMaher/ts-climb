@@ -50,7 +50,7 @@ const StyledTopNav = styled.div`
 
 const Title = styled.div`
   color: var(--aux-100);
-  font-size: 40px;
+  font-size: 25px;
   font-weight: 700;
   text-decoration: underline;
 `;

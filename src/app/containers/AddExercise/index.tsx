@@ -27,6 +27,15 @@ export function AddExercise(props: Props) {
   const successMessage = useSelector(selectSuccessMessage);
   const dispatch = useDispatch();
 
+  const exerciseTypes = [0, 1, 2, 3];
+  const typeOptions = exerciseTypes.map(x => {
+    return (
+      <option key={x} value={x}>
+        {ExerciseType[x]}
+      </option>
+    );
+  });
+
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { t, i18n } = useTranslation();
 
@@ -39,23 +48,16 @@ export function AddExercise(props: Props) {
           initialValues={{
             name: '',
             description: '',
-            type: ExerciseType.CARDIO,
+            type: 0,
           }}
           onSubmit={(values: Exercise) => {
             dispatch(actions.addExerciseAction(values));
           }}
         >
-          {({
-            touched,
-            errors,
-            values,
-            handleChange,
-            handleBlur,
-            handleSubmit,
-          }) => (
+          {({ values, handleChange, handleBlur, handleSubmit }) => (
             <Form onSubmit={handleSubmit}>
               <Label htmlFor="name">
-                {t(translations.newExercise)}
+                <p>{t(translations.newExercise)}</p>
                 <Input
                   id="name"
                   name="name"
@@ -68,7 +70,7 @@ export function AddExercise(props: Props) {
               </Label>
 
               <Label htmlFor="description">
-                {t(translations.exerciseDescription)}
+                <p>{t(translations.exerciseDescription)}</p>
 
                 <Input
                   id="description"
@@ -82,16 +84,16 @@ export function AddExercise(props: Props) {
               </Label>
 
               <Label htmlFor="type">
-                {t(translations.exerciseType)}
-                <Input
+                <p>{t(translations.exerciseType)}</p>
+                <Select
                   id="type"
                   name="type"
-                  placeholder="STRENGTH"
                   onChange={handleChange}
                   onBlur={handleBlur}
                   value={values.type}
-                  type="text"
-                />
+                >
+                  {typeOptions}
+                </Select>
               </Label>
 
               <Button type="submit">Submit</Button>
@@ -104,6 +106,8 @@ export function AddExercise(props: Props) {
 }
 
 const Div = styled.div`
+  border-radius: 20px;
+  padding: 10px 15px;
   background: var(--aux-100);
 `;
 
@@ -123,26 +127,71 @@ export const Form = styled.form`
 `;
 
 export const Input = styled.input`
-  width: 300px;
-  height: 35px;
-  border: 1px solid #ccc;
-  background-color: #fff;
+  background: var(--light-100-25);
+  width: 285px;
+  height: 26px;
+  border-radius: 10px;
+  border-style: none;
+  text-align: left;
+  padding: 14px 24px;
+  color: var(--dark-300);
+  font-size: 16px;
+  ::placeholder {
+    color: var(--main-200);
+    size: 15px;
+  }
+  :focus {
+    background: var(--main-200-50);
+    outline: none;
+  }
+`;
+
+export const Select = styled.select`
+  background: var(--light-100-25);
+  width: 285px;
+  height: 26px;
+  border-radius: 10px;
+  border-style: none;
+  text-align: left;
+  color: var(--dark-300);
+  font-size: 16px;
+  padding-left: 24px;
+  :focus {
+    outline: none;
+  }
 `;
 
 export const Button = styled.button`
-  width: 300px;
-  height: 35px;
-  background-color: #5995ef;
-  color: #fff;
-  border-radius: 3px;
+  margin: 20px 0px;
+  font-weight: 500;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  border-radius: 12px;
+  padding: 10px;
+  border: 2px solid var(--main-200);
+  width: 285px;
+  background: var(--main-200);
+  font-size: 1.2rem;
+  color: var(--light-200);
+  cursor: pointer;
 `;
 
 const Label = styled.label`
+  color: var(--main-200);
   display: flex;
   flex-direction: column;
-  color: #777;
-  font-family: 'Raleway', sans-serif;
-  font-size: 0.8em;
+  text-align: left;
+  font-weight: 500;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  font-size: 1em;
   margin: 0.5em 0;
   position: relative;
+  p {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
+      'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
+      'Helvetica Neue', sans-serif;
+  }
 `;

@@ -17,7 +17,7 @@ export function ExerciseCreator(props: Props) {
     <Div>
       <TopNav
         back={true}
-        title="Exercise Creator"
+        title="Exercises"
         leftButton={null}
         rightButton={<Logout />}
       />
