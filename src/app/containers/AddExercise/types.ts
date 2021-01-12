@@ -7,7 +7,7 @@ export interface AddExerciseState {
 export interface Exercise {
   name: string;
   description: string;
-  type: ExerciseType;
+  type: ExerciseType | '';
 }
 
 export enum ExerciseType {

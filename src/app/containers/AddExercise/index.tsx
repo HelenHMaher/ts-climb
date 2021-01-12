@@ -48,7 +48,7 @@ export function AddExercise(props: Props) {
           initialValues={{
             name: '',
             description: '',
-            type: 0,
+            type: '',
           }}
           onSubmit={(values: Exercise) => {
             dispatch(actions.addExerciseAction(values));
@@ -92,6 +92,7 @@ export function AddExercise(props: Props) {
                   onBlur={handleBlur}
                   value={values.type}
                 >
+                  <option value=""></option>
                   {typeOptions}
                 </Select>
               </Label>
