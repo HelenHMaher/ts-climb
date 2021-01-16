@@ -63,6 +63,7 @@ require('./passportConfig')(passport);
 
 app.use('/authenticate', auth);
 app.use('/api/exercises', exercisesApi);
+app.use('/heatbeat', (req, res) => res.send('<3'));
 
 // TODO: this is for production, not required for development
 // remove : " "proxy": "http://localhost:3001", " to package.json
