@@ -12,11 +12,10 @@ export function* handleError(error: { response: { data: { msg: string } } }) {
 }
 
 export function* loginBackendCall(action: PayloadAction<User>) {
-  const serverURL = process.env.REACT_APP_SERVER;
   try {
     const params = {
       method: 'POST',
-      url: `${serverURL}/authenticate/login`,
+      url: `/authenticate/login`,
       withCredentials: true,
       data: action.payload,
     };

@@ -5,6 +5,9 @@ const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const express = require('express');
 const path = require('path');
+const auth = require('./routes/authenticate');
+const exercisesApi = require('./routes/exercises');
+
 const dotenv = require('dotenv');
 dotenv.config();
 
@@ -31,7 +34,11 @@ mongoose.connect(
 app.use(express.urlencoded({ extended: false }));
 app.use(
   cors({
-    origin: ['http://localhost:3000', 'https://my-daily-climb.herokuapp.com'],
+    origin: [
+      'http://localhost:3000',
+      'http://localhost:3001',
+      'https://my-daily-climb.herokuapp.com',
+    ],
     credentials: true,
   }),
 );
@@ -54,16 +61,16 @@ require('./passportConfig')(passport);
 //-----------End of Middleware ---------------------------
 //ROUTES
 
+app.use('/authenticate', auth);
+app.use('/api/exercises', exercisesApi);
+
 // TODO: this is for production, not required for development
 // remove : " "proxy": "http://localhost:3001", " to package.json
-// app.use('/', express.static(path.join(__dirname, '../build')));
+app.use('/', express.static(path.join(__dirname, '../build')));
 
-// app.use('/', function (req, res) {
-//   res.sendFile(path.join(__dirname, '../build', 'index.html'));
-// });
-
-app.use('/authenticate', require('./routes/authenticate'));
-app.use('/api/exercises', require('./routes/exercises'));
+app.use('/', function (req, res) {
+  res.sendFile(path.join(__dirname, '../build', 'index.html'));
+});
 
 //--------------End of Routes --------------------------
 
