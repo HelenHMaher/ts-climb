@@ -70,7 +70,7 @@ app.get('/heartbeat', (req, res) => res.send('<3'));
 // TODO: this is for production, not required for development
 // remove : " "proxy": "http://localhost:3001", " to package.json
 
-app.get('/', function (req, res) {
+app.get('/my-daily-climb/', function (req, res) {
   res.sendFile(path.join(__dirname, '../build', 'index.html'));
 });
 

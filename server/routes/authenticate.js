@@ -10,7 +10,7 @@ const ensureAuthenticated = require('../ensureAuthenticated');
 //POST "/authenticate/login"
 //{"username":"Admin", "password":"password"}
 
-router.post('/login', (req, res, next) => {
+router.post('/login', (req, res) => {
   passport.authenticate('local', (err, user) => {
     if (err) throw err;
     if (!user)
@@ -29,7 +29,7 @@ router.post('/login', (req, res, next) => {
         });
       });
     }
-  })(req, res, next);
+  })(req, res);
 });
 
 router.post('/register', (req, res) => {
