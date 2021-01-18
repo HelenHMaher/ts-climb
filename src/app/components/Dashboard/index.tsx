@@ -20,22 +20,20 @@ export function Dashboard(props: Props) {
     <Div>
       <NavBar />
       <Switch>
-        <Route path="/dashboard/profile">
+        <Route exact path="/dashboard/profile">
           <Profile />
         </Route>
-        <Route path="/dashboard/exerciseCreator">
+        <Route exact path="/dashboard/exerciseCreator">
           <ExerciseCreator />
         </Route>
-        <Route>
-          <TopNav
-            back={true}
-            title="My Daily Climb"
-            leftButton={null}
-            rightButton={<Logout />}
-          />
-          <NotFoundPage />
-        </Route>
       </Switch>
+      <TopNav
+        back={true}
+        title="My Daily Climb"
+        leftButton={null}
+        rightButton={<Logout />}
+      />
+      <NotFoundPage />
     </Div>
   );
 }

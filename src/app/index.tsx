@@ -34,7 +34,7 @@ export function App() {
         <Route exact path="/register">
           <Register />
         </Route>
-        <Route>
+        <Route path="/">
           <ConstructionNotice />
           <Login />
         </Route>
