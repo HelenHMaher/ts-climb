@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Helmet } from 'react-helmet-async';
-import { Switch, Route, BrowserRouter } from 'react-router-dom';
+import { Switch, Route, BrowserRouter as Router } from 'react-router-dom';
 
 import { GlobalStyle } from 'styles/global-styles';
 
@@ -15,7 +15,7 @@ import { Register } from './containers/Register';
 export function App() {
   const { i18n } = useTranslation();
   return (
-    <BrowserRouter>
+    <Router>
       <Helmet
         titleTemplate="%s - My Daily Climb"
         defaultTitle="My Daily Climb"
@@ -26,6 +26,7 @@ export function App() {
           content="a web app for rock climbers to track their daily workout"
         />
       </Helmet>
+
       <Switch>
         <PrivateRoute path="/dashboard">
           <Dashboard />
@@ -39,7 +40,8 @@ export function App() {
           <Login />
         </Route>
       </Switch>
+
       <GlobalStyle />
-    </BrowserRouter>
+    </Router>
   );
 }

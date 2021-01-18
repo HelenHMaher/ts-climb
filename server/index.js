@@ -61,7 +61,7 @@ require('./passportConfig')(passport);
 //-----------End of Middleware ---------------------------
 //ROUTES
 
-app.use('/', express.static(path.join(__dirname, '../build')));
+app.use('/my-daily-climb/', express.static(path.join(__dirname, '../build')));
 
 app.use('/authenticate', auth);
 app.use('/api/exercises', exercisesApi);

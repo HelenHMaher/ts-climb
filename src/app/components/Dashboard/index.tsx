@@ -4,8 +4,7 @@
  *
  */
 import * as React from 'react';
-import styled from 'styled-components/macro';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, BrowserRouter as Router } from 'react-router-dom';
 import { NavBar } from '../NavBar';
 import { TopNav } from '../TopNav';
 import { ExerciseCreator } from '../ExerciseCreator';
@@ -17,25 +16,21 @@ interface Props {}
 
 export function Dashboard(props: Props) {
   return (
-    <Div>
+    <Router>
       <NavBar />
       <Switch>
-        <Route exact path="/dashboard/profile">
-          <Profile />
-        </Route>
-        <Route exact path="/dashboard/exerciseCreator">
-          <ExerciseCreator />
+        <Route path="/dashboard/profile" component={Profile} />
+        <Route path="/dashboard/exerciseCreator" component={ExerciseCreator} />
+        <Route path="/dashboard">
+          <TopNav
+            back={true}
+            title="My Daily Climb"
+            leftButton={null}
+            rightButton={<Logout />}
+          />
+          <NotFoundPage />
         </Route>
       </Switch>
-      <TopNav
-        back={true}
-        title="My Daily Climb"
-        leftButton={null}
-        rightButton={<Logout />}
-      />
-      <NotFoundPage />
-    </Div>
+    </Router>
   );
 }
-
-const Div = styled.div``;
