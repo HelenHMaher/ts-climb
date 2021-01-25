@@ -28,9 +28,9 @@ export function App() {
       </Helmet>
 
       <Switch>
-        <Route path="/dashboard">
+        <PrivateRoute path="/dashboard">
           <Dashboard />
-        </Route>
+        </PrivateRoute>
 
         <Route exact path="/register">
           <Register />

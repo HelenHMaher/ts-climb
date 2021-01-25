@@ -61,18 +61,18 @@ require('./passportConfig')(passport);
 //-----------End of Middleware ---------------------------
 //ROUTES
 
-app.use('/my-daily-climb/', express.static(path.join(__dirname, '../build')));
-
-app.use('/authenticate', auth);
-app.use('/api/exercises', exercisesApi);
-app.get('/heartbeat', (req, res) => res.send('<3'));
-
 // TODO: this is for production, not required for development
 // remove : " "proxy": "http://localhost:3001", " to package.json
 
 app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname, '../build', 'index.html'));
 });
+
+app.use('/', express.static(path.join(__dirname, '../build')));
+
+app.use('/authenticate', auth);
+app.use('/api/exercises', exercisesApi);
+app.get('/heartbeat', (req, res) => res.send('<3'));
 
 //--------------End of Routes --------------------------
 
