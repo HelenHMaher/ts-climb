@@ -4,6 +4,8 @@ import { actions } from './slice';
 import { User } from './types';
 import axios from 'axios';
 
+const serverURL = process.env.REACT_APP_SERVER;
+
 export const axiosCall = (params: any) => axios({ ...params });
 
 export function* handleError(error: { response: { data: { msg: string } } }) {
@@ -15,7 +17,7 @@ export function* loginBackendCall(action: PayloadAction<User>) {
   try {
     const params = {
       method: 'POST',
-      url: `/authenticate/login`,
+      url: `${serverURL}/authenticate/login`,
       withCredentials: true,
       data: action.payload,
     };
