@@ -4,6 +4,8 @@ import { actions } from './slice';
 import { Exercise } from './types';
 import axios from 'axios';
 
+const serverURL = process.env.REACT_APP_SERVER;
+
 export const axiosCall = (params: any) => axios({ ...params });
 
 export function* handleError(error: { response: { data: { msg: string } } }) {
@@ -15,7 +17,7 @@ export function* addExerciseBackendCall(action: PayloadAction<Exercise>) {
   try {
     const params = {
       method: 'POST',
-      url: `/api/exercises/newExercise`,
+      url: `${serverURL}/api/exercises/newExercise`,
       withCredentials: true,
       data: action.payload,
     };

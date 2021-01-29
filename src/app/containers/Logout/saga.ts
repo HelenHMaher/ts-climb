@@ -2,6 +2,8 @@ import { call, put, takeLatest } from 'redux-saga/effects';
 import { actions } from './slice';
 import axios from 'axios';
 
+const serverURL = process.env.REACT_APP_SERVER;
+
 export const axiosCall = (params: any) => axios({ ...params });
 
 export function* handleError(error: any) {
@@ -13,7 +15,7 @@ export function* logoutBackendCall() {
   try {
     const params = {
       method: 'GET',
-      url: `/authenticate/logout`,
+      url: `${serverURL}/authenticate/logout`,
       withCredentials: true,
     };
     const response = yield call(axiosCall, params);

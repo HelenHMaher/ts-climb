@@ -3,6 +3,8 @@ import { put, takeLatest, call } from 'redux-saga/effects';
 import { actions } from './slice';
 import axios from 'axios';
 
+const serverURL = process.env.REACT_APP_SERVER;
+
 export const axiosCall = (params: any) => axios({ ...params });
 
 export function* handleError(error: { response: { data: { msg: string } } }) {
@@ -12,7 +14,7 @@ export function* handleError(error: { response: { data: { msg: string } } }) {
 
 export function* fetchExercises() {
   const params = {
-    url: `/api/exercises/allExercises`,
+    url: `${serverURL}/api/exercises/allExercises`,
     method: 'GET',
     withCredentials: true,
   };
