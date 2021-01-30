@@ -19,6 +19,9 @@ export function* loginBackendCall(action: PayloadAction<User>) {
       method: 'POST',
       url: `${serverURL}/authenticate/login`,
       data: action.payload,
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+      },
     };
     const response = yield call(axiosCall, params);
     yield put(actions.loginSuccessAction(response.data));
