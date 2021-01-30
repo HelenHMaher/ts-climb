@@ -16,6 +16,7 @@ const logoutSlice = createSlice({
     logoutAction(state) {
       localStorage.removeItem('isAuthenticated');
       localStorage.removeItem('x-auth-token');
+      window.location.reload();
     },
     // logoutFailureAction(state, action: PayloadAction<string>) {
     //   state.errorMessage = `logout failure: ${action.payload}`;
