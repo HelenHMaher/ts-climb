@@ -15,6 +15,7 @@ const profileSlice = createSlice({
     someAction(state, action: PayloadAction<any>) {},
     profileAction(state) {},
     profileSuccessAction(state, action: PayloadAction<CurrentUser>) {
+      console.log(action.payload);
       state.errorMessage = null;
       state.user = action.payload;
     },

@@ -15,14 +15,14 @@ export function* profileBackendCall() {
   try {
     const params = {
       method: 'GET',
-      url: `${serverURL}/authenticate/user`,
+      url: `${serverURL}/api/profiles/user`,
       headers: { 'x-auth-token': localStorage.getItem('x-auth-token') },
     };
     const response = yield call(axiosCall, params);
     yield put(
       actions.profileSuccessAction({
-        username: response.data.username,
-        email: response.data.email,
+        username: response.data.profile.username,
+        email: response.data.profile.email,
       }),
     );
   } catch (error) {
