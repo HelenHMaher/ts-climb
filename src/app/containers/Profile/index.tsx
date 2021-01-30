@@ -41,6 +41,7 @@ export function Profile(props: Props) {
         <ErrorMessage>{errorMessage}</ErrorMessage>
         <div>Username: {user.username}</div>
         <div>Email: {user.email}</div>
+        <div>Edit</div>
       </Div>
     </>
   );
