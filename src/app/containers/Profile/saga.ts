@@ -16,7 +16,7 @@ export function* profileBackendCall() {
     const params = {
       method: 'GET',
       url: `${serverURL}/authenticate/user`,
-      withCredentials: true,
+      headers: { 'x-auth-token': localStorage.getItem('x-auth-token') },
     };
     const response = yield call(axiosCall, params);
     yield put(

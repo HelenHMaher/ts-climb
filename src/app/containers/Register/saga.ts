@@ -18,7 +18,7 @@ export function* registerBackendCall(action: PayloadAction<NewUser>) {
     const params = {
       method: 'POST',
       url: `${serverURL}/authenticate/register`,
-      withCredentials: true,
+      headers: { 'x-auth-token': localStorage.getItem('x-auth-token') },
       data: action.payload,
     };
     const response = yield call(axiosCall, params);

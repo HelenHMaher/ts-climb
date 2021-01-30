@@ -18,11 +18,10 @@ export function* loginBackendCall(action: PayloadAction<User>) {
     const params = {
       method: 'POST',
       url: `${serverURL}/authenticate/login`,
-      withCredentials: true,
       data: action.payload,
     };
     const response = yield call(axiosCall, params);
-    yield put(actions.loginSuccessAction(JSON.stringify(response.data.msg)));
+    yield put(actions.loginSuccessAction(response.data));
   } catch (error) {
     yield call(handleError, error);
   }

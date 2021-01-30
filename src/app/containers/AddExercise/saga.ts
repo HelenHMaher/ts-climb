@@ -18,7 +18,7 @@ export function* addExerciseBackendCall(action: PayloadAction<Exercise>) {
     const params = {
       method: 'POST',
       url: `${serverURL}/api/exercises/newExercise`,
-      withCredentials: true,
+      headers: { 'x-auth-token': localStorage.getItem('x-auth-token') },
       data: action.payload,
     };
     const response = yield call(axiosCall, params);

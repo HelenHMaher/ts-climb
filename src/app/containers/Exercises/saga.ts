@@ -16,7 +16,7 @@ export function* fetchExercises() {
   const params = {
     url: `${serverURL}/api/exercises/allExercises`,
     method: 'GET',
-    withCredentials: true,
+    headers: { 'x-auth-token': localStorage.getItem('x-auth-token') },
   };
 
   try {

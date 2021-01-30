@@ -1,6 +1,6 @@
 import { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from 'utils/@reduxjs/toolkit';
-import { ContainerState, User } from './types';
+import { ContainerState, User, LoginSuccess } from './types';
 
 // The initial state of the Login container
 export const initialState: ContainerState = {
@@ -25,12 +25,13 @@ const loginSlice = createSlice({
       state.errorMessage = `login failure: ${action.payload}`;
       state.successMessage = null;
     },
-    loginSuccessAction(state, action: PayloadAction<string>) {
+    loginSuccessAction(state, action: PayloadAction<LoginSuccess>) {
       state.errorMessage = null;
-      state.successMessage = `login success: ${action.payload}`;
+      state.successMessage = `login success: ${action.payload.msg}`;
       state.userInfo.username = '';
       state.userInfo.password = '';
       localStorage.setItem('isAuthenticated', 'true');
+      localStorage.setItem('x-auth-token', action.payload.token);
     },
   },
 });

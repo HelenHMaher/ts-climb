@@ -13,18 +13,21 @@ const logoutSlice = createSlice({
   initialState,
   reducers: {
     someAction(state, action: PayloadAction<any>) {},
-    logoutAction(state) {},
-    logoutFailureAction(state, action: PayloadAction<string>) {
-      state.errorMessage = `logout failure: ${action.payload}`;
-      state.successMessage = null;
-    },
-    logoutSuccessAction(state, action: PayloadAction<string>) {
-      state.successMessage = `logout success: ${action.payload}`;
+    logoutAction(state) {
       localStorage.removeItem('isAuthenticated');
-      state.errorMessage = null;
-      //TODO:
-      //need to reset Redux store on logout
+      localStorage.removeItem('x-auth-token');
     },
+    // logoutFailureAction(state, action: PayloadAction<string>) {
+    //   state.errorMessage = `logout failure: ${action.payload}`;
+    //   state.successMessage = null;
+    // },
+    // logoutSuccessAction(state, action: PayloadAction<string>) {
+    //   state.successMessage = `logout success: ${action.payload}`;
+    //   localStorage.removeItem('isAuthenticated');
+    //   state.errorMessage = null;
+    //   //TODO:
+    //   //need to reset Redux store on logout
+    // },
   },
 });
 

@@ -10,4 +10,9 @@ export interface User {
   password: string;
 }
 
+export interface LoginSuccess {
+  token: string;
+  msg: string;
+}
+
 export type ContainerState = LoginState;
