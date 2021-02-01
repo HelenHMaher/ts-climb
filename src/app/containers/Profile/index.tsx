@@ -6,9 +6,11 @@
 
 import * as React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import styled from 'styled-components/macro';
 import { TopNav } from '../../components/TopNav';
 import { Logout } from '../Logout';
+import { Button } from '../../components/Button';
 
 import { useInjectReducer, useInjectSaga } from 'utils/redux-injectors';
 import { reducer, sliceKey, actions } from './slice';
@@ -22,6 +24,7 @@ export function Profile(props: Props) {
   useInjectSaga({ key: sliceKey, saga: profileSaga });
 
   const dispatch = useDispatch();
+  const history = useHistory();
   const user = useSelector(selectCurrentUser);
   const errorMessage = useSelector(selectErrorMessage);
 
@@ -38,9 +41,17 @@ export function Profile(props: Props) {
           leftButton={null}
           rightButton={<Logout />}
         />
-        <ErrorMessage>{errorMessage}</ErrorMessage>
-        <div>Username: {user.username}</div>
-        <div>Email: {user.email}</div>
+        <Info>
+          <ErrorMessage>{errorMessage}</ErrorMessage>
+          <div>Username: {user.username}</div>
+          <div>Email: {user.email}</div>
+        </Info>
+        <Button
+          buttonStyle="solid"
+          buttonSize="large"
+          title="Workout History"
+          clickHandler={() => history.push('/dashboard/workoutHistory')}
+        />
       </Div>
     </>
   );
@@ -57,4 +68,8 @@ const Div = styled.div`
 
 const ErrorMessage = styled.div`
   color: var(--aux-200);
+`;
+
+const Info = styled.div`
+  margin: 20px;
 `;

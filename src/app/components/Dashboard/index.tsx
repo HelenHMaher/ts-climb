@@ -11,6 +11,7 @@ import { ExerciseCreator } from '../ExerciseCreator';
 import { NotFoundPage } from '../NotFoundPage/Loadable';
 import { Profile } from '../../containers/Profile';
 import { Logout } from '../../containers/Logout';
+import { WorkoutHistory } from '../../containers/WorkoutHistory';
 
 interface Props {}
 
@@ -20,6 +21,7 @@ export function Dashboard(props: Props) {
       <NavBar />
       <Switch>
         <Route path="/dashboard/profile" component={Profile} />
+        <Route path="/dashboard/workoutHistory" component={WorkoutHistory} />
         <Route path="/dashboard/exerciseCreator" component={ExerciseCreator} />
         <Route path="/dashboard">
           <TopNav
