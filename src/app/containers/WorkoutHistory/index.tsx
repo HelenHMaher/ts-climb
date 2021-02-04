@@ -14,7 +14,7 @@ import { useInjectReducer, useInjectSaga } from 'utils/redux-injectors';
 import { reducer, sliceKey } from './slice';
 import { selectWorkoutHistory } from './selectors';
 import { workoutHistorySaga } from './saga';
-
+import { Exercise } from '../AddExercise/types';
 interface Props {}
 
 export function WorkoutHistory(props: Props) {
@@ -27,14 +27,29 @@ export function WorkoutHistory(props: Props) {
   const dispatch = useDispatch();
 
   const workout = [
-    { date: '1.23.2021', title: 'run' },
-    { date: '1.25.2021', title: 'calesthetics' },
+    { date: '1.23.2021', title: 'run', exercises: [], notes: '' },
+    {
+      date: '1.25.2021',
+      title: 'calesthetics',
+      exercises: [
+        {
+          name: 'push-up',
+          description: 'push up from the floor',
+          type: 0,
+        },
+      ],
+      notes: '',
+    },
   ];
+
+  const exerciseItems = (x: Array<Exercise>) =>
+    x.map(exercise => <li>{exercise.name}</li>);
 
   const workoutEntries = workout.map(x => (
     <div>
       <div>Date: {x.date}</div>
       <div>Title: {x.title}</div>
+      <ul>{exerciseItems(x.exercises)}</ul>
     </div>
   ));
 
