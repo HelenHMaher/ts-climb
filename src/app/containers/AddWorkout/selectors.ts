@@ -9,3 +9,13 @@ export const selectAddWorkout = createSelector(
   [selectDomain],
   addWorkoutState => addWorkoutState,
 );
+
+export const selectErrorMessage = createSelector(
+  [selectDomain],
+  substate => substate.errorMessage,
+);
+
+export const selectSuccessMessage = createSelector(
+  [selectDomain],
+  substate => substate.successMessage,
+);

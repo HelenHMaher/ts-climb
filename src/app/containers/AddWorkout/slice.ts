@@ -1,20 +1,26 @@
 import { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from 'utils/@reduxjs/toolkit';
-import { ContainerState } from './types';
+import { ContainerState, Workout } from './types';
 
 // The initial state of the AddWorkout container
-export const initialState: ContainerState = {};
+export const initialState: ContainerState = {
+  errorMessage: null,
+  successMessage: null,
+};
 
 const addWorkoutSlice = createSlice({
   name: 'addWorkout',
   initialState,
   reducers: {
     someAction(state, action: PayloadAction<any>) {},
+    addWorkoutAction(state, action: PayloadAction<Workout>) {},
+    addWorkoutFailureAction(state, action: PayloadAction<string>) {
+      state.errorMessage = `Exercise error: ${action.payload}`;
+    },
+    addExerciseSuccessAction(state, action: PayloadAction<string>) {
+      state.successMessage = `Exercise success: ${action.payload}`;
+    },
   },
 });
 
-export const {
-  actions: addWorkoutActions,
-  reducer,
-  name: sliceKey,
-} = addWorkoutSlice;
+export const { actions, reducer, name: sliceKey } = addWorkoutSlice;

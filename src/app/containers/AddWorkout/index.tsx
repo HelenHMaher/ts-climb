@@ -57,7 +57,7 @@ export function AddWorkout(props: Props) {
                   name="date"
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  value={values.date}
+                  // value={values.date}
                   type="date"
                 />
               </Label>
