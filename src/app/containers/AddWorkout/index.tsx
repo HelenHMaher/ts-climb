@@ -25,12 +25,20 @@ export function AddWorkout(props: Props) {
   const successMessage = useSelector(selectSuccessMessage);
   const dispatch = useDispatch();
 
-  const exerciseOptions = [
+  const dummyData = [
     { name: 'push-up', description: 'push up from the ground', type: 1 },
     { name: 'sit-up', description: 'sit up from the ground', type: 1 },
     { name: 'pull-up', description: 'pull up to the bar', type: 1 },
     { name: 'squat', description: 'squat down to the ground', type: 1 },
   ];
+
+  const exerciseOptions = dummyData.map(x => {
+    return (
+      <option key={x.name} value={x.name}>
+        {x.name}
+      </option>
+    );
+  });
 
   return (
     <>
@@ -39,7 +47,7 @@ export function AddWorkout(props: Props) {
         <SuccessMessage>{successMessage}</SuccessMessage>
         <Formik
           initialValues={{
-            date: null,
+            date: '',
             name: '',
             exercises: [],
             notes: '',
@@ -57,7 +65,7 @@ export function AddWorkout(props: Props) {
                   name="date"
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  // value={values.date}
+                  value={values.date}
                   type="date"
                 />
               </Label>

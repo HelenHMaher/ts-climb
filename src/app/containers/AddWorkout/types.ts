@@ -10,7 +10,7 @@ export interface Workout {
   name: string;
   exercises: Array<Exercise>;
   notes: string;
-  date: Date | null;
+  date: string;
 }
 
 export type ContainerState = AddWorkoutState;

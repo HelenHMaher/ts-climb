@@ -8,7 +8,8 @@ import { Switch, Route, BrowserRouter as Router } from 'react-router-dom';
 import { NavBar } from '../NavBar';
 import { TopNav } from '../TopNav';
 import { ExerciseCreator } from '../ExerciseCreator';
-import { NotFoundPage } from '../NotFoundPage/Loadable';
+import { AddWorkout } from '../../containers/AddWorkout';
+// import { NotFoundPage } from '../NotFoundPage/Loadable';
 import { Profile } from '../../containers/Profile';
 import { Logout } from '../../containers/Logout';
 import { WorkoutHistory } from '../../containers/WorkoutHistory';
@@ -30,7 +31,7 @@ export function Dashboard(props: Props) {
             leftButton={null}
             rightButton={<Logout />}
           />
-          <NotFoundPage />
+          <AddWorkout />
         </Route>
       </Switch>
     </Router>
