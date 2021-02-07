@@ -7,6 +7,7 @@ import { RegisterState } from 'app/containers/Register/types';
 import { LogoutState } from 'app/containers/Logout/types';
 import { ProfileState } from 'app/containers/Profile/types';
 import { WorkoutHistoryState } from 'app/containers/WorkoutHistory/types';
+import { AddWorkoutState } from 'app/containers/AddWorkout/types';
 // [IMPORT NEW CONTAINERSTATE ABOVE] < Needed for generating containers seamlessly
 
 /* 
@@ -23,5 +24,6 @@ export interface RootState {
   logout?: LogoutState;
   profile?: ProfileState;
   workoutHistory?: WorkoutHistoryState;
+  addWorkout?: AddWorkoutState;
   // [INSERT NEW REDUCER KEY ABOVE] < Needed for generating containers seamlessly
 }

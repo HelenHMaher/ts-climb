@@ -27,10 +27,10 @@ export function WorkoutHistory(props: Props) {
   const dispatch = useDispatch();
 
   const workout = [
-    { date: '1.23.2021', title: 'run', exercises: [], notes: '' },
+    { date: '1.23.2021', name: 'run', exercises: [], notes: '' },
     {
       date: '1.25.2021',
-      title: 'calesthetics',
+      name: 'calesthetics',
       exercises: [
         {
           name: 'push-up',
@@ -48,7 +48,7 @@ export function WorkoutHistory(props: Props) {
   const workoutEntries = workout.map(x => (
     <div>
       <div>Date: {x.date}</div>
-      <div>Title: {x.title}</div>
+      <div>Name: {x.name}</div>
       <ul>{exerciseItems(x.exercises)}</ul>
     </div>
   ));
