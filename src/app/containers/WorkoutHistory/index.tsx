@@ -43,14 +43,19 @@ export function WorkoutHistory(props: Props) {
   ];
 
   const exerciseItems = (x: Array<Exercise>) =>
-    x.map(exercise => <li>{exercise.name}</li>);
+    x.length < 1 ? (
+      <div>none</div>
+    ) : (
+      x.map(exercise => <li>{exercise.name}</li>)
+    );
 
   const workoutEntries = workout.map(x => (
-    <div>
+    <WorkoutEntries>
       <div>Date: {x.date}</div>
       <div>Name: {x.name}</div>
-      <ul>{exerciseItems(x.exercises)}</ul>
-    </div>
+      <div>Exercises:</div>
+      <ol>{exerciseItems(x.exercises)}</ol>
+    </WorkoutEntries>
   ));
 
   return (
@@ -72,6 +77,18 @@ const Div = styled.div`
   width: 100vw;
   height: 90vh;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+`;
+
+const WorkoutEntries = styled.div`
+  width: 250px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  border: 1px solid var(--light-500);
+  border-radius: 5px;
+  margin: 5px;
+  padding: 5px;
 `;
