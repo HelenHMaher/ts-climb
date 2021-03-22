@@ -5,7 +5,17 @@ import { initialState } from './slice';
 
 const selectDomain = (state: RootState) => state.editExercise || initialState;
 
-export const selectEditExercise = createSelector(
+export const selectEditDisplay = createSelector(
   [selectDomain],
-  editExerciseState => editExerciseState,
+  substate => substate.editDisplay,
+);
+
+export const selectErrorMessage = createSelector(
+  [selectDomain],
+  substate => substate.errorMessage,
+);
+
+export const selectSuccessMessage = createSelector(
+  [selectDomain],
+  substate => substate.successMessage,
 );

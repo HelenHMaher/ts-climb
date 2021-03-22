@@ -21,7 +21,7 @@ const exercisesSlice = createSlice({
     fetchExercisesFailure(state, action: PayloadAction<string>) {
       console.log(action.payload);
     },
-    editExerciseAction(state, action: PayloadAction<Exercise>) {
+    editExerciseAction(state, action: PayloadAction<Exercise | null>) {
       state.editExercise = action.payload;
     },
   },

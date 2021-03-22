@@ -12,6 +12,7 @@ import styled from 'styled-components/macro';
 import { EditExercise } from '../EditExercise';
 import { useInjectReducer, useInjectSaga } from 'utils/redux-injectors';
 import { reducer, sliceKey, actions } from './slice';
+import { actions as editExerciseActions } from '../EditExercise/slice';
 import { selectExercises } from './selectors';
 import { exercisesWatcher } from './saga';
 import { translations } from 'locales/translations';
@@ -29,6 +30,7 @@ export function Exercises(props: Props) {
 
   const clickEdit = (exercise: Exercise): void => {
     dispatch(actions.editExerciseAction(exercise));
+    dispatch(editExerciseActions.editDisplayAction('true'));
   };
 
   useEffect(() => {
