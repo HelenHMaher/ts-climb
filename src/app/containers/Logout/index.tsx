@@ -10,7 +10,7 @@ import styled from 'styled-components/macro';
 
 import { useInjectReducer, useInjectSaga } from 'utils/redux-injectors';
 import { reducer, sliceKey, actions } from './slice';
-import { selectErrorMessage, selectSuccessMessage } from './selectors';
+import { selectErrorMessage } from './selectors';
 import { logoutSaga } from './saga';
 
 interface Props {}
@@ -21,17 +21,11 @@ export function Logout(props: Props) {
 
   const dispatch = useDispatch();
   const errorMessage = useSelector(selectErrorMessage);
-  const successMessage = useSelector(selectSuccessMessage);
 
   const clickHandler = () => {
     dispatch(actions.logoutAction());
+    window.location.reload();
   };
-
-  React.useEffect(() => {
-    if (!localStorage.getItem('isAuthenticated')) {
-      window.location.reload();
-    }
-  }, [successMessage]);
 
   return (
     <>

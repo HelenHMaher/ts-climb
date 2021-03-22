@@ -7,7 +7,7 @@
 import * as React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components/macro';
-import { Formik } from 'formik';
+import { Formik, Field } from 'formik';
 
 import { useInjectReducer, useInjectSaga } from 'utils/redux-injectors';
 import { reducer, sliceKey, actions } from './slice';
@@ -20,6 +20,8 @@ interface Props {}
 export function AddWorkout(props: Props) {
   useInjectReducer({ key: sliceKey, reducer: reducer });
   useInjectSaga({ key: sliceKey, saga: addWorkoutSaga });
+
+  const [editDate, setEditDate] = React.useState(false);
 
   const errorMessage = useSelector(selectErrorMessage);
   const successMessage = useSelector(selectSuccessMessage);
@@ -34,9 +36,15 @@ export function AddWorkout(props: Props) {
 
   const exerciseOptions = dummyData.map(x => {
     return (
-      <option key={x.name} value={x.name}>
+      <ExerciseFieldLabel key={x.name}>
+        <Field
+          className="exerciseField"
+          type="checkbox"
+          name="exercises"
+          value={x.name}
+        />
         {x.name}
-      </option>
+      </ExerciseFieldLabel>
     );
   });
 
@@ -47,35 +55,24 @@ export function AddWorkout(props: Props) {
         <SuccessMessage>{successMessage}</SuccessMessage>
         <Formik
           initialValues={{
-            date: '',
             name: '',
+            date: new Date().toISOString().substring(0, 10),
             exercises: [],
             notes: '',
           }}
           onSubmit={(values: Workout) => {
+            alert(JSON.stringify(values, null, 2));
             dispatch(actions.addWorkoutAction(values));
           }}
         >
           {({ values, handleChange, handleBlur, handleSubmit }) => (
             <Form onSubmit={handleSubmit}>
-              <Label htmlFor="date">
-                <p>New Workout</p>
-                <Input
-                  id="date"
-                  name="date"
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  value={values.date}
-                  type="date"
-                />
-              </Label>
-
               <Label htmlFor="name">
-                <p>Workout Name</p>
+                <p>New Workout</p>
                 <Input
                   id="name"
                   name="name"
-                  placeholder="push-up"
+                  placeholder="Workout Name"
                   onChange={handleChange}
                   onBlur={handleBlur}
                   value={values.name}
@@ -83,31 +80,42 @@ export function AddWorkout(props: Props) {
                 />
               </Label>
 
-              <Label htmlFor="exercises">
-                <p>Exercises</p>
-                <Select
-                  id="exercises"
-                  name="exercises"
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  value={values.exercises}
-                >
-                  <option value=""></option>
-                  {exerciseOptions}
-                </Select>
+              <Label htmlFor="date">
+                <DateLabel>
+                  <p>Date</p>
+                  <EditDate onClick={() => setEditDate(!editDate)}>
+                    {editDate ? 'Save' : 'Edit'}
+                  </EditDate>
+                </DateLabel>
+                {editDate ? (
+                  <Input
+                    id="date"
+                    name="date"
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    value={values.date}
+                    type="date"
+                  />
+                ) : (
+                  <DateValue>{values.date}</DateValue>
+                )}
               </Label>
+
+              <ExercisesLabel id="exercise-group">Exercises</ExercisesLabel>
+              <ExercisesGroup role="group" aria-labelledby="exercise-group">
+                {exerciseOptions}
+              </ExercisesGroup>
 
               <Label htmlFor="description">
                 <p>Workout Notes</p>
 
-                <Input
+                <Textarea
                   id="notes"
                   name="notes"
-                  placeholder="push up from floor"
+                  placeholder="notes..."
                   onChange={handleChange}
                   onBlur={handleBlur}
                   value={values.notes}
-                  type="text"
                 />
               </Label>
 
@@ -161,21 +169,6 @@ export const Input = styled.input`
   }
 `;
 
-export const Select = styled.select`
-  background: var(--light-100-25);
-  width: 285px;
-  height: 26px;
-  border-radius: 10px;
-  border-style: none;
-  text-align: left;
-  color: var(--dark-300);
-  font-size: 16px;
-  padding-left: 24px;
-  :focus {
-    outline: none;
-  }
-`;
-
 export const Button = styled.button`
   margin: 20px 0px;
   font-weight: 500;
@@ -208,5 +201,85 @@ const Label = styled.label`
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
       'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
       'Helvetica Neue', sans-serif;
+  }
+`;
+
+const Textarea = styled.textarea`
+  background: var(--light-100-25);
+  width: 285px;
+  height: 200px;
+  border-radius: 10px;
+  border-style: none;
+  text-align: left;
+  padding: 14px 24px;
+  color: var(--dark-300);
+  font-size: 16px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  ::placeholder {
+    color: var(--main-200);
+    size: 15px;
+  }
+  :focus {
+    background: var(--main-200-50);
+    outline: none;
+  }
+`;
+const DateLabel = styled.div`
+  width: 285px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+`;
+
+const EditDate = styled.div`
+  background: var(--light-100-25);
+  padding: 0px 15px;
+  border-radius: 10px;
+  border: 1px solid var(--main-200);
+  margin-left: 30px;
+`;
+
+const DateValue = styled.div`
+  background: var(--light-100-25);
+  padding: 0px 15px;
+  border-radius: 10px;
+`;
+
+const ExercisesLabel = styled.div`
+  color: var(--main-200);
+  width: 285px;
+  text-align: left;
+  font-weight: 500;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  font-size: 1em;
+  margin: 0.5em 0;
+  position: relative;
+  p {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
+      'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
+      'Helvetica Neue', sans-serif;
+  }
+`;
+
+const ExercisesGroup = styled.div`
+  display: inline-block;
+  width: 285px;
+  background: var(--light-100-25);
+  border-radius: 10px;
+`;
+
+const ExerciseFieldLabel = styled.label`
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  color: var(--main-200);
+  display: inline-block;
+  padding: 10px;
+  .exerciseField {
+    margin: 5px;
   }
 `;
