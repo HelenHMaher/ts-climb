@@ -26,7 +26,7 @@ describe('<Exercises />', () => {
   });
 
   it('should select exercises (empty array when using intitalState)', () => {
-    const state = { exercises: { exercises: [] } };
+    const state = { exercises: { exercises: [], editExercise: null } };
 
     expect(selectors.selectExercises(state)).toEqual(initialState.exercises);
   });
@@ -37,16 +37,19 @@ describe('<Exercises />', () => {
         name: 'pull-up',
         description: 'You pull yourself up',
         type: 1,
+        workouts: [],
       },
       {
         name: 'push-up',
         description: 'You push yourself up',
         type: 1,
+        workouts: [],
       },
       {
         name: 'sit-up',
         description: 'You sit yourself up',
         type: 1,
+        workouts: [],
       },
     ];
 

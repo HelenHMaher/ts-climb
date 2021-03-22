@@ -25,9 +25,6 @@ export function* fetchExercises() {
     if (response?.data?.exercises) {
       yield put(actions.fetchExercisesSuccess(response.data.exercises));
     }
-    yield call(handleError, {
-      response: { data: { msg: 'no exercises found' } },
-    });
   } catch (error) {
     yield call(handleError, error);
   }

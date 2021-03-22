@@ -4,7 +4,13 @@ import { ContainerState, CurrentUser } from './types';
 
 // The initial state of the Profile container
 export const initialState: ContainerState = {
-  user: { username: null, email: null },
+  user: {
+    username: null,
+    email: null,
+    registeredAt: null,
+    lastLoggedIn: null,
+    _id: null,
+  },
   errorMessage: null,
 };
 

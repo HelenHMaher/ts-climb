@@ -49,6 +49,7 @@ export function AddExercise(props: Props) {
             name: '',
             description: '',
             type: '',
+            workouts: [],
           }}
           onSubmit={(values: Exercise) => {
             dispatch(actions.addExerciseAction(values));

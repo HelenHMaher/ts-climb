@@ -9,3 +9,8 @@ export const selectExercises = createSelector(
   [selectDomain],
   exercisesState => exercisesState.exercises,
 );
+
+export const selectExerciseToEdit = createSelector(
+  [selectDomain],
+  exercisesState => exercisesState.editExercise,
+);

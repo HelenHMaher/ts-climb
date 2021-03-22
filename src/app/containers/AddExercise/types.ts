@@ -8,6 +8,8 @@ export interface Exercise {
   name: string;
   description: string;
   type: ExerciseType | '';
+  workouts: string[];
+  _id?: string;
 }
 
 export enum ExerciseType {
