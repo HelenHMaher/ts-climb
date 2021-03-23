@@ -1,17 +1,12 @@
 import * as React from 'react';
 import { render } from '@testing-library/react';
 
-import { Button } from '..';
+import { ButtonChip } from '..';
 
-describe('<Button  />', () => {
+describe('<ButtonChip  />', () => {
   it('should match snapshot', () => {
     const loadingIndicator = render(
-      <Button
-        buttonSize="medium"
-        buttonStyle="solid"
-        title="title"
-        clickHandler={() => {}}
-      />,
+      <ButtonChip text="" clickHandler={() => {}} />,
     );
     expect(loadingIndicator.container.firstChild).toMatchSnapshot();
   });

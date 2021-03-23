@@ -21,6 +21,7 @@ import { actions as exerciseActions } from '../Exercises/slice';
 import { selectExerciseToEdit } from '../Exercises/selectors';
 import { editExerciseSaga } from './saga';
 import { ExerciseType, Exercise } from '../AddExercise/types';
+import { Button } from '../../components/Button';
 
 interface Props {}
 
@@ -38,14 +39,13 @@ export function EditExercise(props: Props) {
 
   const clickCancel = () => {
     dispatch(exerciseActions.editExerciseAction(null));
-    history.push('/dashboard/exerciseCreator');
+    history.push('/dashboard/exerciseList');
   };
   const clickDelete = () => {
     if (exerciseToEdit) {
       dispatch(actions.deleteExerciseAction(exerciseToEdit));
       dispatch(exerciseActions.editExerciseAction(null));
-      dispatch(exerciseActions.fetchExercisesAction());
-      history.push('/dashboard/exerciseCreator');
+      history.push('/dashboard/exerciseList');
     }
   };
 
@@ -71,15 +71,12 @@ export function EditExercise(props: Props) {
             workouts: exerciseToEdit?.workouts || [],
             _id: exerciseToEdit?._id || '',
           }}
-          onSubmit={async (values: Exercise) => {
+          onSubmit={(values: Exercise) => {
             alert(JSON.stringify(values, null, 2));
-            try {
-              await dispatch(actions.editExerciseAction(values));
-              dispatch(exerciseActions.fetchExercisesAction());
-              history.push('/dashboard/exerciseCreator');
-            } catch {
-              console.log('there was a problem!');
-            }
+            dispatch(actions.editExerciseAction(values));
+            setTimeout(() => {
+              history.push('/dashboard/exerciseList');
+            }, 400);
           }}
         >
           {({ values, handleChange, handleBlur, handleSubmit }) => (
@@ -125,16 +122,24 @@ export function EditExercise(props: Props) {
                 </Select>
               </Label>
 
-              <Button type="submit">Submit</Button>
+              <SubmitButton type="submit">Submit</SubmitButton>
             </Form>
           )}
         </Formik>
-        <Cancel cancel onClick={() => clickCancel()}>
-          Cancel
-        </Cancel>
-        <Cancel cancel={false} onClick={() => clickDelete()}>
-          Delete
-        </Cancel>
+        <Button
+          title="Cancel"
+          clickHandler={() => clickCancel()}
+          buttonSize="medium"
+          buttonStyle="sec_outline"
+        />
+        <DeleteButton>
+          <Button
+            title="Delete"
+            clickHandler={() => clickDelete()}
+            buttonSize="medium"
+            buttonStyle="alert"
+          />
+        </DeleteButton>
       </Div>
     </>
   );
@@ -197,23 +202,25 @@ export const Select = styled.select`
   }
 `;
 
-export const Button = styled.button`
-  margin: 20px 0px;
+export const SubmitButton = styled.button`
+  margin: 10px 0px;
   font-weight: 500;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   border-radius: 12px;
-  padding: 10px;
+  padding: 12px;
   border: 2px solid var(--main-200);
-  width: 285px;
   background: var(--main-200);
   font-size: 1.2rem;
+  width: 100%;
   color: var(--light-200);
   cursor: pointer;
+  transition: transform 0.3s ease;
+  :hover {
+    transform: scale(1.1);
+  }
 `;
-
-const Cancel = styled.button<{ cancel: boolean }>``;
 
 const Label = styled.label`
   color: var(--main-200);
@@ -232,4 +239,8 @@ const Label = styled.label`
       'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
       'Helvetica Neue', sans-serif;
   }
+`;
+
+const DeleteButton = styled.div`
+  margin: 10px 0px;
 `;

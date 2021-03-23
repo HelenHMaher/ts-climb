@@ -18,7 +18,7 @@ export function NavBar(props: Props) {
   const navBarItems = [
     { name: 'Profile', url: '/dashboard/profile' },
     { name: 'Start Workout', url: '/dashboard' },
-    { name: 'Exercise Creator', url: '/dashboard/exerciseCreator' },
+    { name: 'Exercises', url: '/dashboard/exerciseList' },
   ];
 
   return (

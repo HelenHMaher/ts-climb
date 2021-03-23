@@ -9,6 +9,7 @@ import { useTranslation } from 'react-i18next';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components/macro';
 import { Formik } from 'formik';
+import { useHistory } from 'react-router-dom';
 
 import { useInjectReducer, useInjectSaga } from 'utils/redux-injectors';
 import { reducer, sliceKey, actions } from './slice';
@@ -26,6 +27,7 @@ export function AddExercise(props: Props) {
   const errorMessage = useSelector(selectErrorMessage);
   const successMessage = useSelector(selectSuccessMessage);
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const exerciseTypes = [0, 1, 2, 3];
   const typeOptions = exerciseTypes.map(x => {
@@ -52,7 +54,11 @@ export function AddExercise(props: Props) {
             workouts: [],
           }}
           onSubmit={(values: Exercise) => {
+            alert(JSON.stringify(values, null, 2));
             dispatch(actions.addExerciseAction(values));
+            setTimeout(() => {
+              history.push('/dashboard/exerciseList');
+            }, 400);
           }}
         >
           {({ values, handleChange, handleBlur, handleSubmit }) => (

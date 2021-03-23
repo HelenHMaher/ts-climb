@@ -7,8 +7,6 @@ import * as React from 'react';
 import styled from 'styled-components/macro';
 import { TopNav } from '../TopNav';
 import { AddExercise } from '../../containers/AddExercise';
-import { Exercises } from '../../containers/Exercises';
-import { Logout } from '../../containers/Logout';
 
 interface Props {}
 
@@ -17,13 +15,12 @@ export function ExerciseCreator(props: Props) {
     <Div>
       <TopNav
         back={true}
-        title="Exercises"
+        title="Exercise Creator"
         leftButton={null}
-        rightButton={<Logout />}
+        rightButton={null}
       />
       <Content>
         <AddExercise />
-        <Exercises />
       </Content>
     </Div>
   );

@@ -9,9 +9,7 @@ import styled from 'styled-components/macro';
 interface Props {
   buttonSize: string;
   buttonStyle: string;
-  clickHandler:
-    | ((event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void)
-    | undefined;
+  clickHandler: () => void;
   title: string;
 }
 
@@ -20,7 +18,7 @@ export function Button(props: Props) {
     <Div
       btnStyle={props.buttonStyle}
       btnSize={props.buttonSize}
-      onClick={props.clickHandler}
+      onClick={e => props.clickHandler()}
     >
       {props.title}
     </Div>
@@ -45,7 +43,9 @@ const Div = styled.div<{ btnStyle: string; btnSize: string }>`
     props.btnStyle === 'outline'
       ? 'var(--light-200)'
       : props.btnStyle === 'sec_outline'
-      ? 'var(--aux-100)'
+      ? 'var(--main-200)'
+      : props.btnStyle === 'alert'
+      ? 'var(--aux-200)'
       : 'var(--main-200)'};
 
   border: ${props =>
@@ -54,14 +54,16 @@ const Div = styled.div<{ btnStyle: string; btnSize: string }>`
       : props.btnStyle === 'outline'
       ? '2px solid var(--light-200)'
       : props.btnStyle === 'sec_outline'
-      ? '2px solid var(--aux-100)'
+      ? '2px solid var(--main-200)'
+      : props.btnStyle === 'alert'
+      ? '2px dashed var(--aux-200)'
       : 'none'};
   padding: ${props =>
     props.btnSize === 'medium'
-      ? '12px 24px'
+      ? '12px'
       : props.btnSize === 'wide'
       ? '10px'
-      : '16px 32px'};
+      : '16px'};
 
   font-size: ${props => (props.btnSize === 'large' ? '1.5rem' : '1.2rem')};
   width: ${props => (props.btnSize === 'wide' ? '285px' : null)};
