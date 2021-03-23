@@ -22,6 +22,7 @@ import { selectExerciseToEdit } from '../Exercises/selectors';
 import { editExerciseSaga } from './saga';
 import { ExerciseType, Exercise } from '../AddExercise/types';
 import { Button } from '../../components/Button';
+import { Trash } from '../../components/icons/Trash';
 
 interface Props {}
 
@@ -63,6 +64,10 @@ export function EditExercise(props: Props) {
       <Div display={display}>
         <ErrorMessage>{errorMessage}</ErrorMessage>
         <SuccessMessage>{successMessage}</SuccessMessage>
+        <TrashButton onClick={() => clickDelete()}>
+          <Trash size="large" color={null} />
+        </TrashButton>
+
         <Formik
           initialValues={{
             name: exerciseToEdit?.name || '',
@@ -132,14 +137,6 @@ export function EditExercise(props: Props) {
           buttonSize="medium"
           buttonStyle="sec_outline"
         />
-        <DeleteButton>
-          <Button
-            title="Delete"
-            clickHandler={() => clickDelete()}
-            buttonSize="medium"
-            buttonStyle="alert"
-          />
-        </DeleteButton>
       </Div>
     </>
   );
@@ -241,6 +238,13 @@ const Label = styled.label`
   }
 `;
 
-const DeleteButton = styled.div`
-  margin: 10px 0px;
+const TrashButton = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: var(--main-200-50);
+  cursor: pointer;
 `;
