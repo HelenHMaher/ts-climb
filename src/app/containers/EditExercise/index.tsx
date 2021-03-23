@@ -12,11 +12,7 @@ import { useHistory } from 'react-router-dom';
 
 import { useInjectReducer, useInjectSaga } from 'utils/redux-injectors';
 import { reducer, sliceKey, actions } from './slice';
-import {
-  selectErrorMessage,
-  selectSuccessMessage,
-  selectEditDisplay,
-} from './selectors';
+import { selectEditDisplay } from './selectors';
 import { actions as exerciseActions } from '../Exercises/slice';
 import { selectExerciseToEdit } from '../Exercises/selectors';
 import { editExerciseSaga } from './saga';
@@ -33,8 +29,6 @@ export function EditExercise(props: Props) {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const exerciseToEdit = useSelector(selectExerciseToEdit);
   const display = useSelector(selectEditDisplay);
-  const errorMessage = useSelector(selectErrorMessage);
-  const successMessage = useSelector(selectSuccessMessage);
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -46,7 +40,9 @@ export function EditExercise(props: Props) {
     if (exerciseToEdit) {
       dispatch(actions.deleteExerciseAction(exerciseToEdit));
       dispatch(exerciseActions.editExerciseAction(null));
-      history.push('/dashboard/exerciseList');
+      setTimeout(() => {
+        history.push('/dashboard/exerciseList');
+      }, 400);
     }
   };
 
@@ -62,8 +58,6 @@ export function EditExercise(props: Props) {
   return (
     <>
       <Div display={display}>
-        <ErrorMessage>{errorMessage}</ErrorMessage>
-        <SuccessMessage>{successMessage}</SuccessMessage>
         <TrashButton onClick={() => clickDelete()}>
           <Trash size="large" color={null} />
         </TrashButton>
@@ -122,7 +116,6 @@ export function EditExercise(props: Props) {
                   onBlur={handleBlur}
                   value={values.type}
                 >
-                  <option value=""></option>
                   {typeOptions}
                 </Select>
               </Label>
@@ -148,14 +141,6 @@ const Div = styled.div<{ display: string }>`
   padding: 10px 15px;
   background: var(--aux-100);
 `;
-
-const ErrorMessage = styled.div`
-  background: var(--aux-200);
-  color: var(--light-100);
-  font-family: 'Comic Sans MS', 'Comic Sans', cursive;
-`;
-
-const SuccessMessage = styled.div``;
 
 export const Form = styled.form`
   width: 300px;
