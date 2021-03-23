@@ -1,31 +1,54 @@
 /**
  *
- * AddExercise
+ * EditExercise
  *
  */
 
 import * as React from 'react';
-import { useTranslation } from 'react-i18next';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components/macro';
 import { Formik } from 'formik';
 
 import { useInjectReducer, useInjectSaga } from 'utils/redux-injectors';
 import { reducer, sliceKey, actions } from './slice';
-import { selectErrorMessage, selectSuccessMessage } from './selectors';
-import { addExerciseSaga } from './saga';
-import { ExerciseType, Exercise } from './types';
-import { translations } from 'locales/translations';
+import {
+  selectErrorMessage,
+  selectSuccessMessage,
+  selectEditDisplay,
+} from './selectors';
+import { actions as exerciseActions } from '../Exercises/slice';
+import { selectExerciseToEdit } from '../Exercises/selectors';
+import { editExerciseSaga } from './saga';
+import { ExerciseType, Exercise } from '../AddExercise/types';
 
 interface Props {}
 
-export function AddExercise(props: Props) {
+export function EditExercise(props: Props) {
   useInjectReducer({ key: sliceKey, reducer: reducer });
-  useInjectSaga({ key: sliceKey, saga: addExerciseSaga });
+  useInjectSaga({ key: sliceKey, saga: editExerciseSaga });
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const exerciseToEdit = useSelector(selectExerciseToEdit);
+  const display = useSelector(selectEditDisplay);
   const errorMessage = useSelector(selectErrorMessage);
   const successMessage = useSelector(selectSuccessMessage);
   const dispatch = useDispatch();
+
+  const clickCancel = () => {
+    dispatch(exerciseActions.editExerciseAction(null));
+    dispatch(actions.editDisplayAction('false'));
+  };
+  const clickDelete = async () => {
+    try {
+      if (exerciseToEdit) {
+        await dispatch(actions.deleteExerciseAction(exerciseToEdit));
+        dispatch(exerciseActions.editExerciseAction(null));
+        dispatch(actions.editDisplayAction('false'));
+      }
+    } catch {
+      console.log('there was an error in deleting');
+    }
+  };
 
   const exerciseTypes = [0, 1, 2, 3];
   const typeOptions = exerciseTypes.map(x => {
@@ -36,33 +59,32 @@ export function AddExercise(props: Props) {
     );
   });
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { t, i18n } = useTranslation();
-
   return (
     <>
-      <Div>
+      <Div display={display}>
         <ErrorMessage>{errorMessage}</ErrorMessage>
         <SuccessMessage>{successMessage}</SuccessMessage>
         <Formik
           initialValues={{
-            name: '',
-            description: '',
-            type: '',
-            workouts: [],
+            name: exerciseToEdit?.name || '',
+            description: exerciseToEdit?.description || '',
+            type: exerciseToEdit?.type || '',
+            workouts: exerciseToEdit?.workouts || [],
+            _id: exerciseToEdit?._id,
           }}
           onSubmit={(values: Exercise) => {
-            dispatch(actions.addExerciseAction(values));
+            alert(JSON.stringify(values, null, 2));
+            dispatch(actions.editExerciseAction(values));
           }}
         >
           {({ values, handleChange, handleBlur, handleSubmit }) => (
             <Form onSubmit={handleSubmit}>
               <Label htmlFor="name">
-                <p>{t(translations.newExercise)}</p>
+                <p>Name</p>
                 <Input
                   id="name"
                   name="name"
-                  placeholder="push-up"
+                  placeholder="name"
                   onChange={handleChange}
                   onBlur={handleBlur}
                   value={values.name}
@@ -71,12 +93,12 @@ export function AddExercise(props: Props) {
               </Label>
 
               <Label htmlFor="description">
-                <p>{t(translations.exerciseDescription)}</p>
+                <p>Description</p>
 
                 <Input
                   id="description"
                   name="description"
-                  placeholder="push up from floor"
+                  placeholder="description"
                   onChange={handleChange}
                   onBlur={handleBlur}
                   value={values.description}
@@ -85,7 +107,7 @@ export function AddExercise(props: Props) {
               </Label>
 
               <Label htmlFor="type">
-                <p>{t(translations.exerciseType)}</p>
+                <p>Type</p>
                 <Select
                   id="type"
                   name="type"
@@ -102,12 +124,19 @@ export function AddExercise(props: Props) {
             </Form>
           )}
         </Formik>
+        <Cancel cancel onClick={() => clickCancel()}>
+          Cancel
+        </Cancel>
+        <Cancel cancel={false} onClick={() => clickDelete()}>
+          Delete
+        </Cancel>
       </Div>
     </>
   );
 }
 
-const Div = styled.div`
+const Div = styled.div<{ display: string }>`
+  display: ${props => (props.display === 'true' ? 'flex' : 'none')};
   border-radius: 20px;
   padding: 10px 15px;
   background: var(--aux-100);
@@ -178,6 +207,8 @@ export const Button = styled.button`
   color: var(--light-200);
   cursor: pointer;
 `;
+
+const Cancel = styled.button<{ cancel: boolean }>``;
 
 const Label = styled.label`
   color: var(--main-200);

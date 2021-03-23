@@ -27,7 +27,7 @@ export function WorkoutHistory(props: Props) {
   const dispatch = useDispatch();
 
   const workout = [
-    { date: '1.23.2021', name: 'run', exercises: [], notes: '' },
+    { date: '1.23.2021', name: 'run', exercises: [], notes: '', _id: '42423' },
     {
       date: '1.25.2021',
       name: 'calesthetics',
@@ -36,9 +36,12 @@ export function WorkoutHistory(props: Props) {
           name: 'push-up',
           description: 'push up from the floor',
           type: 0,
+          workouts: [],
+          _id: '5454',
         },
       ],
       notes: '',
+      _id: 'iosjfa',
     },
   ];
 
@@ -46,11 +49,11 @@ export function WorkoutHistory(props: Props) {
     x.length < 1 ? (
       <div>none</div>
     ) : (
-      x.map(exercise => <li>{exercise.name}</li>)
+      x.map(exercise => <li key={exercise.name}>{exercise.name}</li>)
     );
 
   const workoutEntries = workout.map(x => (
-    <WorkoutEntries>
+    <WorkoutEntries key={x.name}>
       <div>Date: {x.date}</div>
       <div>Name: {x.name}</div>
       <div>Exercises:</div>

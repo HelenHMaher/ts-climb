@@ -9,12 +9,14 @@ import { useTranslation } from 'react-i18next';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components/macro';
 
+import { EditExercise } from '../EditExercise';
 import { useInjectReducer, useInjectSaga } from 'utils/redux-injectors';
 import { reducer, sliceKey, actions } from './slice';
+import { actions as editExerciseActions } from '../EditExercise/slice';
 import { selectExercises } from './selectors';
 import { exercisesWatcher } from './saga';
 import { translations } from 'locales/translations';
-import { ExerciseType } from '../AddExercise/types';
+import { ExerciseType, Exercise } from '../AddExercise/types';
 
 interface Props {}
 
@@ -25,6 +27,11 @@ export function Exercises(props: Props) {
   const exercises = useSelector(selectExercises);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const dispatch = useDispatch();
+
+  const clickEdit = (exercise: Exercise): void => {
+    dispatch(actions.editExerciseAction(exercise));
+    dispatch(editExerciseActions.editDisplayAction('true'));
+  };
 
   useEffect(() => {
     dispatch(actions.fetchExercisesAction());
@@ -40,12 +47,14 @@ export function Exercises(props: Props) {
         <h1>{t(translations.exercises)}</h1>
         {exercises?.length > 0 ? (
           <div>
+            <EditExercise />
             {exercises.map(ele => (
-              <div key={ele.name}>
+              <Instance key={ele.name}>
                 <div>{ele.name}</div>
                 <div>{ExerciseType[ele.type]}</div>
                 <div>{ele.description}</div>
-              </div>
+                <Edit onClick={() => clickEdit(ele)}>Edit</Edit>
+              </Instance>
             ))}
           </div>
         ) : null}
@@ -55,3 +64,9 @@ export function Exercises(props: Props) {
 }
 
 const Div = styled.div``;
+
+const Instance = styled.div`
+  margin: 20px 0px;
+`;
+
+const Edit = styled.button``;

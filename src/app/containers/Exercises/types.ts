@@ -2,7 +2,8 @@ import { Exercise } from '../AddExercise/types';
 
 /* --- STATE --- */
 export interface ExercisesState {
-  exercises: Array<Exercise> | [];
+  exercises: Exercise[];
+  editExercise: Exercise | null;
 }
 
 export type ContainerState = ExercisesState;

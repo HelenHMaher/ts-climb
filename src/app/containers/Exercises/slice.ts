@@ -6,6 +6,7 @@ import { ContainerState } from './types';
 // The initial state of the Exercises container
 export const initialState: ContainerState = {
   exercises: [],
+  editExercise: null,
 };
 
 const exercisesSlice = createSlice({
@@ -17,7 +18,12 @@ const exercisesSlice = createSlice({
     fetchExercisesSuccess(state, action: PayloadAction<Array<Exercise>>) {
       state.exercises = action.payload;
     },
-    fetchExercisesFailure(state, action: PayloadAction<any>) {},
+    fetchExercisesFailure(state, action: PayloadAction<string>) {
+      console.log(action.payload);
+    },
+    editExerciseAction(state, action: PayloadAction<Exercise | null>) {
+      state.editExercise = action.payload;
+    },
   },
 });
 

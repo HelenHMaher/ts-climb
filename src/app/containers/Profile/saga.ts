@@ -23,6 +23,9 @@ export function* profileBackendCall() {
       actions.profileSuccessAction({
         username: response.data.profile.username,
         email: response.data.profile.email,
+        registeredAt: response.data.profile.registeredAt,
+        lastLoggedIn: response.data.profile.lastLoggedIn,
+        _id: response.data.profile._id,
       }),
     );
   } catch (error) {
