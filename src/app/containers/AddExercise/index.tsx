@@ -68,7 +68,7 @@ export function AddExercise(props: Props) {
                 <Input
                   id="name"
                   name="name"
-                  placeholder="push-up"
+                  placeholder="name"
                   onChange={handleChange}
                   onBlur={handleBlur}
                   value={values.name}
@@ -82,7 +82,7 @@ export function AddExercise(props: Props) {
                 <Input
                   id="description"
                   name="description"
-                  placeholder="push up from floor"
+                  placeholder="description"
                   onChange={handleChange}
                   onBlur={handleBlur}
                   value={values.description}

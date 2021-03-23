@@ -12,6 +12,7 @@ import { Formik, Field } from 'formik';
 import { useInjectReducer, useInjectSaga } from 'utils/redux-injectors';
 import { reducer, sliceKey, actions } from './slice';
 import { selectErrorMessage, selectSuccessMessage } from './selectors';
+import { selectExercises } from '../Exercises/selectors';
 import { addWorkoutSaga } from './saga';
 import { Workout } from './types';
 
@@ -27,14 +28,9 @@ export function AddWorkout(props: Props) {
   const successMessage = useSelector(selectSuccessMessage);
   const dispatch = useDispatch();
 
-  const dummyData = [
-    { name: 'push-up', description: 'push up from the ground', type: 1 },
-    { name: 'sit-up', description: 'sit up from the ground', type: 1 },
-    { name: 'pull-up', description: 'pull up to the bar', type: 1 },
-    { name: 'squat', description: 'squat down to the ground', type: 1 },
-  ];
+  const exercises = useSelector(selectExercises);
 
-  const exerciseOptions = dummyData.map(x => {
+  const exerciseOptions = exercises.map(x => {
     return (
       <ExerciseFieldLabel key={x.name}>
         <Field
@@ -72,7 +68,7 @@ export function AddWorkout(props: Props) {
                 <Input
                   id="name"
                   name="name"
-                  placeholder="Workout Name"
+                  placeholder="name"
                   onChange={handleChange}
                   onBlur={handleBlur}
                   value={values.name}

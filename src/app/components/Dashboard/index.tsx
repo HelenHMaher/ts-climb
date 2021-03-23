@@ -6,15 +6,15 @@
 import * as React from 'react';
 import { Switch, Route, BrowserRouter as Router } from 'react-router-dom';
 import { NavBar } from '../NavBar';
-import { TopNav } from '../TopNav';
+
 import { ExerciseCreator } from '../ExerciseCreator';
-import { AddWorkout } from '../../containers/AddWorkout';
+
 // import { NotFoundPage } from '../NotFoundPage/Loadable';
 import { Profile } from '../../containers/Profile';
-import { Logout } from '../../containers/Logout';
 import { WorkoutHistory } from '../../containers/WorkoutHistory';
 import { ExerciseEditor } from '../ExerciseEditor';
 import { ExerciseList } from '../ExerciseList';
+import { WorkoutCreator } from '../WorkoutCreator';
 
 interface Props {}
 
@@ -28,15 +28,7 @@ export function Dashboard(props: Props) {
         <Route path="/dashboard/exerciseCreator" component={ExerciseCreator} />
         <Route path="/dashboard/exerciseEditor" component={ExerciseEditor} />
         <Route path="/dashboard/exerciseList" component={ExerciseList} />
-        <Route path="/dashboard">
-          <TopNav
-            back={true}
-            title="My Daily Climb"
-            leftButton={null}
-            rightButton={<Logout />}
-          />
-          <AddWorkout />
-        </Route>
+        <Route path="/dashboard" component={WorkoutCreator} />
       </Switch>
     </Router>
   );
