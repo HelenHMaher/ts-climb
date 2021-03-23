@@ -13,6 +13,7 @@ import { AddWorkout } from '../../containers/AddWorkout';
 import { Profile } from '../../containers/Profile';
 import { Logout } from '../../containers/Logout';
 import { WorkoutHistory } from '../../containers/WorkoutHistory';
+import { ExerciseEditor } from '../../components/ExerciseEditor';
 
 interface Props {}
 
@@ -24,6 +25,7 @@ export function Dashboard(props: Props) {
         <Route path="/dashboard/profile" component={Profile} />
         <Route path="/dashboard/workoutHistory" component={WorkoutHistory} />
         <Route path="/dashboard/exerciseCreator" component={ExerciseCreator} />
+        <Route path="/dashboard/exerciseEditor" component={ExerciseEditor} />
         <Route path="/dashboard">
           <TopNav
             back={true}

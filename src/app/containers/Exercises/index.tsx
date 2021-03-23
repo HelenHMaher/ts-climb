@@ -8,8 +8,8 @@ import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components/macro';
+import { useHistory } from 'react-router-dom';
 
-import { EditExercise } from '../EditExercise';
 import { useInjectReducer, useInjectSaga } from 'utils/redux-injectors';
 import { reducer, sliceKey, actions } from './slice';
 import { actions as editExerciseActions } from '../EditExercise/slice';
@@ -27,10 +27,12 @@ export function Exercises(props: Props) {
   const exercises = useSelector(selectExercises);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const clickEdit = (exercise: Exercise): void => {
     dispatch(actions.editExerciseAction(exercise));
     dispatch(editExerciseActions.editDisplayAction('true'));
+    history.push('/dashboard/exerciseEditor');
   };
 
   useEffect(() => {
@@ -47,7 +49,6 @@ export function Exercises(props: Props) {
         <h1>{t(translations.exercises)}</h1>
         {exercises?.length > 0 ? (
           <div>
-            <EditExercise />
             {exercises.map(ele => (
               <Instance key={ele.name}>
                 <div>{ele.name}</div>

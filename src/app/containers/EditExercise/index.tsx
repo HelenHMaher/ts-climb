@@ -8,6 +8,7 @@ import * as React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components/macro';
 import { Formik } from 'formik';
+import { useHistory } from 'react-router-dom';
 
 import { useInjectReducer, useInjectSaga } from 'utils/redux-injectors';
 import { reducer, sliceKey, actions } from './slice';
@@ -33,20 +34,18 @@ export function EditExercise(props: Props) {
   const errorMessage = useSelector(selectErrorMessage);
   const successMessage = useSelector(selectSuccessMessage);
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const clickCancel = () => {
     dispatch(exerciseActions.editExerciseAction(null));
-    dispatch(actions.editDisplayAction('false'));
+    history.push('/dashboard/exerciseCreator');
   };
-  const clickDelete = async () => {
-    try {
-      if (exerciseToEdit) {
-        await dispatch(actions.deleteExerciseAction(exerciseToEdit));
-        dispatch(exerciseActions.editExerciseAction(null));
-        dispatch(actions.editDisplayAction('false'));
-      }
-    } catch {
-      console.log('there was an error in deleting');
+  const clickDelete = () => {
+    if (exerciseToEdit) {
+      dispatch(actions.deleteExerciseAction(exerciseToEdit));
+      dispatch(exerciseActions.editExerciseAction(null));
+      dispatch(exerciseActions.fetchExercisesAction());
+      history.push('/dashboard/exerciseCreator');
     }
   };
 
@@ -70,11 +69,17 @@ export function EditExercise(props: Props) {
             description: exerciseToEdit?.description || '',
             type: exerciseToEdit?.type || '',
             workouts: exerciseToEdit?.workouts || [],
-            _id: exerciseToEdit?._id,
+            _id: exerciseToEdit?._id || '',
           }}
-          onSubmit={(values: Exercise) => {
+          onSubmit={async (values: Exercise) => {
             alert(JSON.stringify(values, null, 2));
-            dispatch(actions.editExerciseAction(values));
+            try {
+              await dispatch(actions.editExerciseAction(values));
+              dispatch(exerciseActions.fetchExercisesAction());
+              history.push('/dashboard/exerciseCreator');
+            } catch {
+              console.log('there was a problem!');
+            }
           }}
         >
           {({ values, handleChange, handleBlur, handleSubmit }) => (
@@ -136,7 +141,7 @@ export function EditExercise(props: Props) {
 }
 
 const Div = styled.div<{ display: string }>`
-  display: ${props => (props.display === 'true' ? 'flex' : 'none')};
+  display: 'flex';
   border-radius: 20px;
   padding: 10px 15px;
   background: var(--aux-100);
