@@ -9,3 +9,8 @@ export const selectWorkoutHistory = createSelector(
   [selectDomain],
   workoutHistoryState => workoutHistoryState.workouts,
 );
+
+export const selectWorkoutToEdit = createSelector(
+  [selectDomain],
+  workoutHistoryState => workoutHistoryState.editWorkout,
+);

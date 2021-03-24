@@ -6,6 +6,7 @@ import { Workout } from '../AddWorkout/types';
 // The initial state of the WorkoutHistory container
 export const initialState: ContainerState = {
   workouts: [],
+  editWorkout: null,
 };
 
 const workoutHistorySlice = createSlice({
@@ -19,6 +20,9 @@ const workoutHistorySlice = createSlice({
     },
     fetchWorkoutsFailure(state, action: PayloadAction<string>) {
       console.log(action.payload);
+    },
+    editWorkoutAction(state, action: PayloadAction<Workout | null>) {
+      state.editWorkout = action.payload;
     },
   },
 });
