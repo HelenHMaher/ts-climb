@@ -16,6 +16,7 @@ import { selectErrorMessage, selectSuccessMessage } from './selectors';
 import { selectExercises } from '../Exercises/selectors';
 import { addWorkoutSaga } from './saga';
 import { Workout } from './types';
+import { ExerciseType } from '../AddExercise/types';
 
 interface Props {}
 
@@ -23,7 +24,19 @@ export function AddWorkout(props: Props) {
   useInjectReducer({ key: sliceKey, reducer: reducer });
   useInjectSaga({ key: sliceKey, saga: addWorkoutSaga });
 
-  const [editDate, setEditDate] = React.useState(false);
+  const [typeToDisplay, setTypeToDisplay] = React.useState<ExerciseType | ''>(
+    '',
+  );
+
+  const [editDate, setEditDate] = React.useState<boolean>(false);
+
+  const clickType = (type: ExerciseType | '') => {
+    if (typeToDisplay === type) {
+      setTypeToDisplay('');
+    } else {
+      setTypeToDisplay(type);
+    }
+  };
 
   const errorMessage = useSelector(selectErrorMessage);
   const successMessage = useSelector(selectSuccessMessage);
@@ -32,7 +45,14 @@ export function AddWorkout(props: Props) {
 
   const exercises = useSelector(selectExercises);
 
-  const exerciseOptions = exercises.map(x => {
+  const exercisesToDisplay =
+    typeToDisplay === ''
+      ? exercises
+      : exercises.filter(
+          x => Number(x.type) === Number(ExerciseType[typeToDisplay]),
+        );
+
+  const exerciseOptions = exercisesToDisplay.map(x => {
     return (
       <ExerciseFieldLabel key={x.name}>
         <Field
@@ -44,6 +64,22 @@ export function AddWorkout(props: Props) {
         {x.name}
       </ExerciseFieldLabel>
     );
+  });
+
+  // eslint-disable-next-line array-callback-return
+  const exerciseTypeOptions = Object.keys(ExerciseType).map(x => {
+    if (!isNaN(Number(x))) {
+      return (
+        <Tab
+          type={typeToDisplay}
+          value={ExerciseType[x]}
+          key={ExerciseType[x]}
+          onClick={() => clickType(ExerciseType[x])}
+        >
+          {ExerciseType[x]}
+        </Tab>
+      );
+    }
   });
 
   return (
@@ -103,6 +139,7 @@ export function AddWorkout(props: Props) {
               </Label>
 
               <ExercisesLabel id="exercise-group">Exercises</ExercisesLabel>
+              <FilterBar>{exerciseTypeOptions}</FilterBar>
               <ExercisesGroup role="group" aria-labelledby="exercise-group">
                 {exerciseOptions}
               </ExercisesGroup>
@@ -269,6 +306,7 @@ const ExercisesLabel = styled.div`
 const ExercisesGroup = styled.div`
   display: inline-block;
   width: 285px;
+  height: 200px;
   background: var(--light-100-25);
   border-radius: 10px;
 `;
@@ -283,4 +321,17 @@ const ExerciseFieldLabel = styled.label`
   .exerciseField {
     margin: 5px;
   }
+`;
+
+const Tab = styled.div<{ type: ExerciseType | ''; value: ExerciseType | '' }>`
+  color: ${props =>
+    props.type === props.value ? 'var(--light-100)' : 'var(--main-200)'};
+  background: ${props => props.type === props.value && 'var(--main-200)'};
+`;
+
+const FilterBar = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
 `;
