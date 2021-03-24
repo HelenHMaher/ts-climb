@@ -39,7 +39,7 @@ export function AddWorkout(props: Props) {
           className="exerciseField"
           type="checkbox"
           name="exercises"
-          value={x.name}
+          value={x._id}
         />
         {x.name}
       </ExerciseFieldLabel>

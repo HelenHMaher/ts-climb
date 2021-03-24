@@ -14,16 +14,17 @@ import { useInjectReducer, useInjectSaga } from 'utils/redux-injectors';
 import { reducer, sliceKey, actions } from './slice';
 import { selectWorkoutHistory } from './selectors';
 import { workoutHistorySaga } from './saga';
-import { Exercise } from '../AddExercise/types';
+import { selectExercises } from '../Exercises/selectors';
+// import { Exercise } from '../AddExercise/types';
 interface Props {}
 
 export function WorkoutHistory(props: Props) {
   useInjectReducer({ key: sliceKey, reducer: reducer });
   useInjectSaga({ key: sliceKey, saga: workoutHistorySaga });
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const workoutHistory = useSelector(selectWorkoutHistory);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const allExercises = useSelector(selectExercises);
+
   const dispatch = useDispatch();
 
   React.useEffect(() => {
@@ -31,11 +32,18 @@ export function WorkoutHistory(props: Props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const exerciseItems = (x: Array<Exercise>) =>
+  const exerciseItems = (x: Array<string>) =>
     x.length < 1 ? (
       <div>none</div>
     ) : (
-      x.map(exercise => <li key={exercise.name}>{exercise.name}</li>)
+      x.map(exercise => {
+        const exerciseDetails = allExercises.find(y => exercise === y._id);
+        if (exerciseDetails) {
+          return <li key={exerciseDetails._id}>{exerciseDetails.name}</li>;
+        } else {
+          return <li key={exercise}>{exercise}</li>;
+        }
+      })
     );
 
   const workoutEntries = workoutHistory.map(x => (
