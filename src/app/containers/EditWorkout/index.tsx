@@ -7,13 +7,14 @@
 import * as React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components/macro';
-import { Formik } from 'formik';
+import { Formik, Field } from 'formik';
 import { useHistory } from 'react-router-dom';
 
 import { useInjectReducer, useInjectSaga } from 'utils/redux-injectors';
 import { reducer, sliceKey, actions } from './slice';
 import { actions as workoutHistoryActions } from '../WorkoutHistory/slice';
 import { selectWorkoutToEdit } from '../WorkoutHistory/selectors';
+import { selectExercises } from '../Exercises/selectors';
 import { editWorkoutSaga } from './saga';
 
 import { Workout } from '../AddWorkout/types';
@@ -32,6 +33,22 @@ export function EditWorkout(props: Props) {
   const history = useHistory();
 
   const workoutToEdit = useSelector(selectWorkoutToEdit);
+
+  const exercises = useSelector(selectExercises);
+
+  const exerciseOptions = exercises.map(x => {
+    return (
+      <ExerciseFieldLabel key={x.name}>
+        <Field
+          className="exerciseField"
+          type="checkbox"
+          name="exercises"
+          value={x._id}
+        />
+        {x.name}
+      </ExerciseFieldLabel>
+    );
+  });
 
   const clickCancel = () => {
     dispatch(workoutHistoryActions.editWorkoutAction(null));
@@ -105,6 +122,11 @@ export function EditWorkout(props: Props) {
                   <DateValue>{values.date}</DateValue>
                 )}
               </Label>
+
+              <ExercisesLabel id="exercise-group">Exercises</ExercisesLabel>
+              <ExercisesGroup role="group" aria-labelledby="exercise-group">
+                {exerciseOptions}
+              </ExercisesGroup>
 
               <Label htmlFor="notes">
                 <p>Workout Notes</p>
@@ -260,4 +282,41 @@ const DateValue = styled.div`
   background: var(--light-100-25);
   padding: 0px 15px;
   border-radius: 10px;
+`;
+
+const ExercisesLabel = styled.div`
+  color: var(--main-200);
+  width: 285px;
+  text-align: left;
+  font-weight: 500;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  font-size: 1em;
+  margin: 0.5em 0;
+  position: relative;
+  p {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
+      'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
+      'Helvetica Neue', sans-serif;
+  }
+`;
+
+const ExercisesGroup = styled.div`
+  display: inline-block;
+  width: 285px;
+  background: var(--light-100-25);
+  border-radius: 10px;
+`;
+
+const ExerciseFieldLabel = styled.label`
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  color: var(--main-200);
+  display: inline-block;
+  padding: 10px;
+  .exerciseField {
+    margin: 5px;
+  }
 `;

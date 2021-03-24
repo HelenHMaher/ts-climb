@@ -27,10 +27,9 @@ export function WorkoutList(props: Props) {
 }
 
 const Div = styled.div`
+  padding: 100px 0px;
   width: 100vw;
-  height: 90vh;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
 `;
