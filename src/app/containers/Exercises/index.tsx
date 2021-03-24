@@ -4,7 +4,7 @@
  *
  */
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components/macro';
@@ -15,19 +15,52 @@ import { reducer, sliceKey, actions } from './slice';
 import { actions as editExerciseActions } from '../EditExercise/slice';
 import { selectExercises } from './selectors';
 import { exercisesWatcher } from './saga';
-import { ExerciseType, Exercise } from '../AddExercise/types';
-import { ButtonChip } from '../../components/ButtonChip';
+import { Exercise, ExerciseType } from '../AddExercise/types';
+
+import { ExerciseEntry } from './ExerciseEntry';
 
 interface Props {}
 
 export function Exercises(props: Props) {
   useInjectReducer({ key: sliceKey, reducer: reducer });
   useInjectSaga({ key: sliceKey, saga: exercisesWatcher });
+  const [typeToDisplay, setTypeToDisplay] = useState<ExerciseType | ''>('');
 
   const exercises = useSelector(selectExercises);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const dispatch = useDispatch();
   const history = useHistory();
+
+  const clickType = (type: ExerciseType | '') => {
+    if (typeToDisplay === type) {
+      setTypeToDisplay('');
+    } else {
+      setTypeToDisplay(type);
+    }
+  };
+
+  // eslint-disable-next-line array-callback-return
+  const exerciseTypeOptions = Object.keys(ExerciseType).map(x => {
+    if (!isNaN(Number(x))) {
+      return (
+        <Tab
+          type={typeToDisplay}
+          value={ExerciseType[x]}
+          key={ExerciseType[x]}
+          onClick={() => clickType(ExerciseType[x])}
+        >
+          {ExerciseType[x]}
+        </Tab>
+      );
+    }
+  });
+
+  const exercisesToDisplay =
+    typeToDisplay === ''
+      ? exercises
+      : exercises.filter(
+          x => Number(x.type) === Number(ExerciseType[typeToDisplay]),
+        );
 
   const clickEdit = (exercise: Exercise): void => {
     dispatch(actions.editExerciseAction(exercise));
@@ -44,58 +77,49 @@ export function Exercises(props: Props) {
   const { t, i18n } = useTranslation();
 
   return (
-    <>
-      <Div>
-        {exercises?.length > 0 ? (
-          <div>
-            {exercises.map(ele => (
-              <Instance key={ele.name}>
-                <Name>{ele.name}</Name>
-                <div>Type: {ExerciseType[ele.type]}</div>
-                <div>Description:</div>
-                <Description>{ele.description}</Description>
-                <ButtonDiv>
-                  <ButtonChip text="Edit" clickHandler={() => clickEdit(ele)} />
-                </ButtonDiv>
-              </Instance>
-            ))}
-          </div>
-        ) : null}
-      </Div>
-    </>
+    <Div>
+      <FilterBar>{exerciseTypeOptions}</FilterBar>
+      {exercisesToDisplay?.length > 0 ? (
+        <ExerciseDisplay>
+          {exercisesToDisplay.map(ele => (
+            <ExerciseEntry
+              key={ele._id}
+              exercise={ele}
+              clickHandler={() => clickEdit(ele)}
+            />
+          ))}
+        </ExerciseDisplay>
+      ) : (
+        <ExerciseDisplay></ExerciseDisplay>
+      )}
+    </Div>
   );
 }
 
 const Div = styled.div``;
 
-const Instance = styled.div`
-  width: 250px;
+const ExerciseDisplay = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  border: 1px solid var(--light-500);
-  border-radius: 5px;
-  margin: 10px;
-  padding: 10px;
+  justify-content: center;
+  align-items: center;
 `;
 
-const Name = styled.div`
-  font-weight: 500;
-  font-size: 20px;
-  margin: 10px 0px;
+const Tab = styled.div<{ type: ExerciseType | ''; value: ExerciseType | '' }>`
+  width: 100px;
+  padding: 5px;
+  color: ${props =>
+    props.type === props.value ? 'var(--main-200)' : 'var(--light-100)'};
+  background: ${props =>
+    props.type === props.value ? 'var(--aux-100)' : 'var(--main-200)'};
 `;
 
-const Description = styled.div`
-  font-size: 14px;
-  font-weight: 200;
-  padding-left: 10px;
-  padding-bottom: 10px;
-`;
-
-const ButtonDiv = styled.div`
-  width: 100%;
+const FilterBar = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  margin: 10px 0px;
+  justify-content: center;
+  border-radius: 5px;
+  overflow: hidden;
+  margin: 10px;
 `;
