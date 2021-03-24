@@ -17,7 +17,7 @@ const addWorkoutSlice = createSlice({
     addWorkoutFailureAction(state, action: PayloadAction<string>) {
       state.errorMessage = `Exercise error: ${action.payload}`;
     },
-    addExerciseSuccessAction(state, action: PayloadAction<string>) {
+    addWorkoutSuccessAction(state, action: PayloadAction<string>) {
       state.successMessage = `Exercise success: ${action.payload}`;
     },
   },

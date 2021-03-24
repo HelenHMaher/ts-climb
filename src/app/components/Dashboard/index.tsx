@@ -15,21 +15,28 @@ import { WorkoutHistory } from '../../containers/WorkoutHistory';
 import { ExerciseEditor } from '../ExerciseEditor';
 import { ExerciseList } from '../ExerciseList';
 import { WorkoutCreator } from '../WorkoutCreator';
+import { DashboardInjector } from '../../containers/DashboardInjector';
 
 interface Props {}
 
 export function Dashboard(props: Props) {
   return (
-    <Router>
-      <NavBar />
-      <Switch>
-        <Route path="/dashboard/profile" component={Profile} />
-        <Route path="/dashboard/workoutHistory" component={WorkoutHistory} />
-        <Route path="/dashboard/exerciseCreator" component={ExerciseCreator} />
-        <Route path="/dashboard/exerciseEditor" component={ExerciseEditor} />
-        <Route path="/dashboard/exerciseList" component={ExerciseList} />
-        <Route path="/dashboard" component={WorkoutCreator} />
-      </Switch>
-    </Router>
+    <>
+      <DashboardInjector />
+      <Router>
+        <NavBar />
+        <Switch>
+          <Route path="/dashboard/profile" component={Profile} />
+          <Route path="/dashboard/workoutHistory" component={WorkoutHistory} />
+          <Route
+            path="/dashboard/exerciseCreator"
+            component={ExerciseCreator}
+          />
+          <Route path="/dashboard/exerciseEditor" component={ExerciseEditor} />
+          <Route path="/dashboard/exerciseList" component={ExerciseList} />
+          <Route path="/dashboard" component={WorkoutCreator} />
+        </Switch>
+      </Router>
+    </>
   );
 }

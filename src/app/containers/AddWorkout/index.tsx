@@ -8,6 +8,7 @@ import * as React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components/macro';
 import { Formik, Field } from 'formik';
+import { useHistory } from 'react-router-dom';
 
 import { useInjectReducer, useInjectSaga } from 'utils/redux-injectors';
 import { reducer, sliceKey, actions } from './slice';
@@ -27,6 +28,7 @@ export function AddWorkout(props: Props) {
   const errorMessage = useSelector(selectErrorMessage);
   const successMessage = useSelector(selectSuccessMessage);
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const exercises = useSelector(selectExercises);
 
@@ -59,6 +61,9 @@ export function AddWorkout(props: Props) {
           onSubmit={(values: Workout) => {
             alert(JSON.stringify(values, null, 2));
             dispatch(actions.addWorkoutAction(values));
+            setTimeout(() => {
+              history.push('/dashboard/workoutHistory');
+            }, 400);
           }}
         >
           {({ values, handleChange, handleBlur, handleSubmit }) => (

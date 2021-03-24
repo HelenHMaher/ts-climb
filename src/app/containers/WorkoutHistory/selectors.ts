@@ -7,5 +7,5 @@ const selectDomain = (state: RootState) => state.workoutHistory || initialState;
 
 export const selectWorkoutHistory = createSelector(
   [selectDomain],
-  workoutHistoryState => workoutHistoryState,
+  workoutHistoryState => workoutHistoryState.workouts,
 );

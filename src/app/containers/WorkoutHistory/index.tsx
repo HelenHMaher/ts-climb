@@ -11,7 +11,7 @@ import styled from 'styled-components/macro';
 import { TopNav } from '../../components/TopNav';
 
 import { useInjectReducer, useInjectSaga } from 'utils/redux-injectors';
-import { reducer, sliceKey } from './slice';
+import { reducer, sliceKey, actions } from './slice';
 import { selectWorkoutHistory } from './selectors';
 import { workoutHistorySaga } from './saga';
 import { Exercise } from '../AddExercise/types';
@@ -26,24 +26,10 @@ export function WorkoutHistory(props: Props) {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const dispatch = useDispatch();
 
-  const workout = [
-    { date: '1.23.2021', name: 'run', exercises: [], notes: '', _id: '42423' },
-    {
-      date: '1.25.2021',
-      name: 'calesthetics',
-      exercises: [
-        {
-          name: 'push-up',
-          description: 'push up from the floor',
-          type: 0,
-          workouts: [],
-          _id: '5454',
-        },
-      ],
-      notes: '',
-      _id: 'iosjfa',
-    },
-  ];
+  React.useEffect(() => {
+    dispatch(actions.fetchWorkoutsAction());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const exerciseItems = (x: Array<Exercise>) =>
     x.length < 1 ? (
@@ -52,7 +38,7 @@ export function WorkoutHistory(props: Props) {
       x.map(exercise => <li key={exercise.name}>{exercise.name}</li>)
     );
 
-  const workoutEntries = workout.map(x => (
+  const workoutEntries = workoutHistory.map(x => (
     <WorkoutEntries key={x.name}>
       <div>Date: {x.date}</div>
       <div>Name: {x.name}</div>
