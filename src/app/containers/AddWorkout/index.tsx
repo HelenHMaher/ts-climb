@@ -8,10 +8,12 @@ import * as React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components/macro';
 import { Formik, Field } from 'formik';
+import { useHistory } from 'react-router-dom';
 
 import { useInjectReducer, useInjectSaga } from 'utils/redux-injectors';
 import { reducer, sliceKey, actions } from './slice';
 import { selectErrorMessage, selectSuccessMessage } from './selectors';
+import { selectExercises } from '../Exercises/selectors';
 import { addWorkoutSaga } from './saga';
 import { Workout } from './types';
 
@@ -26,22 +28,18 @@ export function AddWorkout(props: Props) {
   const errorMessage = useSelector(selectErrorMessage);
   const successMessage = useSelector(selectSuccessMessage);
   const dispatch = useDispatch();
+  const history = useHistory();
 
-  const dummyData = [
-    { name: 'push-up', description: 'push up from the ground', type: 1 },
-    { name: 'sit-up', description: 'sit up from the ground', type: 1 },
-    { name: 'pull-up', description: 'pull up to the bar', type: 1 },
-    { name: 'squat', description: 'squat down to the ground', type: 1 },
-  ];
+  const exercises = useSelector(selectExercises);
 
-  const exerciseOptions = dummyData.map(x => {
+  const exerciseOptions = exercises.map(x => {
     return (
       <ExerciseFieldLabel key={x.name}>
         <Field
           className="exerciseField"
           type="checkbox"
           name="exercises"
-          value={x.name}
+          value={x._id}
         />
         {x.name}
       </ExerciseFieldLabel>
@@ -63,6 +61,9 @@ export function AddWorkout(props: Props) {
           onSubmit={(values: Workout) => {
             alert(JSON.stringify(values, null, 2));
             dispatch(actions.addWorkoutAction(values));
+            setTimeout(() => {
+              history.push('/dashboard/workoutHistory');
+            }, 400);
           }}
         >
           {({ values, handleChange, handleBlur, handleSubmit }) => (
@@ -72,7 +73,7 @@ export function AddWorkout(props: Props) {
                 <Input
                   id="name"
                   name="name"
-                  placeholder="Workout Name"
+                  placeholder="name"
                   onChange={handleChange}
                   onBlur={handleBlur}
                   value={values.name}
@@ -106,7 +107,7 @@ export function AddWorkout(props: Props) {
                 {exerciseOptions}
               </ExercisesGroup>
 
-              <Label htmlFor="description">
+              <Label htmlFor="notes">
                 <p>Workout Notes</p>
 
                 <Textarea

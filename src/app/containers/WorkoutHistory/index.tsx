@@ -7,83 +7,66 @@
 import * as React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components/macro';
-
-import { TopNav } from '../../components/TopNav';
+import { useHistory } from 'react-router-dom';
 
 import { useInjectReducer, useInjectSaga } from 'utils/redux-injectors';
-import { reducer, sliceKey } from './slice';
+import { reducer, sliceKey, actions } from './slice';
 import { selectWorkoutHistory } from './selectors';
 import { workoutHistorySaga } from './saga';
-import { Exercise } from '../AddExercise/types';
+import { selectExercises } from '../Exercises/selectors';
+import { ButtonChip } from '../../components/ButtonChip';
+import { Workout } from '../AddWorkout/types';
+
 interface Props {}
 
 export function WorkoutHistory(props: Props) {
   useInjectReducer({ key: sliceKey, reducer: reducer });
   useInjectSaga({ key: sliceKey, saga: workoutHistorySaga });
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const workoutHistory = useSelector(selectWorkoutHistory);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const allExercises = useSelector(selectExercises);
+
   const dispatch = useDispatch();
+  const history = useHistory();
 
-  const workout = [
-    { date: '1.23.2021', name: 'run', exercises: [], notes: '', _id: '42423' },
-    {
-      date: '1.25.2021',
-      name: 'calesthetics',
-      exercises: [
-        {
-          name: 'push-up',
-          description: 'push up from the floor',
-          type: 0,
-          workouts: [],
-          _id: '5454',
-        },
-      ],
-      notes: '',
-      _id: 'iosjfa',
-    },
-  ];
+  React.useEffect(() => {
+    dispatch(actions.fetchWorkoutsAction());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-  const exerciseItems = (x: Array<Exercise>) =>
+  const clickEdit = (workout: Workout): void => {
+    dispatch(actions.editWorkoutAction(workout));
+    history.push('/dashboard/workoutEditor');
+  };
+
+  const exerciseItems = (x: Array<string>) =>
     x.length < 1 ? (
       <div>none</div>
     ) : (
-      x.map(exercise => <li key={exercise.name}>{exercise.name}</li>)
+      x.map(exercise => {
+        const exerciseDetails = allExercises.find(y => exercise === y._id);
+        if (exerciseDetails) {
+          return <li key={exerciseDetails._id}>{exerciseDetails.name}</li>;
+        } else {
+          return <li key={exercise}>{exercise}</li>;
+        }
+      })
     );
 
-  const workoutEntries = workout.map(x => (
+  const workoutEntries = workoutHistory.map(x => (
     <WorkoutEntries key={x.name}>
       <div>Date: {x.date}</div>
       <div>Name: {x.name}</div>
       <div>Exercises:</div>
       <ol>{exerciseItems(x.exercises)}</ol>
+      <ButtonDiv>
+        <ButtonChip text="Edit" clickHandler={() => clickEdit(x)} />
+      </ButtonDiv>
     </WorkoutEntries>
   ));
 
-  return (
-    <>
-      <Div>
-        <TopNav
-          back={true}
-          title="Workout History"
-          leftButton={null}
-          rightButton={null}
-        />
-        {workoutEntries}
-      </Div>
-    </>
-  );
+  return <>{workoutEntries}</>;
 }
-
-const Div = styled.div`
-  width: 100vw;
-  height: 90vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-`;
 
 const WorkoutEntries = styled.div`
   width: 250px;
@@ -94,4 +77,12 @@ const WorkoutEntries = styled.div`
   border-radius: 5px;
   margin: 5px;
   padding: 5px;
+`;
+
+const ButtonDiv = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 10px 0px;
 `;

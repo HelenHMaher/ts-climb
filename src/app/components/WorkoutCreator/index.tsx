@@ -1,26 +1,28 @@
 /**
  *
- * ExerciseCreator
+ * WorkoutCreator
  *
  */
 import * as React from 'react';
 import styled from 'styled-components/macro';
+
 import { TopNav } from '../TopNav';
-import { AddExercise } from '../../containers/AddExercise';
+import { AddWorkout } from '../../containers/AddWorkout';
+import { Logout } from '../../containers/Logout';
 
 interface Props {}
 
-export function ExerciseCreator(props: Props) {
+export function WorkoutCreator(props: Props) {
   return (
     <Div>
       <TopNav
-        back={true}
-        title="Exercise Creator"
+        back={false}
+        title="My Daily Climb"
         leftButton={null}
-        rightButton={null}
+        rightButton={<Logout />}
       />
       <Content>
-        <AddExercise />
+        <AddWorkout />
       </Content>
     </Div>
   );
@@ -36,5 +38,5 @@ const Div = styled.div`
 `;
 
 const Content = styled.div`
-  padding: 80px 0px;
+  padding: 100px 0px;
 `;

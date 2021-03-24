@@ -1,40 +1,36 @@
 /**
  *
- * ExerciseCreator
+ * WorkoutList
  *
  */
 import * as React from 'react';
 import styled from 'styled-components/macro';
+
 import { TopNav } from '../TopNav';
-import { AddExercise } from '../../containers/AddExercise';
+import { WorkoutHistory } from '../../containers/WorkoutHistory';
 
 interface Props {}
 
-export function ExerciseCreator(props: Props) {
+export function WorkoutList(props: Props) {
   return (
     <Div>
+      {' '}
       <TopNav
         back={true}
-        title="Exercise Creator"
+        title="Workout History"
         leftButton={null}
         rightButton={null}
       />
-      <Content>
-        <AddExercise />
-      </Content>
+      <WorkoutHistory />
     </Div>
   );
 }
 
 const Div = styled.div`
-  padding-top: 50px;
+  width: 100vw;
+  height: 90vh;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
-  width: 100vw;
-`;
-
-const Content = styled.div`
-  padding: 80px 0px;
+  align-items: center;
 `;

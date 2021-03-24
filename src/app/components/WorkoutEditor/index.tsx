@@ -1,26 +1,26 @@
 /**
  *
- * ExerciseCreator
+ * WorkoutEditor
  *
  */
 import * as React from 'react';
 import styled from 'styled-components/macro';
 import { TopNav } from '../TopNav';
-import { AddExercise } from '../../containers/AddExercise';
+import { EditWorkout } from '../../containers/EditWorkout';
 
 interface Props {}
 
-export function ExerciseCreator(props: Props) {
+export function WorkoutEditor(props: Props) {
   return (
     <Div>
       <TopNav
-        back={true}
-        title="Exercise Creator"
+        title="Workout Editor"
+        back
         leftButton={null}
         rightButton={null}
       />
       <Content>
-        <AddExercise />
+        <EditWorkout />
       </Content>
     </Div>
   );

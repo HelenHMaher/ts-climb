@@ -79,7 +79,7 @@ export function Login(props: Props) {
           <Button
             buttonSize="wide"
             buttonStyle="stealth"
-            clickHandler={undefined}
+            clickHandler={() => {}}
             title="new user"
           />
         </Link>
