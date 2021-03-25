@@ -18,6 +18,11 @@ import { addWorkoutSaga } from './saga';
 import { Workout } from './types';
 import { ExerciseType } from '../AddExercise/types';
 
+import { Boulder } from '../../components/icons/Boulder';
+import { Sport } from '../../components/icons/Sport';
+import { Cardio } from '../../components/icons/Cardio';
+import { Strength } from '../../components/icons/Strength';
+
 interface Props {}
 
 export function AddWorkout(props: Props) {
@@ -76,7 +81,15 @@ export function AddWorkout(props: Props) {
           key={ExerciseType[x]}
           onClick={() => clickType(ExerciseType[x])}
         >
-          {ExerciseType[x]}
+          {x === '0' ? (
+            <Strength size="small" />
+          ) : x === '1' ? (
+            <Cardio size="small" />
+          ) : x === '2' ? (
+            <Boulder size="small" />
+          ) : (
+            <Sport size="small" />
+          )}
         </Tab>
       );
     }
@@ -139,7 +152,14 @@ export function AddWorkout(props: Props) {
               </Label>
 
               <ExercisesLabel id="exercise-group">Exercises</ExercisesLabel>
-              <FilterBar>{exerciseTypeOptions}</FilterBar>
+
+              <FilterBar>
+                <FilterLabel>
+                  {typeToDisplay === '' ? 'DISPLAY' : typeToDisplay}
+                </FilterLabel>
+
+                {exerciseTypeOptions}
+              </FilterBar>
               <ExercisesGroup role="group" aria-labelledby="exercise-group">
                 {exerciseOptions}
               </ExercisesGroup>
@@ -324,6 +344,13 @@ const ExerciseFieldLabel = styled.label`
 `;
 
 const Tab = styled.div<{ type: ExerciseType | ''; value: ExerciseType | '' }>`
+  width: 50px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: 10px;
   color: ${props =>
     props.type === props.value ? 'var(--light-100)' : 'var(--main-200)'};
   background: ${props => props.type === props.value && 'var(--main-200)'};
@@ -334,4 +361,11 @@ const FilterBar = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
+  height: 30px;
+`;
+
+const FilterLabel = styled.div`
+  color: var(--main-200);
+  width: 100px;
 `;

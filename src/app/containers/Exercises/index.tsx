@@ -17,6 +17,11 @@ import { selectExercises } from './selectors';
 import { exercisesWatcher } from './saga';
 import { Exercise, ExerciseType } from '../AddExercise/types';
 
+import { Boulder } from '../../components/icons/Boulder';
+import { Sport } from '../../components/icons/Sport';
+import { Cardio } from '../../components/icons/Cardio';
+import { Strength } from '../../components/icons/Strength';
+
 import { ExerciseEntry } from './ExerciseEntry';
 
 interface Props {}
@@ -49,7 +54,15 @@ export function Exercises(props: Props) {
           key={ExerciseType[x]}
           onClick={() => clickType(ExerciseType[x])}
         >
-          {ExerciseType[x]}
+          {x === '0' ? (
+            <Strength />
+          ) : x === '1' ? (
+            <Cardio />
+          ) : x === '2' ? (
+            <Boulder />
+          ) : (
+            <Sport />
+          )}
         </Tab>
       );
     }
@@ -79,6 +92,7 @@ export function Exercises(props: Props) {
   return (
     <Div>
       <FilterBar>{exerciseTypeOptions}</FilterBar>
+      <Title>{typeToDisplay}</Title>
       {exercisesToDisplay?.length > 0 ? (
         <ExerciseDisplay>
           {exercisesToDisplay.map(ele => (
@@ -96,7 +110,9 @@ export function Exercises(props: Props) {
   );
 }
 
-const Div = styled.div``;
+const Div = styled.div`
+  width: 100vw;
+`;
 
 const ExerciseDisplay = styled.div`
   display: flex;
@@ -107,7 +123,7 @@ const ExerciseDisplay = styled.div`
 
 const Tab = styled.div<{ type: ExerciseType | ''; value: ExerciseType | '' }>`
   width: 100px;
-  padding: 5px;
+  overflow: hidden;
   color: ${props =>
     props.type === props.value ? 'var(--main-200)' : 'var(--light-100)'};
   background: ${props =>
@@ -121,5 +137,10 @@ const FilterBar = styled.div`
   justify-content: center;
   border-radius: 5px;
   overflow: hidden;
+  height: 40px;
   margin: 10px;
+`;
+
+const Title = styled.div`
+  font-size: 25px;
 `;

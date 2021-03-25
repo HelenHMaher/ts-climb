@@ -22,6 +22,11 @@ import { Workout } from '../AddWorkout/types';
 import { Button } from '../../components/Button';
 import { Trash } from '../../components/icons/Trash';
 
+import { Boulder } from '../../components/icons/Boulder';
+import { Sport } from '../../components/icons/Sport';
+import { Cardio } from '../../components/icons/Cardio';
+import { Strength } from '../../components/icons/Strength';
+
 interface Props {}
 
 export function EditWorkout(props: Props) {
@@ -80,7 +85,15 @@ export function EditWorkout(props: Props) {
           key={ExerciseType[x]}
           onClick={() => clickType(ExerciseType[x])}
         >
-          {ExerciseType[x]}
+          {x === '0' ? (
+            <Strength size="small" />
+          ) : x === '1' ? (
+            <Cardio size="small" />
+          ) : x === '2' ? (
+            <Boulder size="small" />
+          ) : (
+            <Sport size="small" />
+          )}
         </Tab>
       );
     }
@@ -164,7 +177,12 @@ export function EditWorkout(props: Props) {
               nevermind this is for the individual Workout page */}
 
               <ExercisesLabel id="exercise-group">Exercises</ExercisesLabel>
-              <FilterBar>{exerciseTypeOptions}</FilterBar>
+              <FilterBar>
+                <FilterLabel>
+                  {typeToDisplay === '' ? 'DISPLAY' : typeToDisplay}
+                </FilterLabel>
+                {exerciseTypeOptions}
+              </FilterBar>
               <ExercisesGroup role="group" aria-labelledby="exercise-group">
                 {exerciseOptions}
               </ExercisesGroup>
@@ -363,6 +381,13 @@ const ExerciseFieldLabel = styled.label`
 `;
 
 const Tab = styled.div<{ type: ExerciseType | ''; value: ExerciseType | '' }>`
+  width: 50px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: 10px;
   color: ${props =>
     props.type === props.value ? 'var(--light-100)' : 'var(--main-200)'};
   background: ${props => props.type === props.value && 'var(--main-200)'};
@@ -373,4 +398,11 @@ const FilterBar = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
+  height: 30px;
+`;
+
+const FilterLabel = styled.div`
+  color: var(--main-200);
+  width: 100px;
 `;
