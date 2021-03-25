@@ -6,6 +6,7 @@
 import * as React from 'react';
 import { Switch, Route, BrowserRouter as Router } from 'react-router-dom';
 import { NavBar } from '../NavBar';
+import styled from 'styled-components';
 
 import { Profile } from '../../containers/Profile';
 
@@ -23,7 +24,7 @@ interface Props {}
 
 export function Dashboard(props: Props) {
   return (
-    <>
+    <Div>
       <DashboardInjector />
       <Router>
         <NavBar />
@@ -40,6 +41,10 @@ export function Dashboard(props: Props) {
           <Route path="/dashboard" component={WorkoutCreator} />
         </Switch>
       </Router>
-    </>
+    </Div>
   );
 }
+
+const Div = styled.div`
+  width: 100vw;
+`;

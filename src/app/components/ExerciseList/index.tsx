@@ -17,17 +17,17 @@ export function ExerciseList(props: Props) {
   const history = useHistory();
   return (
     <Div>
-      <Button
-        buttonStyle="solid"
-        buttonSize="large"
-        title="Create Exercise"
-        clickHandler={() => history.push('/dashboard/exerciseCreator')}
-      />
       <TopNav
         back={true}
         title="Exercises"
         leftButton={null}
         rightButton={<Logout />}
+      />
+      <Button
+        buttonStyle="solid"
+        buttonSize="large"
+        title="Create Exercise"
+        clickHandler={() => history.push('/dashboard/exerciseCreator')}
       />
       <Exercises />
     </Div>
@@ -39,5 +39,6 @@ const Div = styled.div`
   width: 100vw;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
 `;

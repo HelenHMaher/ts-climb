@@ -28,6 +28,7 @@ export function ExerciseEditor(props: Props) {
 
 const Div = styled.div`
   padding-top: 50px;
+  padding-bottom: 50px;
   display: flex;
   flex-direction: column;
   align-items: center;

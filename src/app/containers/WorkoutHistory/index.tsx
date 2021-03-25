@@ -48,7 +48,7 @@ export function WorkoutHistory(props: Props) {
         if (exerciseDetails) {
           return <li key={exerciseDetails._id}>{exerciseDetails.name}</li>;
         } else {
-          return <li key={exercise}>{exercise}</li>;
+          return <li key={exercise}>Exercise Deleted</li>;
         }
       })
     );
@@ -77,6 +77,7 @@ const WorkoutEntries = styled.div`
   border-radius: 5px;
   margin: 5px;
   padding: 5px;
+  text-align: left;
 `;
 
 const ButtonDiv = styled.div`
