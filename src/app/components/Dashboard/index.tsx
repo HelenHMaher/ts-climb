@@ -20,6 +20,8 @@ import { WorkoutList } from '../WorkoutList';
 
 import { DashboardInjector } from '../../containers/DashboardInjector';
 
+import { EditExerciseInWorkout } from 'app/containers/EditExerciseInWorkout';
+
 interface Props {}
 
 export function Dashboard(props: Props) {
@@ -31,6 +33,10 @@ export function Dashboard(props: Props) {
         <Switch>
           <Route path="/dashboard/profile" component={Profile} />
           <Route path="/dashboard/workoutEditor" component={WorkoutEditor} />
+          <Route
+            path="/dashboard/exerciseInWorkoutEditor"
+            component={EditExerciseInWorkout}
+          />
           <Route path="/dashboard/workoutHistory" component={WorkoutList} />
           <Route
             path="/dashboard/exerciseCreator"

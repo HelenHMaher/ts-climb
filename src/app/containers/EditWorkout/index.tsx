@@ -26,6 +26,7 @@ import { Boulder } from '../../components/icons/Boulder';
 import { Sport } from '../../components/icons/Sport';
 import { Cardio } from '../../components/icons/Cardio';
 import { Strength } from '../../components/icons/Strength';
+import { ExerciseInWorkout } from '../EditExerciseInWorkout/types';
 // import { WorkoutCreator } from 'app/components/WorkoutCreator';
 
 interface Props {}
@@ -114,11 +115,21 @@ export function EditWorkout(props: Props) {
     }
   };
 
+  const clickEditExercise = (exerciseInstance: ExerciseInWorkout) => {
+    dispatch(
+      workoutHistoryActions.editExerciseInWorkoutAction(exerciseInstance),
+    );
+    history.push('/dashboard/exerciseInWorkoutEditor');
+  };
+
   const exercisesAlreadyAdded = workoutToEdit
     ? workoutToEdit.exercises.map(x => {
         return (
-          <ExerciseList key={x.id}>
+          <ExerciseList key={x.instanceId}>
             {exercises.find(y => y._id === x.id)?.name}
+            <EditExerciseButton onClick={() => clickEditExercise(x)}>
+              Edit
+            </EditExerciseButton>
           </ExerciseList>
         );
       })
@@ -382,6 +393,14 @@ const ExerciseList = styled.li`
   color: var(--main-200);
   width: 285px;
   text-align: left;
+`;
+
+const EditExerciseButton = styled.div`
+  background: var(--light-100-25);
+  padding: 0px 10px;
+  border-radius: 10px;
+  border: 1px solid var(--main-200);
+  margin-left: 30px;
 `;
 
 const ExercisesGroup = styled.div`

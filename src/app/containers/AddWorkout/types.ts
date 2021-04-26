@@ -1,4 +1,5 @@
 /* --- STATE --- */
+import { ExerciseInWorkout } from '../EditExerciseInWorkout/types';
 
 export interface AddWorkoutState {
   errorMessage: string | null;
@@ -7,7 +8,7 @@ export interface AddWorkoutState {
 
 export interface Workout {
   name: string;
-  exercises: Array<{ id: string; sets?: Array<string>; notes?: string }>;
+  exercises: Array<ExerciseInWorkout>;
   notes: string;
   date: string;
   _id?: string;
