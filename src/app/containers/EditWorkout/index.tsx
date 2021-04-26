@@ -26,6 +26,7 @@ import { Boulder } from '../../components/icons/Boulder';
 import { Sport } from '../../components/icons/Sport';
 import { Cardio } from '../../components/icons/Cardio';
 import { Strength } from '../../components/icons/Strength';
+// import { WorkoutCreator } from 'app/components/WorkoutCreator';
 
 interface Props {}
 
@@ -68,7 +69,7 @@ export function EditWorkout(props: Props) {
           className="exerciseField"
           type="checkbox"
           name="exercises"
-          value={{ id: x._id }}
+          value={x._id}
         />
         {x.name}
       </ExerciseFieldLabel>
@@ -113,6 +114,16 @@ export function EditWorkout(props: Props) {
     }
   };
 
+  const exercisesAlreadyAdded = workoutToEdit
+    ? workoutToEdit.exercises.map(x => {
+        return (
+          <ExerciseList key={x.id}>
+            {exercises.find(y => y._id === x.id)?.name}
+          </ExerciseList>
+        );
+      })
+    : [];
+
   return (
     <>
       <Div>
@@ -125,7 +136,7 @@ export function EditWorkout(props: Props) {
             name: workoutToEdit?.name || '',
             date: workoutToEdit?.date || '',
             notes: workoutToEdit?.notes || '',
-            exercises: workoutToEdit?.exercises || [{ id: '' }],
+            exercises: [],
             _id: workoutToEdit?._id || '',
           }}
           onSubmit={(values: Workout) => {
@@ -177,6 +188,12 @@ export function EditWorkout(props: Props) {
               nevermind this is for the individual Workout page */}
 
               <ExercisesLabel id="exercise-group">Exercises</ExercisesLabel>
+              {exercisesAlreadyAdded}
+              <ul>
+                <ExercisesLabel id="exercise-group">
+                  Add New Exercise(s)
+                </ExercisesLabel>
+              </ul>
               <FilterBar>
                 <FilterLabel>
                   {typeToDisplay === '' ? 'DISPLAY' : typeToDisplay}
@@ -359,6 +376,12 @@ const ExercisesLabel = styled.div`
       'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
       'Helvetica Neue', sans-serif;
   }
+`;
+
+const ExerciseList = styled.li`
+  color: var(--main-200);
+  width: 285px;
+  text-align: left;
 `;
 
 const ExercisesGroup = styled.div`
