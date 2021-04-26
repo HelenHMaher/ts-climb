@@ -68,7 +68,7 @@ export function EditWorkout(props: Props) {
           className="exerciseField"
           type="checkbox"
           name="exercises"
-          value={x._id}
+          value={{ id: x._id }}
         />
         {x.name}
       </ExerciseFieldLabel>
@@ -125,7 +125,7 @@ export function EditWorkout(props: Props) {
             name: workoutToEdit?.name || '',
             date: workoutToEdit?.date || '',
             notes: workoutToEdit?.notes || '',
-            exercises: workoutToEdit?.exercises || [],
+            exercises: workoutToEdit?.exercises || [{ id: '' }],
             _id: workoutToEdit?._id || '',
           }}
           onSubmit={(values: Workout) => {

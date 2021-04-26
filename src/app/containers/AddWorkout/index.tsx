@@ -160,6 +160,7 @@ export function AddWorkout(props: Props) {
 
                 {exerciseTypeOptions}
               </FilterBar>
+
               <ExercisesGroup role="group" aria-labelledby="exercise-group">
                 {exerciseOptions}
               </ExercisesGroup>

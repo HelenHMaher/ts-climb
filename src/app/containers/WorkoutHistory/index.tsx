@@ -39,16 +39,16 @@ export function WorkoutHistory(props: Props) {
     history.push('/dashboard/workoutEditor');
   };
 
-  const exerciseItems = (x: Array<string>) =>
+  const exerciseItems = (x: Array<{ id: string }>) =>
     x.length < 1 ? (
       <div>none</div>
     ) : (
       x.map(exercise => {
-        const exerciseDetails = allExercises.find(y => exercise === y._id);
+        const exerciseDetails = allExercises.find(y => exercise.id === y._id);
         if (exerciseDetails) {
           return <li key={exerciseDetails._id}>{exerciseDetails.name}</li>;
         } else {
-          return <li key={exercise}>Exercise Deleted</li>;
+          return <li key={exercise.id}>Exercise Deleted</li>;
         }
       })
     );
