@@ -126,10 +126,13 @@ export function EditWorkout(props: Props) {
     ? workoutToEdit.exercises.map(x => {
         return (
           <ExerciseList key={x.instanceId}>
-            {exercises.find(y => y._id === x.id)?.name}
             <EditExerciseButton onClick={() => clickEditExercise(x)}>
               Edit
             </EditExerciseButton>
+            {exercises.find(y => y._id === x.id)?.name}
+            <DeleteExerciseButton>
+              <Trash size={null} color={null} />
+            </DeleteExerciseButton>
           </ExerciseList>
         );
       })
@@ -200,11 +203,10 @@ export function EditWorkout(props: Props) {
 
               <ExercisesLabel id="exercise-group">Exercises</ExercisesLabel>
               {exercisesAlreadyAdded}
-              <ul>
-                <ExercisesLabel id="exercise-group">
-                  Add New Exercise(s)
-                </ExercisesLabel>
-              </ul>
+              <ExercisesLabel id="exercise-group">
+                Add New Exercise(s)
+              </ExercisesLabel>
+
               <FilterBar>
                 <FilterLabel>
                   {typeToDisplay === '' ? 'DISPLAY' : typeToDisplay}
@@ -389,17 +391,30 @@ const ExercisesLabel = styled.div`
   }
 `;
 
-const ExerciseList = styled.li`
+const ExerciseList = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
   color: var(--main-200);
   width: 285px;
+  padding: 5px 0px;
   text-align: left;
+  border-bottom: 1px solid var(--main-200);
 `;
 
 const EditExerciseButton = styled.div`
   background: var(--light-100-25);
-  padding: 0px 10px;
+  padding: 0 10px;
   border-radius: 10px;
   border: 1px solid var(--main-200);
+  margin-right: 15px;
+`;
+
+const DeleteExerciseButton = styled.div`
+  background: var(--light-100-25);
+  padding: 5px;
+  border-radius: 50%;
+  background: var(--main-200-50);
   margin-left: 30px;
 `;
 
