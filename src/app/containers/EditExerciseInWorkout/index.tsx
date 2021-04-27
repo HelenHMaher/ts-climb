@@ -75,7 +75,6 @@ export function EditExerciseInWorkout(props: Props) {
   return (
     <>
       <StyledEditExerciseInWorkout>
-        <div>Edit Exercise In Workout</div>
         {workoutInfo}
         {exerciseInfo}
         {exerciseInstanceInfo}
