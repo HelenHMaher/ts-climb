@@ -1,5 +1,8 @@
 /* --- STATE --- */
-export interface EditExerciseInWorkoutState {}
+export interface EditExerciseInWorkoutState {
+  errorMessage: string | null;
+  successMessage: string | null;
+}
 
 export interface ExerciseInWorkout {
   id: string;
