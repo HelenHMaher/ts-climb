@@ -106,6 +106,7 @@ export function AddWorkout(props: Props) {
             date: new Date().toISOString().substring(0, 10),
             exercises: [],
             notes: '',
+            _id: '',
           }}
           onSubmit={(values: Workout) => {
             alert(JSON.stringify(values, null, 2));
@@ -160,6 +161,7 @@ export function AddWorkout(props: Props) {
 
                 {exerciseTypeOptions}
               </FilterBar>
+
               <ExercisesGroup role="group" aria-labelledby="exercise-group">
                 {exerciseOptions}
               </ExercisesGroup>

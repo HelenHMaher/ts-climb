@@ -10,6 +10,7 @@ import { WorkoutHistoryState } from 'app/containers/WorkoutHistory/types';
 import { AddWorkoutState } from 'app/containers/AddWorkout/types';
 import { EditExerciseState } from 'app/containers/EditExercise/types';
 import { EditWorkoutState } from 'app/containers/EditWorkout/types';
+import { EditExerciseInWorkoutState } from 'app/containers/EditExerciseInWorkout/types';
 // [IMPORT NEW CONTAINERSTATE ABOVE] < Needed for generating containers seamlessly
 
 /* 
@@ -29,5 +30,6 @@ export interface RootState {
   addWorkout?: AddWorkoutState;
   editExercise?: EditExerciseState;
   editWorkout?: EditWorkoutState;
+  editExerciseInWorkout?: EditExerciseInWorkoutState;
   // [INSERT NEW REDUCER KEY ABOVE] < Needed for generating containers seamlessly
 }

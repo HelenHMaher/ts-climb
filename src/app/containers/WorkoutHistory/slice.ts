@@ -2,11 +2,13 @@ import { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from 'utils/@reduxjs/toolkit';
 import { ContainerState } from './types';
 import { Workout } from '../AddWorkout/types';
+import { ExerciseInWorkout } from '../EditExerciseInWorkout/types';
 
 // The initial state of the WorkoutHistory container
 export const initialState: ContainerState = {
   workouts: [],
   editWorkout: null,
+  editExerciseInWorkout: null,
 };
 
 const workoutHistorySlice = createSlice({
@@ -21,8 +23,21 @@ const workoutHistorySlice = createSlice({
     fetchWorkoutsFailure(state, action: PayloadAction<string>) {
       console.log(action.payload);
     },
+    fetchSingleWorkoutAction(state, action: PayloadAction<string>) {},
+    fetchSingleWorkoutSuccess(state, action: PayloadAction<Workout>) {
+      state.editWorkout = action.payload;
+    },
+    fetchSingleWorkoutFailure(state, action: PayloadAction<string>) {
+      console.log(action.payload);
+    },
     editWorkoutAction(state, action: PayloadAction<Workout | null>) {
       state.editWorkout = action.payload;
+    },
+    editExerciseInWorkoutAction(
+      state,
+      action: PayloadAction<ExerciseInWorkout | null>,
+    ) {
+      state.editExerciseInWorkout = action.payload;
     },
   },
 });

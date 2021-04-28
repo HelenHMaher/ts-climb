@@ -7,6 +7,7 @@
 import * as React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components/macro';
+import uniqid from 'uniqid';
 import { useHistory } from 'react-router-dom';
 
 import { useInjectReducer, useInjectSaga } from 'utils/redux-injectors';
@@ -16,6 +17,7 @@ import { workoutHistorySaga } from './saga';
 import { selectExercises } from '../Exercises/selectors';
 import { ButtonChip } from '../../components/ButtonChip';
 import { Workout } from '../AddWorkout/types';
+import { ExerciseInWorkout } from '../EditExerciseInWorkout/types';
 
 interface Props {}
 
@@ -39,22 +41,22 @@ export function WorkoutHistory(props: Props) {
     history.push('/dashboard/workoutEditor');
   };
 
-  const exerciseItems = (x: Array<string>) =>
+  const exerciseItems = (x: Array<ExerciseInWorkout>) =>
     x.length < 1 ? (
       <div>none</div>
     ) : (
       x.map(exercise => {
-        const exerciseDetails = allExercises.find(y => exercise === y._id);
+        const exerciseDetails = allExercises.find(y => exercise.id === y._id);
         if (exerciseDetails) {
-          return <li key={exerciseDetails._id}>{exerciseDetails.name}</li>;
+          return <li key={exercise.instanceId}>{exerciseDetails.name}</li>;
         } else {
-          return <li key={exercise}>Exercise Deleted</li>;
+          return <li key={uniqid()}>Exercise Deleted</li>;
         }
       })
     );
 
   const workoutEntries = workoutHistory.map(x => (
-    <WorkoutEntries key={x.name}>
+    <WorkoutEntries key={x._id}>
       <div>Date: {x.date}</div>
       <div>Name: {x.name}</div>
       <div>Exercises:</div>

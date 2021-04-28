@@ -13,6 +13,7 @@ import { useHistory } from 'react-router-dom';
 import { useInjectReducer, useInjectSaga } from 'utils/redux-injectors';
 import { reducer, sliceKey, actions } from './slice';
 import { actions as workoutHistoryActions } from '../WorkoutHistory/slice';
+import { actions as exerciseInWorkoutActions } from '../EditExerciseInWorkout/slice';
 import { selectWorkoutToEdit } from '../WorkoutHistory/selectors';
 import { selectExercises } from '../Exercises/selectors';
 import { editWorkoutSaga } from './saga';
@@ -26,12 +27,27 @@ import { Boulder } from '../../components/icons/Boulder';
 import { Sport } from '../../components/icons/Sport';
 import { Cardio } from '../../components/icons/Cardio';
 import { Strength } from '../../components/icons/Strength';
+import { ExerciseInWorkout } from '../EditExerciseInWorkout/types';
+import {
+  sliceKey as sliceKeyForExInWorkout,
+  reducer as reducerForExInWorkout,
+} from '../EditExerciseInWorkout/slice';
+import { editExerciseInWorkoutSaga } from '../EditExerciseInWorkout/saga';
 
 interface Props {}
 
 export function EditWorkout(props: Props) {
   useInjectReducer({ key: sliceKey, reducer: reducer });
   useInjectSaga({ key: sliceKey, saga: editWorkoutSaga });
+
+  useInjectReducer({
+    key: sliceKeyForExInWorkout,
+    reducer: reducerForExInWorkout,
+  });
+  useInjectSaga({
+    key: sliceKeyForExInWorkout,
+    saga: editExerciseInWorkoutSaga,
+  });
 
   const [typeToDisplay, setTypeToDisplay] = React.useState<ExerciseType | ''>(
     '',
@@ -113,6 +129,48 @@ export function EditWorkout(props: Props) {
     }
   };
 
+  const clickEditExercise = (exerciseInstance: ExerciseInWorkout) => {
+    dispatch(
+      workoutHistoryActions.editExerciseInWorkoutAction(exerciseInstance),
+    );
+    history.push('/dashboard/exerciseInWorkoutEditor');
+  };
+
+  const clickDeleteExercise = (
+    exerciseInstanceId: string,
+    workoutId: string,
+  ) => {
+    dispatch(
+      exerciseInWorkoutActions.deleteExerciseInWorkoutAction({
+        workoutId: workoutId,
+        exerciseInstanceId: exerciseInstanceId,
+      }),
+    );
+    setTimeout(() => {
+      dispatch(workoutHistoryActions.fetchSingleWorkoutAction(workoutId));
+      history.push('/dashboard/workoutEditor');
+    }, 200);
+  };
+  const exercisesAlreadyAdded = workoutToEdit
+    ? workoutToEdit.exercises.map(x => {
+        return (
+          <ExerciseList key={x.instanceId}>
+            <EditExerciseButton onClick={() => clickEditExercise(x)}>
+              Edit
+            </EditExerciseButton>
+            {exercises.find(y => y._id === x.id)?.name}
+            <DeleteExerciseButton
+              onClick={() =>
+                clickDeleteExercise(x.instanceId, workoutToEdit._id)
+              }
+            >
+              <Trash size={null} color={null} />
+            </DeleteExerciseButton>
+          </ExerciseList>
+        );
+      })
+    : [];
+
   return (
     <>
       <Div>
@@ -125,7 +183,7 @@ export function EditWorkout(props: Props) {
             name: workoutToEdit?.name || '',
             date: workoutToEdit?.date || '',
             notes: workoutToEdit?.notes || '',
-            exercises: workoutToEdit?.exercises || [],
+            exercises: [],
             _id: workoutToEdit?._id || '',
           }}
           onSubmit={(values: Workout) => {
@@ -177,6 +235,11 @@ export function EditWorkout(props: Props) {
               nevermind this is for the individual Workout page */}
 
               <ExercisesLabel id="exercise-group">Exercises</ExercisesLabel>
+              {exercisesAlreadyAdded}
+              <ExercisesLabel id="exercise-group">
+                Add New Exercise(s)
+              </ExercisesLabel>
+
               <FilterBar>
                 <FilterLabel>
                   {typeToDisplay === '' ? 'DISPLAY' : typeToDisplay}
@@ -359,6 +422,33 @@ const ExercisesLabel = styled.div`
       'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
       'Helvetica Neue', sans-serif;
   }
+`;
+
+const ExerciseList = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  color: var(--main-200);
+  width: 285px;
+  padding: 5px 0px;
+  text-align: left;
+  border-bottom: 1px solid var(--main-200);
+`;
+
+const EditExerciseButton = styled.div`
+  background: var(--light-100-25);
+  padding: 0 10px;
+  border-radius: 10px;
+  border: 1px solid var(--main-200);
+  margin-right: 15px;
+`;
+
+const DeleteExerciseButton = styled.div`
+  background: var(--light-100-25);
+  padding: 5px;
+  border-radius: 50%;
+  background: var(--main-200-50);
+  margin-left: 30px;
 `;
 
 const ExercisesGroup = styled.div`

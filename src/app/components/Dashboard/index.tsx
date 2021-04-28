@@ -13,6 +13,7 @@ import { Profile } from '../../containers/Profile';
 import { ExerciseCreator } from '../ExerciseCreator';
 import { ExerciseEditor } from '../ExerciseEditor';
 import { ExerciseList } from '../ExerciseList';
+import { ExerciseInWorkoutEditor } from '../ExerciseInWorkoutEditor';
 
 import { WorkoutCreator } from '../WorkoutCreator';
 import { WorkoutEditor } from '../WorkoutEditor';
@@ -31,6 +32,10 @@ export function Dashboard(props: Props) {
         <Switch>
           <Route path="/dashboard/profile" component={Profile} />
           <Route path="/dashboard/workoutEditor" component={WorkoutEditor} />
+          <Route
+            path="/dashboard/exerciseInWorkoutEditor"
+            component={ExerciseInWorkoutEditor}
+          />
           <Route path="/dashboard/workoutHistory" component={WorkoutList} />
           <Route
             path="/dashboard/exerciseCreator"
