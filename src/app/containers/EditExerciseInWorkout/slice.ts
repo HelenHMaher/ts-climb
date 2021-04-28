@@ -17,7 +17,8 @@ const editExerciseInWorkoutSlice = createSlice({
       state,
       action: PayloadAction<{
         workoutId: string;
-        exercises: ExerciseInWorkout;
+        exerciseInstanceId: string;
+        exercise: ExerciseInWorkout;
       }>,
     ) {},
     editExerciseInWorkoutFailureAction(state, action: PayloadAction<string>) {

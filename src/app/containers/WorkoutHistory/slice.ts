@@ -23,6 +23,13 @@ const workoutHistorySlice = createSlice({
     fetchWorkoutsFailure(state, action: PayloadAction<string>) {
       console.log(action.payload);
     },
+    fetchSingleWorkoutAction(state, action: PayloadAction<string>) {},
+    fetchSingleWorkoutSuccess(state, action: PayloadAction<Workout>) {
+      state.editWorkout = action.payload;
+    },
+    fetchSingleWorkoutFailure(state, action: PayloadAction<string>) {
+      console.log(action.payload);
+    },
     editWorkoutAction(state, action: PayloadAction<Workout | null>) {
       state.editWorkout = action.payload;
     },

@@ -11,7 +11,7 @@ export interface Workout {
   exercises: Array<ExerciseInWorkout>;
   notes: string;
   date: string;
-  _id?: string;
+  _id: string;
 }
 
 export type ContainerState = AddWorkoutState;

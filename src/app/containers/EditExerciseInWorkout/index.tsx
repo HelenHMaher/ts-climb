@@ -11,7 +11,7 @@ import { Formik, Field, FieldArray, ErrorMessage } from 'formik';
 import { useHistory } from 'react-router-dom';
 
 import { useInjectReducer, useInjectSaga } from 'utils/redux-injectors';
-import { reducer, sliceKey } from './slice';
+import { reducer, sliceKey, actions } from './slice';
 import {
   selectExerciseInWorkoutToEdit,
   selectWorkoutToEdit,
@@ -89,10 +89,19 @@ export function EditExerciseInWorkout(props: Props) {
             instanceId: exerciseInWorkoutToEdit?.instanceId || '',
           }}
           onSubmit={(values: ExerciseInWorkout) => {
-            alert(JSON.stringify(values, null, 2));
-            setTimeout(() => {
-              history.push('/dashboard/workoutHistory');
-            }, 400);
+            if (workout && exerciseInWorkoutToEdit) {
+              alert(JSON.stringify(values, null, 2));
+              dispatch(
+                actions.editExerciseInWorkoutAction({
+                  workoutId: workout._id,
+                  exerciseInstanceId: exerciseInWorkoutToEdit.instanceId,
+                  exercise: values,
+                }),
+              );
+              setTimeout(() => {
+                history.push('/dashboard/workoutHistory');
+              }, 400);
+            }
           }}
         >
           {({ values, handleChange, handleBlur, handleSubmit }) => (

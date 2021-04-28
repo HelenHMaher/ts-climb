@@ -21,7 +21,11 @@ export function* handleError(error: { response: { data: { msg: string } } }) {
 }
 
 export function* editExerciseInWorkoutBackendCall(
-  action: PayloadAction<{ workoutId: string; exercises: ExerciseInWorkout }>,
+  action: PayloadAction<{
+    workoutId: string;
+    exerciseInstanceId: string;
+    exercise: ExerciseInWorkout;
+  }>,
 ) {
   try {
     const params = {
@@ -43,7 +47,7 @@ export function* deleteExerciseInWorkoutBackendCall(
   try {
     const params = {
       method: 'PATCH',
-      url: `${serverURL}/api/exerciseInWorkouts/deleteExerciseInWorkout`,
+      url: `${serverURL}/api/exerciseInWorkout/deleteExerciseInWorkout`,
       headers: { 'x-auth-token': localStorage.getItem('x-auth-token') },
       data: action.payload,
     };

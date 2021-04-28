@@ -13,6 +13,7 @@ import { useHistory } from 'react-router-dom';
 import { useInjectReducer, useInjectSaga } from 'utils/redux-injectors';
 import { reducer, sliceKey, actions } from './slice';
 import { actions as workoutHistoryActions } from '../WorkoutHistory/slice';
+import { actions as exerciseInWorkoutActions } from '../EditExerciseInWorkout/slice';
 import { selectWorkoutToEdit } from '../WorkoutHistory/selectors';
 import { selectExercises } from '../Exercises/selectors';
 import { editWorkoutSaga } from './saga';
@@ -27,13 +28,26 @@ import { Sport } from '../../components/icons/Sport';
 import { Cardio } from '../../components/icons/Cardio';
 import { Strength } from '../../components/icons/Strength';
 import { ExerciseInWorkout } from '../EditExerciseInWorkout/types';
-// import { WorkoutCreator } from 'app/components/WorkoutCreator';
+import {
+  sliceKey as sliceKeyForExInWorkout,
+  reducer as reducerForExInWorkout,
+} from '../EditExerciseInWorkout/slice';
+import { editExerciseInWorkoutSaga } from '../EditExerciseInWorkout/saga';
 
 interface Props {}
 
 export function EditWorkout(props: Props) {
   useInjectReducer({ key: sliceKey, reducer: reducer });
   useInjectSaga({ key: sliceKey, saga: editWorkoutSaga });
+
+  useInjectReducer({
+    key: sliceKeyForExInWorkout,
+    reducer: reducerForExInWorkout,
+  });
+  useInjectSaga({
+    key: sliceKeyForExInWorkout,
+    saga: editExerciseInWorkoutSaga,
+  });
 
   const [typeToDisplay, setTypeToDisplay] = React.useState<ExerciseType | ''>(
     '',
@@ -122,6 +136,21 @@ export function EditWorkout(props: Props) {
     history.push('/dashboard/exerciseInWorkoutEditor');
   };
 
+  const clickDeleteExercise = (
+    exerciseInstanceId: string,
+    workoutId: string,
+  ) => {
+    dispatch(
+      exerciseInWorkoutActions.deleteExerciseInWorkoutAction({
+        workoutId: workoutId,
+        exerciseInstanceId: exerciseInstanceId,
+      }),
+    );
+    setTimeout(() => {
+      dispatch(workoutHistoryActions.fetchSingleWorkoutAction(workoutId));
+      history.push('/dashboard/workoutEditor');
+    }, 200);
+  };
   const exercisesAlreadyAdded = workoutToEdit
     ? workoutToEdit.exercises.map(x => {
         return (
@@ -130,7 +159,11 @@ export function EditWorkout(props: Props) {
               Edit
             </EditExerciseButton>
             {exercises.find(y => y._id === x.id)?.name}
-            <DeleteExerciseButton>
+            <DeleteExerciseButton
+              onClick={() =>
+                clickDeleteExercise(x.instanceId, workoutToEdit._id)
+              }
+            >
               <Trash size={null} color={null} />
             </DeleteExerciseButton>
           </ExerciseList>

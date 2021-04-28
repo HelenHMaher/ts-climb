@@ -106,6 +106,7 @@ export function AddWorkout(props: Props) {
             date: new Date().toISOString().substring(0, 10),
             exercises: [],
             notes: '',
+            _id: '',
           }}
           onSubmit={(values: Workout) => {
             alert(JSON.stringify(values, null, 2));
