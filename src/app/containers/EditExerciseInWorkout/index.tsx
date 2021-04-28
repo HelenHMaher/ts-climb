@@ -61,13 +61,27 @@ export function EditExerciseInWorkout(props: Props) {
 
   const exerciseInstanceInfo =
     exerciseInWorkoutToEdit != null ? (
-      Object.keys(exerciseInWorkoutToEdit).map(x => {
-        return (
-          <div key={x}>
-            {x}: {exerciseInWorkoutToEdit[x]}
+      <ExerciseInstanceInfo>
+        <div>id: {exerciseInWorkoutToEdit.id}</div>
+        <div>instanceId: {exerciseInWorkoutToEdit.instanceId}</div>
+        {exerciseInWorkoutToEdit.sets ? (
+          <div>
+            sets:
+            <ol>
+              {exerciseInWorkoutToEdit.sets.map(x => (
+                <li>{x}</li>
+              ))}
+            </ol>
           </div>
-        );
-      })
+        ) : (
+          <></>
+        )}
+        {exerciseInWorkoutToEdit.notes ? (
+          <div>notes: {exerciseInWorkoutToEdit.notes}</div>
+        ) : (
+          <></>
+        )}
+      </ExerciseInstanceInfo>
     ) : (
       <></>
     );
@@ -174,9 +188,20 @@ const StyledEditExerciseInWorkout = styled.div`
   color: var(--main-200);
 `;
 
-const WorkoutInfo = styled.div``;
+const WorkoutInfo = styled.div`
+  text-align: left;
+  border-bottom: 1px solid var(--main-200);
+`;
 
-const ExerciseInfo = styled.div``;
+const ExerciseInfo = styled.div`
+  text-align: left;
+  border-bottom: 1px solid var(--main-200);
+`;
+
+const ExerciseInstanceInfo = styled.div`
+  text-align: left;
+  border-bottom: 1px solid var(--main-200);
+`;
 
 const Form = styled.form`
   width: 300px;
