@@ -41,8 +41,11 @@ export function EditExerciseInWorkout(props: Props) {
   const workoutInfo =
     workout != null ? (
       <WorkoutInfo>
-        <div>workout name: {workout.name}</div>
-        <div>workout date: {workout.date}</div>
+        <SectionTitle>Workout</SectionTitle>
+        <SectionInfo>
+          <div>{workout.name}</div>
+          <div>{workout.date}</div>
+        </SectionInfo>
       </WorkoutInfo>
     ) : (
       <></>
@@ -51,35 +54,50 @@ export function EditExerciseInWorkout(props: Props) {
   const exerciseInfo =
     exercise != null ? (
       <ExerciseInfo>
-        <div>exercise name: {exercise.name}</div>
-        <div>description: {exercise.description}</div>
-        <div>type: {ExerciseType[exercise.type]}</div>
+        <SectionTitle>Exercise</SectionTitle>
+        <SectionInfo>
+          <div>{exercise.name}</div>
+          <div>{exercise.description}</div>
+          <div>{ExerciseType[exercise.type]}</div>
+        </SectionInfo>
       </ExerciseInfo>
     ) : (
       <></>
     );
 
-  const exerciseInstanceInfo =
-    exerciseInWorkoutToEdit != null ? (
-      Object.keys(exerciseInWorkoutToEdit).map(x => {
-        return (
-          <div key={x}>
-            {x}: {exerciseInWorkoutToEdit[x]}
-          </div>
-        );
-      })
-    ) : (
-      <></>
-    );
+  // const exerciseInstanceInfo =
+  //   exerciseInWorkoutToEdit != null ? (
+  //     <ExerciseInstanceInfo>
+  //       <div>id: {exerciseInWorkoutToEdit.id}</div>
+  //       <div>instanceId: {exerciseInWorkoutToEdit.instanceId}</div>
+  //       {exerciseInWorkoutToEdit.sets ? (
+  //         <div>
+  //           sets:
+  //           <ol>
+  //             {exerciseInWorkoutToEdit.sets.map(x => (
+  //               <li>{x}</li>
+  //             ))}
+  //           </ol>
+  //         </div>
+  //       ) : (
+  //         <></>
+  //       )}
+  //       {exerciseInWorkoutToEdit.notes ? (
+  //         <div>notes: {exerciseInWorkoutToEdit.notes}</div>
+  //       ) : (
+  //         <></>
+  //       )}
+  //     </ExerciseInstanceInfo>
+  //   ) : (
+  //     <></>
+  //   );
 
   return (
     <>
       <StyledEditExerciseInWorkout>
         {workoutInfo}
         {exerciseInfo}
-        {exerciseInstanceInfo}
-
-        {/*  will this load existing values?? */}
+        {/* {exerciseInstanceInfo} */}
 
         <Formik
           initialValues={{
@@ -107,7 +125,7 @@ export function EditExerciseInWorkout(props: Props) {
           {({ values, handleChange, handleBlur, handleSubmit }) => (
             <Form onSubmit={handleSubmit}>
               <Label htmlFor="sets">
-                <p>Sets</p>
+                <SectionTitle>Sets</SectionTitle>
                 <FieldArray name="sets">
                   {({ insert, remove, push }) => (
                     <EditSets>
@@ -133,13 +151,9 @@ export function EditExerciseInWorkout(props: Props) {
                             />
                           </Set>
                         ))}
-                      <button
-                        type="button"
-                        className="secondary"
-                        onClick={() => push('')}
-                      >
+                      <AddSetButton onClick={() => push('')}>
                         Add Set
-                      </button>
+                      </AddSetButton>
                     </EditSets>
                   )}
                 </FieldArray>
@@ -174,9 +188,31 @@ const StyledEditExerciseInWorkout = styled.div`
   color: var(--main-200);
 `;
 
-const WorkoutInfo = styled.div``;
+const SectionTitle = styled.div`
+  width: 150px;
+  font-size: 30px;
+`;
 
-const ExerciseInfo = styled.div``;
+const SectionInfo = styled.div`
+  padding: 5px 0;
+`;
+
+const WorkoutInfo = styled.div`
+  display: flex;
+  text-align: left;
+  border-bottom: 1px solid var(--main-200);
+`;
+
+const ExerciseInfo = styled.div`
+  display: flex;
+  text-align: left;
+  border-bottom: 1px solid var(--main-200);
+`;
+
+// const ExerciseInstanceInfo = styled.div`
+//   text-align: left;
+//   border-bottom: 1px solid var(--main-200);
+// `;
 
 const Form = styled.form`
   width: 300px;
@@ -216,6 +252,7 @@ const EditSets = styled.div`
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
+  margin-top: 10px;
 `;
 
 const TrashButton = styled.button`
@@ -297,9 +334,18 @@ const StyledField = styled.div`
 `;
 
 const Set = styled.div`
-  margin: 5px 0px;
+  margin: 10px 0;
   display: flex;
   align-items: center;
   justify-content: center;
   width: 285px;
+`;
+
+const AddSetButton = styled.div`
+  background: var(--light-100-25);
+  margin-left: 25px;
+  width: 75px;
+  text-align: center;
+  border-radius: 10px;
+  border: 1px solid var(--main-200);
 `;
