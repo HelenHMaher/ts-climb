@@ -9,13 +9,25 @@ const serverURL = process.env.REACT_APP_SERVER;
 export const axiosCall = (params: any) => axios({ ...params });
 
 export function* handleErrorDelete(error: {
-  response: { data: { msg: string } };
+  response: { data: { msg: string }; status: number };
 }) {
+  if (error.response.status === 401) {
+    localStorage.removeItem('isAuthenticated');
+    localStorage.removeItem('x-auth-token');
+    window.location.reload();
+  }
   const errorMsg: string = error?.response?.data?.msg;
   yield put(actions.deleteExerciseFailureAction(errorMsg));
 }
 
-export function* handleError(error: { response: { data: { msg: string } } }) {
+export function* handleError(error: {
+  response: { data: { msg: string }; status: number };
+}) {
+  if (error.response.status === 401) {
+    localStorage.removeItem('isAuthenticated');
+    localStorage.removeItem('x-auth-token');
+    window.location.reload();
+  }
   const errorMsg: string = error?.response?.data?.msg;
   yield put(actions.editExerciseFailureAction(errorMsg));
 }
